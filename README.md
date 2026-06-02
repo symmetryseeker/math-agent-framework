@@ -1,314 +1,149 @@
-# Math Agent Framework / 数学推导智能体框架
+# Math Agent Framework · [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![MCP-ready](https://img.shields.io/badge/MCP-ready-green.svg)](https://modelcontextprotocol.io/)
 
-**A reusable mathematical derivation and verification framework**
-**可复用的数学推导与验证框架**
+**Agent-native symbolic derivation, numerical verification, and MCP-ready math infrastructure.**
 
-Model-driven architecture: define your equations once, and the framework automatically handles symbolic derivation, numerical verification, document generation, and MCP tool registration.
-
-模型驱动架构：定义方程后，框架自动完成符号推导、数值验证、文档生成和 MCP 工具注册。
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-
----
-
-## 本地安装 / Local Installation
+Not another math library. A **verification-first, LLM-orchestrated mathematical reasoning framework** — define your equations once, and the framework handles derivation, verification, documentation, and MCP tool registration automatically.
 
 ```bash
-# 方式一：从 PyPI 安装（推荐）
 pip install math-agent-framework
-
-# 方式二：从 GitHub 安装
-pip install git+https://github.com/symmetryseeker/math-agent-framework.git
-
-# 方式三：克隆后本地安装
-git clone git@github.com:symmetryseeker/math-agent-framework.git
-cd math-agent-framework
-pip install -e .
+math-agent list
+math-agent derive ode_solver
 ```
-
-### 环境要求 / Requirements
-
-| 依赖 | 版本 | 必需 |
-|------|------|------|
-| Python | >= 3.10 | ✅ |
-| sympy | >= 1.12 | ✅ |
-| numpy | >= 1.24 | ✅ |
-| scipy | >= 1.10 | ✅ |
-| pyyaml | >= 6.0 | ✅ |
-| mcp | >= 1.0 | ✅ (MCP模式) |
-| python-docx | >= 0.8.11 | 可选 (Word输出) |
-| quantecon | >= 0.7 | 可选 (动态优化) |
-
-### 本地可用性分析 / Local Usability Analysis
-
-**关键架构说明 / Key Architecture Note:**
-
-```
-┌──────────────────────────────────────────────────┐
-│  LLM (Claude/GPT/etc.)                           │
-│  负责: 理解问题、规划推导路径、选择工具、解释结果    │
-│  需要: API Key (Claude API / OpenAI API / etc.)   │
-└──────────────────┬───────────────────────────────┘
-                   │ MCP Protocol (stdio)
-                   ▼
-┌──────────────────────────────────────────────────┐
-│  Math Agent Framework (本框架)                    │
-│  负责: 符号计算、数值验证、ODE/PDE求解、文档生成    │
-│  需要: 零 API Key，全部本地计算                    │
-└──────────────────────────────────────────────────┘
-```
-
-**分工 / Division of Labor:**
-
-| 角色 | 谁来做 | 需要什么 |
-|------|--------|---------|
-| 推导规划（选什么方法、按什么顺序） | LLM | API Key |
-| 符号计算（求导/积分/解方程） | 本框架 SymPy 引擎 | 仅 Python |
-| 数值验证（蒙特卡洛/网格搜索） | 本框架 NumPy 引擎 | 仅 Python |
-| 结果解释（公式→自然语言） | LLM | API Key |
-| 文档生成（LaTeX/Word/Markdown） | 本框架 | 仅 Python |
-
-**两种使用模式 / Two Usage Modes:**
-
-| 模式 | API Key 需求 | 适用场景 |
-|------|-------------|---------|
-| **Agent 模式** (通过 Claude Code MCP) | ✅ 需要 LLM API Key | 完整推导+验证+解释 |
-| **CLI 直接模式** (`math-agent derive ode_solver`) | ❌ 不需要 | 运行已定义的模型流水线 |
-| **Python SDK 模式** (`from core import *`) | ❌ 不需要 | 手动调用引擎做计算 |
-
-| 维度 | 状态 | 说明 |
-|------|------|------|
-| 离线计算 | ✅ | 所有引擎纯本地，无网络依赖 |
-| 框架自身 API Key | ❌ 不需要 | 本框架不调用任何外部API |
-| Agent 模式 API Key | ⚠️ 需要 | LLM 驱动的推导规划需要 Claude/GPT API |
-| 跨平台 | ✅ | Windows/macOS/Linux |
-| 可选依赖降级 | ✅ | SageMath/QuantEcon 不可用时自动跳过 |
 
 ---
 
-## 架构 / Architecture
+## 为什么不用 SymPy？ / Why not just SymPy?
 
-```
-┌──────────────────────────────────────────────────────┐
-│  LLM Agent (Claude / GPT)                            │
-│  "Derive the CES function and verify the turning point"│
-│  Requires: API Key                                    │
-└────────────────────┬─────────────────────────────────┘
-                     │ MCP Protocol
-                     ▼
-┌──────────────────────────────────────────────────────┐
-│  Math Agent Framework (this repo)                    │
-│  Zero API keys — all local computation               │
-│                                                      │
-│  ┌─────────────────┐ ┌──────────────────┐ ┌────────┐ │
-│  │ Derivation Layer │ │ Verification Layer│ │ Output │ │
-│  │ SymbolicEngine   │ │ VerificationEng   │ │ DocEng │ │
-│  │ NumericalEngine  │ │ SageMathEngine    │ │ FormPrf│ │
-│  │ QuantEconEngine  │ │ MultiAgentEngine  │ │ Visual │ │
-│  │ AnalysisEngine   │ │                   │ │        │ │
-│  │ PdeEngine        │ │                   │ │        │ │
-│  └─────────────────┘ └──────────────────┘ └────────┘ │
-│                                                      │
-│  CLI (no API key) │ MCP Server │ Python SDK          │
-└──────────────────────────────────────────────────────┘
-```
+| Capability | SymPy | Math Agent Framework |
+|---|---|---|
+| Symbolic derivation | Yes | Yes |
+| Numerical verification | Partial | Yes (10K-sample Monte Carlo) |
+| Reusable derivation pipelines | No | Yes (model-driven, ~50 lines) |
+| Document generation (MD/LaTeX/DOCX) | No | Yes |
+| MCP tool auto-registration | No | Yes (60+ tools) |
+| LLM agent orchestration (Harness) | No | Yes (skills + prompts + routing) |
+| ODE classification + solve + verify | No | Yes (5 types) |
+| PDE analytical + numerical | No | Yes (Heat/Wave/Laplace/Poisson/Transport) |
+| 5-level verification pipeline | No | Yes |
+| Cross-engine validation | No | Yes (SymPy vs SageMath) |
 
-> **LLM plans the derivation, Engines execute the computation.**
-> **LLM 负责规划推导路径，引擎负责执行计算。**
+**SymPy computes. This framework verifies, documents, and orchestrates.**
 
 ---
 
-## 快速开始 / Quick Start
+## 30秒快速开始 / 30-Second Quick Start
 
 ```bash
-# 列出所有可用模型 / List models
-math-agent list
-
-# 运行推导流水线 / Run derivation
-math-agent derive ode_solver
-math-agent derive analysis_problems
-math-agent derive pde_solver
-math-agent derive harmonic_oscillator
-
-# 生成文档 / Generate docs
-math-agent doc ode_solver --format md
-math-agent doc ode_solver --format docx
-
-# 交互式模式 / Interactive
-math-agent interactive
+pip install math-agent-framework
+math-agent list                    # List all available models
+math-agent derive ode_solver       # Solve ODE with verification
+math-agent derive pde_solver       # Solve PDE (Heat/Wave/Laplace)
+math-agent doc ode_solver --format md  # Generate markdown report
 ```
 
-## 能力矩阵 / Capabilities
+---
 
-| 领域 Domain | 能力 Capability | 验证方式 Verification |
-|-------------|----------------|----------------------|
-| 常微分方程 ODEs | 可分离/线性/Bernoulli/恰当/二阶/Euler/方程组 | dsolve + checkodesol |
-| 偏微分方程 PDEs | Heat/Wave/Laplace/Poisson/Transport（解析+数值） | CFL / 残差 / L2误差 |
-| 极限 Limits | 有限/无穷/单侧/L'Hopital | 符号+数值双重验证 |
-| 级数 Series | Ratio/Root/Comparison/Integral/Alternating检验 | 收敛半径 |
-| 积分 Integration | 直接/分部/换元/部分分式 | 微分反向验证 |
-| 连续性 Continuity | 奇点检测/连续域 | continuous_domain |
-| 特殊函数 Special Funcs | Gamma/Beta/Zeta/Erf/Bessel | 解析+数值 |
-| 动态优化 Dynamic Opt | Riccati/LQ控制/马尔可夫链/纳什均衡 | QuantEcon |
-| 形式化证明 Formal Proof | Lean 4 证明模板 | QED多Agent验证 |
-| 可视化 Visualization | 2D曲线/3D曲面/动画 | Matplotlib |
+## 应用场景 / Use Cases
 
-## 自定义模型 / Custom Model
+| Domain | Capability |
+|---|---|
+| Optics / Photonics | Waveguide mode derivation, coupled-mode theory, dispersion |
+| Physics | Harmonic oscillator, resonance, energy conservation |
+| Engineering | ODE/PDE solving, stability analysis, parameter sensitivity |
+| Mathematics | Limits, series convergence, integral techniques, continuity |
+| Research | Reproducible derivation pipelines, verified appendices |
+| LLM Agents | MCP-native math tooling for Claude Code / GPT |
 
-创建 `models/user/my_model.py` / Create:
+---
+
+## Harness: 多智能体编排 / Multi-Agent Orchestration
+
+```
+User: "solve y'' + 3y' + 2y = 0"
+  -> Orchestrator detects: ODE (2nd order)
+  -> matched skill: derive_ode
+  -> tool sequence: [classify -> solve_2nd_order -> verify]
+  -> execution prompt with step-by-step instructions
+  -> LLM follows plan, engines execute locally, result verified
+```
+
+| Skill | Trigger | Tool Sequence | Verification |
+|---|---|---|---|
+| `derive_ode` | ode, y', dy/dx | classify -> solve -> verify | checkodesol |
+| `solve_pde` | pde, heat, wave | classify -> analytical/numerical | CFL / L2 error |
+| `solve_analysis` | limit, series, integral | limits -> series -> integrals | dual verification |
+| `verify_mathematical` | verify, prove | 5-level pipeline | multi-engine |
+| `full_pipeline` | complete derivation | derive -> verify -> document | full stack |
+| `analyze_oscillator` | oscillator, resonance | classify -> solve -> energy | conservation |
+
+---
+
+## 验证流水线 / Verification Pipeline
+
+```
+Level 1: SymPy symbolic   — identity checks, FOC/SOC, Hessian
+Level 2: Monte Carlo      — 10,000 random parameter sets
+Level 3: SageMath CAS      — independent engine cross-check
+Level 4: Lean 4            — formal proof template generation
+Level 5: QED Multi-Agent   — Proposer + Critic + Judge verification
+```
+
+---
+
+## 自定义模型 (~50行) / Custom Model
 
 ```python
 from models.base_model import BaseModel, derivation_step
 
-class MyModel(BaseModel):
-    name = "my_model"
-    description = "My mathematical model / 我的数学模型"
+class WaveguideModel(BaseModel):
+    name = "waveguide"
+    description = "Optical waveguide mode derivation"
 
     def define_symbols(self, engine):
-        engine.declare_symbols({'x': None, 'a': {'positive': True}})
+        engine.declare_symbols({"x": None, "n1": {"positive": True},
+                                 "k0": {"positive": True}, "beta": {"real": True}})
 
     def define_equations(self, engine):
-        x, a = engine.get_symbol('x'), engine.get_symbol('a')
-        return {'f': a * x**2 + x}
+        return {"helmholtz": "diff(E(x),x,2) + (n1**2*k0**2 - beta**2)*E(x)"}
 
-    @derivation_step(1, "Find FOC / 求一阶条件", tools=["SymPy"])
-    def step1_foc(self, engine, params):
-        eqs = self.define_equations(engine)
-        x = engine.get_symbol('x')
-        return engine.differentiate(eqs['f'], x) \
-                     .simplify().to_latex().build().to_dict()
+    @derivation_step(1, "Solve waveguide mode", tools=["SymPy"])
+    def step1_solve(self, engine, params):
+        pass  # ~3 lines of derivation code
 ```
 
-## MCP 集成 / MCP Integration
+---
 
-```bash
-claude mcp add-json math-agent-framework '{
-  "command": "python",
-  "args": ["-m", "mcp.mcp_server"],
-  "env": {}
-}' -s local
-```
+## 可靠性 / Reliability
 
-自动注册的工具包括：模型推导工具、验证工具、分析工具、统一验证流水线。
+| Test Suite | Count | Status |
+|---|---|---|
+| Engine unit tests | 7 | All pass |
+| Model system tests | 6 | All pass |
+| Analysis tests | 20+ | All pass |
+| PDE tests | 8 | All pass |
+| Harness tests | 6 | All pass |
 
-## 内置模型 / Builtin Models
+---
 
-| 模型 Model | 描述 Description | 步骤 Steps |
-|-----------|-----------------|------------|
-| `quadratic_form` | 通用二次型 U/倒U 分析 | 2 |
-| `harmonic_oscillator` | 阻尼/驱动谐振子（物理学） | 5 |
-| `ode_solver` | ODE求解：分类→求解→验证 | 5 |
-| `analysis_problems` | 极限/级数/积分/连续性/特殊函数 | 6 |
-| `pde_solver` | PDE求解：Heat/Wave/Laplace/Poisson/Transport | 6 |
+## Roadmap
 
-## 目录结构 / Directory Structure
+- [x] SymPy symbolic engine + Builder API
+- [x] Numerical verification (Monte Carlo, grid search)
+- [x] 5-level verification pipeline
+- [x] ODE/PDE solving (analytical + numerical)
+- [x] Analysis engine (limits, series, integrals)
+- [x] SageMath cross-validation
+- [x] QuantEcon dynamic optimization
+- [x] Multi-agent adversarial verification (QED)
+- [x] Lean 4 formal proof templates
+- [x] MCP server (60+ auto-registered tools)
+- [x] Harness system (skills, prompts, routing)
+- [ ] Wolfram Engine backend
+- [ ] Jupyter notebook widgets
+- [ ] Graph-based mathematical reasoning
+- [ ] Multi-step proof planning
+- [ ] PyPI publication
 
-```
-math-agent-framework/
-├── core/                    # 核心引擎（零外部依赖）
-│   ├── symbolic_engine.py   # SymPy符号推导
-│   ├── numerical_engine.py  # NumPy/SciPy数值计算
-│   ├── verification_engine.py # 五层验证框架
-│   ├── pipeline_engine.py   # 流水线编排
-│   ├── document_engine.py   # 文档生成
-│   ├── analysis_engine.py   # 分析学（极限/级数/积分）
-│   ├── pde_engine.py        # PDE解析+数值求解
-│   ├── sagemath_engine.py   # SageMath备用CAS
-│   ├── quantecon_engine.py  # QuantEcon动态优化
-│   ├── multi_agent_verify_engine.py # QED多Agent验证
-│   ├── formal_proof_engine.py # Lean 4证明模板
-│   └── visualization_engine.py # 数学可视化
-├── models/                  # 模型定义
-│   ├── base_model.py        # BaseModel抽象基类
-│   ├── builtin/             # 内置示例
-│   └── user/                # 用户自定义模型
-├── mcp/                     # MCP服务器
-├── cli/                     # 命令行工具
-├── tests/                   # 测试
-└── pyproject.toml           # 包配置
-```
+## License
 
-## Harness — 多智能体编排系统 / Multi-Agent Orchestration
-
-本框架提供完整的 **Harness** 层，使 LLM 的推导行为可控、可预测：
-
-```
-User Request (solve y'' + 3y' + 2y = 0)
-    │
-    ▼
-Orchestrator.detect_domain()  ──▶  ToolRouter (决策树)
-    │                                ├─ ODE? -> classify -> solve
-    │                                ├─ PDE? -> classify -> analytical/numerical
-    │                                ├─ Limit? -> direct/L'Hopital
-    │                                └─ Series? -> ratio/root/comparison tests
-    │
-    ▼
-Orchestrator.match_skill()   ──▶  SkillRegistry
-    │                                6 builtin skills:
-    │                                derive_ode, solve_pde, solve_analysis,
-    │                                verify_mathematical, full_pipeline,
-    │                                analyze_oscillator
-    │
-    ▼
-Orchestrator.dispatch()
-    ├──▶ Derivation Agent   (system prompt + tool sequence)
-    ├──▶ Verification Agent (5-level pipeline)
-    └──▶ Documentation Agent (report generation)
-    │
-    ▼
-Final Response (classified -> solved -> verified -> documented)
-```
-
-### Skills / 技能
-
-每个 Skill 捆绑了: prompt + tool sequence + output schema + verification rules
-
-| Skill | 触发词 | 工具序列 |
-|-------|--------|---------|
-| `derive_ode` | ode, y', dy/dx, 微分方程 | classify -> solve -> verify |
-| `solve_pde` | pde, heat, wave, laplace | classify -> analytical/numerical |
-| `solve_analysis` | limit, series, integral | limits -> series -> integrals |
-| `verify_mathematical` | verify, prove, 验证 | 5-level pipeline |
-| `full_mathematical_pipeline` | full pipeline, 完整推导 | derive -> verify -> document |
-| `analyze_oscillator` | oscillator, resonance | classify -> solve -> energy |
-
-### Harness MCP Tools
-
-```
-math_harness_list_skills   — 列出所有技能
-math_harness_plan          — 分析问题并生成执行计划
-math_harness_get_prompt    — 获取Agent角色的系统提示词
-```
-
-### How the LLM Uses the Harness / LLM如何利用Harness
-
-```
-1. User: "solve y'' + 3y' + 2y = 0"
-2. LLM calls: math_harness_plan {"request": "solve y'' + 3y' + 2y = 0"}
-3. Harness returns:
-   - Domain: ode (2nd_order)
-   - Skill: derive_ode
-   - Tool sequence: [classify, solve_2nd_order, verify]
-   - Execution prompt (step-by-step instructions)
-4. LLM follows the plan, calling tools in order
-5. Verification runs automatically after derivation
-6. LLM synthesizes final answer with verification status
-```
-
-> **This makes tool-calling predictable** — the LLM doesn't guess which tool to use.
-> The decision tree ensures the right tool is always selected for the problem domain.
-
-## 许可证 / License
-
-MIT License — see [LICENSE](LICENSE) file.
-
-## 引用 / Citation
-
-```
-@software{math_agent_framework,
-  title = {Math Agent Framework: A Reusable Mathematical Derivation and Verification Framework},
-  year = {2026},
-  url = {https://github.com/symmetryseeker/math-agent-framework}
-}
-```
+MIT — see [LICENSE](LICENSE).
