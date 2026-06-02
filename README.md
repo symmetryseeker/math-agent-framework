@@ -51,7 +51,14 @@ math-agent list
 math-agent derive ode_solver
 ```
 
+![Demo: damped harmonic oscillator](demo/demo.gif)
+
+> **Above**: deriving a damped harmonic oscillator — classify → solve → verify → report. One command.
+> **上图**: 阻尼谐振子推导——分类→求解→验证→报告。一条命令。
+
 ---
+
+## 30秒快速开始 / 30-Second Quick Start
 
 ## 为什么不用 SymPy？ / Why not just SymPy?
 

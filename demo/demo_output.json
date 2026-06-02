@@ -1,0 +1,48 @@
+{
+  "problem": "Damped harmonic oscillator: x'' + 2*beta*x' + omega^2*x = 0",
+  "ode": "2*beta*Derivative(x(t), t) + omega**2*x(t) + Derivative(x(t), (t, 2))",
+  "classification": [
+    "factorable",
+    "nth_linear_constant_coeff_homogeneous",
+    "2nd_power_series_ordinary"
+  ],
+  "solution": "Eq(x(t), C1*exp(t*(-beta + sqrt(beta - omega)*sqrt(beta + omega))) + C2*exp(-t*(beta + sqrt(beta - omega)*sqrt(beta + omega))))",
+  "solution_latex": "x{\\left(t \\right)} = C_{1} e^{t \\left(- \\beta + \\sqrt{\\beta - \\omega} \\sqrt{\\beta + \\omega}\\right)} + C_{2} e^{- t \\left(\\beta + \\sqrt{\\beta - \\omega} \\sqrt{\\beta + \\omega}\\right)}",
+  "characteristic_equation": "Eq(2*beta*r + omega**2 + r**2, 0)",
+  "roots": [
+    "-beta - sqrt(beta**2 - omega**2)",
+    "-beta + sqrt(beta**2 - omega**2)"
+  ],
+  "regime": "Underdamped (oscillatory decay)",
+  "parameters": {
+    "omega": 2.0,
+    "beta": 0.3,
+    "C1": 1.0,
+    "C2": 0.0
+  },
+  "damped_frequency": 1.977371993328519,
+  "numerical_solution": [
+    1.0,
+    0.9508641943811009,
+    0.8670914921872077,
+    0.7540248887134187,
+    0.61784927871917,
+    0.4652978573561247,
+    0.3033541475233865,
+    0.1389616704973278,
+    -0.02124773162615865,
+    -0.17119729661197503,
+    -0.3055725227983969,
+    -0.4199860832944521,
+    -0.5110964507595976,
+    -0.5766782732716283,
+    -0.6156445611887793,
+    -0.6280226431948414,
+    -0.6148875590874141,
+    -0.5782580209770666,
+    -0.5209612500503124,
+    -0.44647385349352975
+  ],
+  "verified": true,
+  "timestamp": "2026-06-02T22:01:53.818527"
+}
