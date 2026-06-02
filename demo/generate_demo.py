@@ -78,8 +78,7 @@ ax1 = fig.add_subplot(gs[0])
 ax1.set_facecolor('#1e1e2e')
 ax1.set_xlabel('t (time)', color='#bac2de', fontsize=10)
 ax1.set_ylabel('x(t)  displacement', color='#bac2de', fontsize=10)
-ax1.set_title('Damped Harmonic Oscillator:  x + 2 x +  x = 0',
-              color='#cdd6f4', fontsize=12, fontweight='bold')
+ax1.set_title('Damped Harmonic Oscillator', color='#cdd6f4', fontsize=13, fontweight='bold')
 ax1.tick_params(colors='#bac2de', labelsize=9)
 for spine in ax1.spines.values():
     spine.set_color('#45475a')
@@ -140,21 +139,20 @@ def animate(frame):
 
     # Update status
     if progress < 0.33:
-        status = 'Phase 1/3: Symbolic derivation  ->  characteristic equation  ->  general solution'
+        status = 'Phase 1/3: Symbolic derivation completed'
     elif progress < 0.66:
-        status = 'Phase 2/3: Numerical solution  ->  3 damping regimes  ->  phase portrait'
+        status = 'Phase 2/3: Numerical solution — three damping regimes'
     else:
-        status = 'Phase 3/3: Verification  ->  checkodesol PASS  ->  Monte Carlo 10K samples PASS'
+        status = 'Phase 3/3: Verification — checkodesol PASS, Monte Carlo PASS'
     status_text.set_text(status)
 
     # Update info box
     info_text.set_text(
-        f'ODE: x + 2 x +  x = 0\n'
-        f'  = {omega},   = varied\n'
-        f'Under:   = 0.3 (oscillatory)\n'
-        f'Critical:  = 2.0 (fastest return)\n'
-        f'Over:    = 4.0 (slow decay)\n'
-        f'checkodesol: residual = 0  '
+        f'Natural frequency: {omega}\n'
+        f'Underdamped (blue):  damping = 0.3\n'
+        f'Critically damped (green): damping = 2.0\n'
+        f'Overdamped (red):   damping = 4.0\n'
+        f'Verification: checkodesol -> PASS'
     )
 
     return list(lines1.values()) + list(lines2.values()) + list(dots.values()) + [status_text, info_text]

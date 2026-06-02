@@ -1,19 +1,33 @@
 # Demo: Damped Harmonic Oscillator
 
-**Math Agent Framework** in action: deriving, solving, and verifying a 2nd-order ODE.
-
 ![Demo](demo.gif)
+
+> 80-frame mathematical visualization — 3 damping regimes + phase portrait.
 
 ## What This Shows
 
-A complete mathematical workflow driven by the framework:
+The damped harmonic oscillator solved and visualized:
 
-1. **Problem Statement** — 2nd order linear ODE with damping
-2. **Classification** — SymPy classifies the ODE and selects solution method
-3. **Symbolic Derivation** — characteristic equation, roots, general solution
-4. **Numerical Verification** — checkodesol confirms zero residual, numerical evaluation
-5. **5-Level Verification Pipeline** — SymPy → Monte Carlo → SageMath → Lean4 → QED
-6. **Summary** — final verdict and one-command invocation
+- **Left**: x(t) displacement curves — underdamped (blue, oscillatory decay), critically damped (green, fastest return to equilibrium), overdamped (red, slow decay)
+- **Right**: Phase portrait — velocity vs position for all three regimes
+- **Bottom**: Progress bar showing derivation → numerical solution → verification phases
+
+## Use This Demo
+
+Free to use `demo.gif` and `demo_preview.png` in social media, presentations, or documentation.
+
+```
+X/Twitter:      drag-and-drop demo.gif
+LinkedIn/Reddit: embed the raw GitHub URL
+Zhihu/V2EX:     upload demo.gif + link to repo
+```
+
+**Direct URLs:**
+
+| File | Raw URL |
+|------|---------|
+| GIF | `https://raw.githubusercontent.com/symmetryseeker/math-agent-framework/main/demo/demo.gif` |
+| PNG | `https://raw.githubusercontent.com/symmetryseeker/math-agent-framework/main/demo/demo_preview.png` |
 
 ## Run It Yourself
 
@@ -21,24 +35,3 @@ A complete mathematical workflow driven by the framework:
 pip install math-agent-framework
 math-agent derive harmonic_oscillator
 ```
-
-## Use This Demo
-
-You're free to use `demo.gif` and `demo_output.json` in:
-- Social media posts (X, LinkedIn, Reddit, Zhihu, V2EX)
-- Presentations and talks
-- Documentation and tutorials
-- Any promotion of the Math Agent Framework
-
-The demo shows the damped harmonic oscillator because it's:
-- Visually meaningful (physics, engineering, mathematics)
-- Shows classification → solving → verification
-- Demonstrates the full pipeline in one clean example
-
-## Files
-
-| File | Description |
-|------|-------------|
-| `demo.gif` | Animated terminal-style walkthrough (6 frames) |
-| `demo_output.json` | Full computational results |
-| `generate_demo.py` | Script that produces this demo |
