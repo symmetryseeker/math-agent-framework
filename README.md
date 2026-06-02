@@ -42,42 +42,80 @@ pip install -e .
 
 ### 本地可用性分析 / Local Usability Analysis
 
+**关键架构说明 / Key Architecture Note:**
+
+```
+┌──────────────────────────────────────────────────┐
+│  LLM (Claude/GPT/etc.)                           │
+│  负责: 理解问题、规划推导路径、选择工具、解释结果    │
+│  需要: API Key (Claude API / OpenAI API / etc.)   │
+└──────────────────┬───────────────────────────────┘
+                   │ MCP Protocol (stdio)
+                   ▼
+┌──────────────────────────────────────────────────┐
+│  Math Agent Framework (本框架)                    │
+│  负责: 符号计算、数值验证、ODE/PDE求解、文档生成    │
+│  需要: 零 API Key，全部本地计算                    │
+└──────────────────────────────────────────────────┘
+```
+
+**分工 / Division of Labor:**
+
+| 角色 | 谁来做 | 需要什么 |
+|------|--------|---------|
+| 推导规划（选什么方法、按什么顺序） | LLM | API Key |
+| 符号计算（求导/积分/解方程） | 本框架 SymPy 引擎 | 仅 Python |
+| 数值验证（蒙特卡洛/网格搜索） | 本框架 NumPy 引擎 | 仅 Python |
+| 结果解释（公式→自然语言） | LLM | API Key |
+| 文档生成（LaTeX/Word/Markdown） | 本框架 | 仅 Python |
+
+**两种使用模式 / Two Usage Modes:**
+
+| 模式 | API Key 需求 | 适用场景 |
+|------|-------------|---------|
+| **Agent 模式** (通过 Claude Code MCP) | ✅ 需要 LLM API Key | 完整推导+验证+解释 |
+| **CLI 直接模式** (`math-agent derive ode_solver`) | ❌ 不需要 | 运行已定义的模型流水线 |
+| **Python SDK 模式** (`from core import *`) | ❌ 不需要 | 手动调用引擎做计算 |
+
 | 维度 | 状态 | 说明 |
 |------|------|------|
-| 离线使用 | ✅ 完全支持 | 所有核心引擎（SymPy/NumPy/SciPy）均为纯本地计算 |
-| 无需API Key | ✅ | 框架本身不需要任何外部API密钥 |
-| 跨平台 | ✅ | Windows/macOS/Linux 均测试通过 |
-| 可选依赖 | ✅ | QuantEcon/SageMath/DOCX 未安装时自动降级 |
-| 启动速度 | ✅ | 冷启动 < 1s（仅加载SymPy） |
-| 磁盘占用 | ✅ | ~8,000行代码，< 1MB（不含依赖） |
-| 内存占用 | ✅ | 基础模式 < 200MB（含SymPy） |
+| 离线计算 | ✅ | 所有引擎纯本地，无网络依赖 |
+| 框架自身 API Key | ❌ 不需要 | 本框架不调用任何外部API |
+| Agent 模式 API Key | ⚠️ 需要 | LLM 驱动的推导规划需要 Claude/GPT API |
+| 跨平台 | ✅ | Windows/macOS/Linux |
+| 可选依赖降级 | ✅ | SageMath/QuantEcon 不可用时自动跳过 |
 
 ---
 
 ## 架构 / Architecture
 
 ```
-User Model (BaseModel subclass) / 用户模型
-       │
-       ▼
-┌──────────────────┐  ┌───────────────────┐  ┌──────────────────┐
-│ 推导层 Derivation  │  │ 验证层 Verification │  │ 输出层 Output      │
-│ SymbolicEngine    │  │ VerificationEngine │  │ DocumentEngine    │
-│ NumericalEngine   │  │ SageMathEngine     │  │ FormalProofEngine │
-│ QuantEconEngine   │  │ MultiAgentEngine   │  │ VisualizationEng  │
-│ AnalysisEngine    │  │                    │  │                    │
-│ PdeEngine         │  │                    │  │                    │
-└──────────────────┘  └───────────────────┘  └──────────────────┘
-       │                         │                         │
-       └─────────────────────────┼─────────────────────────┘
-                                 │
-                    ┌────────────┴────────────┐
-                    │ CLI │ MCP Server │ Python SDK │
-                    └─────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│  LLM Agent (Claude / GPT)                            │
+│  "Derive the CES function and verify the turning point"│
+│  Requires: API Key                                    │
+└────────────────────┬─────────────────────────────────┘
+                     │ MCP Protocol
+                     ▼
+┌──────────────────────────────────────────────────────┐
+│  Math Agent Framework (this repo)                    │
+│  Zero API keys — all local computation               │
+│                                                      │
+│  ┌─────────────────┐ ┌──────────────────┐ ┌────────┐ │
+│  │ Derivation Layer │ │ Verification Layer│ │ Output │ │
+│  │ SymbolicEngine   │ │ VerificationEng   │ │ DocEng │ │
+│  │ NumericalEngine  │ │ SageMathEngine    │ │ FormPrf│ │
+│  │ QuantEconEngine  │ │ MultiAgentEngine  │ │ Visual │ │
+│  │ AnalysisEngine   │ │                   │ │        │ │
+│  │ PdeEngine        │ │                   │ │        │ │
+│  └─────────────────┘ └──────────────────┘ └────────┘ │
+│                                                      │
+│  CLI (no API key) │ MCP Server │ Python SDK          │
+└──────────────────────────────────────────────────────┘
 ```
 
-12 engines, 60+ MCP tools, 5 builtin models.
-12个引擎，60+个MCP工具，5个内置模型。
+> **LLM plans the derivation, Engines execute the computation.**
+> **LLM 负责规划推导路径，引擎负责执行计算。**
 
 ---
 
