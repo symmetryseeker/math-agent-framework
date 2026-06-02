@@ -1,0 +1,58 @@
+name: derive_ode
+category: derivation
+description: "Classify and solve ordinary differential equations with automatic method selection"
+trigger_keywords:
+  - ode
+  - differential equation
+  - solve ode
+  - ordinary differential
+  - dy/dx
+  - d2y/dx2
+  - 微分方程
+  - 常微分
+
+system_prompt_extension: |
+  You are solving an ODE. Follow this decision tree strictly:
+
+  1. CLASSIFY the ODE type first using math_ode_solver_step1_classify
+  2. Based on classification, branch:
+     - separable     -> math_ode_solver_step2_solve_separable
+     - 1st_linear    -> math_ode_solver_step3_solve_linear
+     - 2nd_order     -> math_ode_solver_step4_solve_2nd_order
+     - system        -> math_ode_solver_step5_solve_system
+     - other         -> try all methods in order
+  3. VERIFY every solution with checkodesol
+  4. OUTPUT the general solution and verification status
+
+tool_sequence:
+  - tool: math_ode_solver_step1_classify
+    args: {}
+    desc: "Classify ODE type and select solution method"
+    required: true
+  - tool: math_ode_solver_step2_solve_separable
+    args: {}
+    desc: "Solve separable ODEs"
+    required: false
+  - tool: math_ode_solver_step3_solve_linear
+    args: {}
+    desc: "Solve 1st order linear ODEs (integrating factor)"
+    required: false
+  - tool: math_ode_solver_step4_solve_2nd_order
+    args: {}
+    desc: "Solve 2nd order constant coefficient ODEs"
+    required: false
+  - tool: math_ode_solver_step5_solve_system
+    args: {}
+    desc: "Solve ODE systems"
+    required: false
+  - tool: math_ode_solver_verify
+    args: {}
+    desc: "Verify all solutions"
+    required: true
+
+output_schema:
+  solution: string
+  classification: dict
+  verified: boolean
+
+fallback_skill: solve_analysis

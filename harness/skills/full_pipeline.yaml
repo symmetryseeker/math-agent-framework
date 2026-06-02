@@ -1,0 +1,39 @@
+name: full_mathematical_pipeline
+category: full_pipeline
+description: "End-to-end mathematical pipeline: derive -> verify -> document"
+trigger_keywords:
+  - full pipeline
+  - complete derivation
+  - end to end
+  - do everything
+  - 完整推导
+  - 全流程
+  - 全部
+
+system_prompt_extension: |
+  You are running the complete mathematical pipeline.
+
+  Phase 1: DERIVATION — run all model-specific derivation steps
+  Phase 2: VERIFICATION — run the 5-level unified verification pipeline
+  Phase 3: DOCUMENTATION — generate a comprehensive report
+
+  Check results after each phase. If a phase fails, report the error and stop.
+
+tool_sequence:
+  - tool: math_unified_verify_pipeline
+    args:
+      levels: [symbolic, monte_carlo, sagemath, formal_proof, multi_agent]
+      n_mc_samples: 10000
+      seed: 42
+    desc: "Run unified 5-level verification pipeline"
+    required: true
+  - tool: math_generate_appendix
+    args: {format: md}
+    desc: "Generate comprehensive documentation"
+    required: false
+
+output_schema:
+  derivation: dict
+  verification: dict
+  documentation: string
+  overall_verdict: string

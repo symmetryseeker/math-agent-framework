@@ -317,6 +317,45 @@ class ToolRegistry:
             self._handlers["math_visualize"] = self._handle_visualize
 
         # ═══════════════════════════════════════════════════════════
+        # Harness Tools — Orchestrator / Skills / Plans
+        # ═══════════════════════════════════════════════════════════
+        if "math_harness_list_skills" not in registered:
+            self._tools.append({
+                "name": "math_harness_list_skills",
+                "description": "列出所有可用的数学技能及其触发关键词、工具序列和验证规则",
+                "inputSchema": {"type": "object", "properties": {}},
+            })
+            self._handlers["math_harness_list_skills"] = self._handle_harness_list_skills
+
+        if "math_harness_plan" not in registered:
+            self._tools.append({
+                "name": "math_harness_plan",
+                "description": "分析数学问题，输出执行计划：检测领域、匹配技能、生成工具调用序列。不执行实际计算，仅做规划",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "request": {"type": "string", "description": "用户的数学问题，如 solve y'' + 3y' + 2y = 0"},
+                    },
+                    "required": ["request"],
+                },
+            })
+            self._handlers["math_harness_plan"] = self._handle_harness_plan
+
+        if "math_harness_get_prompt" not in registered:
+            self._tools.append({
+                "name": "math_harness_get_prompt",
+                "description": "获取指定Agent角色的系统提示词和该领域的执行计划模板",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "role": {"type": "string", "enum": ["orchestrator", "derivation", "verification", "documentation"], "description": "Agent角色"},
+                        "request": {"type": "string", "description": "用户请求（用于生成领域特定的执行计划）"},
+                    },
+                },
+            })
+            self._handlers["math_harness_get_prompt"] = self._handle_harness_get_prompt
+
+        # ═══════════════════════════════════════════════════════════
         # Tool 18-20: Analysis Tools — 分析学工具
         # ═══════════════════════════════════════════════════════════
         if "math_analyze_limit" not in registered:
@@ -1071,6 +1110,75 @@ class ToolRegistry:
             result = engine.classify_and_solve(expr)
 
         return json.dumps(result.to_dict(), ensure_ascii=False, indent=2, default=str)
+
+    # ═══════════════════════════════════════════════════════════
+    # Harness Handlers — Orchestrator / Skills / Plans
+    # ═══════════════════════════════════════════════════════════
+
+    async def _handle_harness_list_skills(self, params: dict) -> str:
+        """List all available mathematical skills with their tool sequences."""
+        from harness.skill_registry import SkillRegistry
+        registry = SkillRegistry()
+        return json.dumps({
+            "skills": registry.list_all(),
+            "total": len(registry.list_all()),
+            "categories": {c.value: registry.list_by_category(c) for c in [
+                __import__('harness.skill_registry', fromlist=['SkillCategory']).SkillCategory.DERIVATION,
+            ]} if False else {},
+            "usage": "Use math_harness_plan to get a tool execution plan for your problem",
+        }, ensure_ascii=False, indent=2)
+
+    async def _handle_harness_plan(self, params: dict) -> str:
+        """Analyze a math problem and produce a tool execution plan."""
+        from harness.orchestrator import MathAgentOrchestrator
+        request = params.get("request", "")
+
+        orchestrator = MathAgentOrchestrator()
+        plan = orchestrator.plan(request)
+
+        # Also generate the execution prompt
+        prompt = orchestrator.get_execution_prompt(plan)
+
+        return json.dumps({
+            "plan": plan.to_dict(),
+            "execution_prompt": prompt,
+            "instruction": "Follow the execution_prompt to call tools in sequence",
+        }, ensure_ascii=False, indent=2)
+
+    async def _handle_harness_get_prompt(self, params: dict) -> str:
+        """Get system prompt and execution plan for a specific agent role."""
+        from harness.orchestrator import MathAgentOrchestrator, AgentRole
+        from harness.skill_registry import SkillRegistry
+
+        role_str = params.get("role", "orchestrator")
+        request = params.get("request", "")
+
+        role_map = {
+            "orchestrator": AgentRole.ORCHESTRATOR,
+            "derivation": AgentRole.DERIVATION,
+            "verification": AgentRole.VERIFICATION,
+            "documentation": AgentRole.DOCUMENTATION,
+        }
+        role = role_map.get(role_str, AgentRole.ORCHESTRATOR)
+
+        orchestrator = MathAgentOrchestrator()
+        skills = SkillRegistry()
+        skill = skills.find_by_keyword(request)
+
+        system_prompt = orchestrator.get_system_prompt(role, skill)
+        plan = orchestrator.plan(request)
+        execution_prompt = orchestrator.get_execution_prompt(plan)
+
+        return json.dumps({
+            "role": role.value,
+            "system_prompt": system_prompt,
+            "execution_prompt": execution_prompt,
+            "matched_skill": skill.name if skill else None,
+            "tool_sequence": [
+                {"tool": s.tool_name, "args": s.arguments, "required": s.required}
+                for s in (skill.tool_sequence if skill else [])
+            ] if skill else plan.tasks[0].tool_sequence if plan.tasks else [],
+        }, ensure_ascii=False, indent=2)
 
     # ── Accessors ──
 

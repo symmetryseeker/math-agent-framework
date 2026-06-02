@@ -229,6 +229,76 @@ math-agent-framework/
 └── pyproject.toml           # 包配置
 ```
 
+## Harness — 多智能体编排系统 / Multi-Agent Orchestration
+
+本框架提供完整的 **Harness** 层，使 LLM 的推导行为可控、可预测：
+
+```
+User Request (solve y'' + 3y' + 2y = 0)
+    │
+    ▼
+Orchestrator.detect_domain()  ──▶  ToolRouter (决策树)
+    │                                ├─ ODE? -> classify -> solve
+    │                                ├─ PDE? -> classify -> analytical/numerical
+    │                                ├─ Limit? -> direct/L'Hopital
+    │                                └─ Series? -> ratio/root/comparison tests
+    │
+    ▼
+Orchestrator.match_skill()   ──▶  SkillRegistry
+    │                                6 builtin skills:
+    │                                derive_ode, solve_pde, solve_analysis,
+    │                                verify_mathematical, full_pipeline,
+    │                                analyze_oscillator
+    │
+    ▼
+Orchestrator.dispatch()
+    ├──▶ Derivation Agent   (system prompt + tool sequence)
+    ├──▶ Verification Agent (5-level pipeline)
+    └──▶ Documentation Agent (report generation)
+    │
+    ▼
+Final Response (classified -> solved -> verified -> documented)
+```
+
+### Skills / 技能
+
+每个 Skill 捆绑了: prompt + tool sequence + output schema + verification rules
+
+| Skill | 触发词 | 工具序列 |
+|-------|--------|---------|
+| `derive_ode` | ode, y', dy/dx, 微分方程 | classify -> solve -> verify |
+| `solve_pde` | pde, heat, wave, laplace | classify -> analytical/numerical |
+| `solve_analysis` | limit, series, integral | limits -> series -> integrals |
+| `verify_mathematical` | verify, prove, 验证 | 5-level pipeline |
+| `full_mathematical_pipeline` | full pipeline, 完整推导 | derive -> verify -> document |
+| `analyze_oscillator` | oscillator, resonance | classify -> solve -> energy |
+
+### Harness MCP Tools
+
+```
+math_harness_list_skills   — 列出所有技能
+math_harness_plan          — 分析问题并生成执行计划
+math_harness_get_prompt    — 获取Agent角色的系统提示词
+```
+
+### How the LLM Uses the Harness / LLM如何利用Harness
+
+```
+1. User: "solve y'' + 3y' + 2y = 0"
+2. LLM calls: math_harness_plan {"request": "solve y'' + 3y' + 2y = 0"}
+3. Harness returns:
+   - Domain: ode (2nd_order)
+   - Skill: derive_ode
+   - Tool sequence: [classify, solve_2nd_order, verify]
+   - Execution prompt (step-by-step instructions)
+4. LLM follows the plan, calling tools in order
+5. Verification runs automatically after derivation
+6. LLM synthesizes final answer with verification status
+```
+
+> **This makes tool-calling predictable** — the LLM doesn't guess which tool to use.
+> The decision tree ensures the right tool is always selected for the problem domain.
+
 ## 许可证 / License
 
 MIT License — see [LICENSE](LICENSE) file.
