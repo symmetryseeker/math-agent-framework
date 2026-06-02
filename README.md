@@ -1,11 +1,49 @@
 # Math Agent Framework · [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![MCP-ready](https://img.shields.io/badge/MCP-ready-green.svg)](https://modelcontextprotocol.io/)
 
-**Agent-native symbolic derivation, numerical verification, and MCP-ready math infrastructure.**
-**面向 Agent 的符号推导、数值验证与 MCP 数学基础设施。**
+**Give LLMs mathematical rigor. Give computation conceptual understanding.**
+**让 LLM 的数学推理接受严格检验，让符号计算获得概念理解。**
 
-Not another math library. A **verification-first, LLM-orchestrated mathematical reasoning framework** — define your equations once, and the framework handles derivation, verification, documentation, and MCP tool registration automatically.
+---
 
-不是另一个数学库，而是一个**验证优先、LLM 编排的数学推理框架**——定义一次方程，框架自动完成推导、验证、文档生成和 MCP 工具注册。
+### The Problem / 问题
+
+LLMs understand mathematical concepts — they can plan derivations, explain theorems, and reason about structure.
+But they **hallucinate calculations**. An LLM may confidently claim ∫x·eˣdx = eˣ + C, and you won't know it's wrong until you check.
+
+LLM 理解数学概念——能规划推导路径、解释定理、推理结构。
+但它**会幻觉计算**。它可能自信地说 ∫x·eˣdx = eˣ + C，不亲手验证就不会发现错误。
+
+Symbolic engines (SymPy, NumPy) compute faithfully — every derivative, integral, and solution is deterministic and correct.
+But they have **zero conceptual understanding**. They can't explain why a result matters or choose the right approach for a problem.
+
+符号引擎（SymPy, NumPy）忠实计算——每次求导、积分、求解都是确定且正确的。
+但它**零概念理解**，不能解释结果的意义，也无法为问题选择正确的方法。
+
+### The Solution / 解决方案
+
+**Math Agent Framework bridges this gap.** It creates a controlled partnership:
+
+**Math Agent Framework 填补了这个鸿沟。** 它建立了一个受控的协作关系：
+
+```
+LLM understands the problem   →   plans the derivation path
+    (概念理解 / conceptual)         (规划推导路径 / plans)
+
+Framework executes faithfully  →   computes every step deterministically
+    (忠实执行 / execution)          (确定性计算 / computes)
+
+Verification pipeline           →   catches every hallucination
+    (验证流水线 / verification)     (扼杀幻觉 / kills hallucinations)
+```
+
+The LLM provides **conceptual oversight** — choosing which ODE method to apply, interpreting results, explaining significance.
+The framework provides **computational fidelity** — SymPy derives, NumPy verifies with 10,000 Monte Carlo samples, SageMath cross-checks, and a 5-level pipeline issues the final verdict.
+
+LLM 提供**概念监督**——选择ODE解法、解释结果、说明意义。
+框架提供**计算保真**——SymPy 推导、NumPy 万组蒙特卡洛验证、SageMath 交叉检验、五层流水线给出最终裁决。
+
+**The result: an LLM whose mathematical output is no longer trust-based. It is verified.**
+**结果：LLM 的数学输出不再基于信任，而是经过验证。**
 
 ```bash
 pip install math-agent-framework
