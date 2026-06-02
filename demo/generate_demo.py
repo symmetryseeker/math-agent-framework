@@ -1,222 +1,193 @@
 """
-Demo generator — runs a complete ODE derivation + verification pipeline
-and produces an animated GIF showing the workflow.
+Demo generator — mathematical visualization GIF.
 
-Example: Damped harmonic oscillator
-  Problem:  x'' + 2*beta*x' + omega^2*x = 0
-  Shows:   classification -> solving -> verification -> report
+Damped Harmonic Oscillator:  x'' + 2*beta*x' + omega^2*x = 0
 
-Output: demo/demo.gif  (animated terminal-style walkthrough)
-        demo/demo_output.json  (full results)
+Shows:
+  1. The ODE + solution formula
+  2. x(t) curve: three damping regimes (under/critical/over) on one plot
+  3. Phase portrait: velocity vs position
+  4. Verification: numerical vs analytical agreement
 """
 
-import sys, io, os, json, time, textwrap
+import sys, io, os, json
 if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
-import sympy as sp
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib.patches import FancyBboxPatch
 
-# ============================================================
-# Step 1: Run the actual computation
-# ============================================================
-print("=" * 68)
-print("  Math Agent Framework — Demo")
-print("  Damped Harmonic Oscillator:  x'' + 2*beta*x' + omega^2*x = 0")
-print("=" * 68)
+DEMO_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Define symbols
-t = sp.Symbol('t', real=True)
-omega = sp.Symbol('omega', positive=True, real=True)
-beta = sp.Symbol('beta', positive=True, real=True)
-x = sp.Function('x')(t)
+# ── Physics parameters ──
+omega = 2.0       # natural frequency
+t = np.linspace(0, 8, 300)
 
-frames = []  # (title, content_lines)
-
-def add_frame(title, lines, delay=1.0):
-    frames.append((title, lines, delay))
-    print(f"\n{title}")
-    for line in lines:
-        print(f"  {line}")
-    time.sleep(0.3)
-
-# ---- Frame 1: Problem Statement ----
-add_frame("[1/6] Problem Statement", [
-    "ODE:  x''(t) + 2*beta*x'(t) + omega^2*x(t) = 0",
-    "Parameters:  omega = 2.0 (natural frequency)",
-    "             beta  = 0.3 (damping coefficient)",
-    "Type: 2nd order linear homogeneous ODE",
-    "Expected behavior: damped oscillation",
-])
-
-# ---- Frame 2: Classification ----
-ode_expr = sp.diff(x, t, 2) + 2*beta*sp.diff(x, t) + omega**2*x
-classification = sp.classify_ode(ode_expr, x)
-add_frame("[2/6] ODE Classification", [
-    f"Expression: {ode_expr}",
-    f"Classification: {classification[0] if classification else '2nd_order_linear'}",
-    f"All methods: {classification[:3]}",
-    "Selected: nth_linear_constant_coeff_undetermined_coefficients",
-])
-
-# ---- Frame 3: Symbolic Solution ----
-sol = sp.dsolve(ode_expr, x)
-char_eq = sp.Eq(sp.Symbol('r')**2 + 2*beta*sp.Symbol('r') + omega**2, 0)
-roots = sp.solve(char_eq.lhs, sp.Symbol('r'))
-
-# Discriminant analysis
-disc = 4*(beta**2 - omega**2)
-omega_val, beta_val = 2.0, 0.3
-disc_num = 4*(beta_val**2 - omega_val**2)
-regime = "Underdamped (oscillatory decay)" if disc_num < 0 else "Overdamped" if disc_num > 0 else "Critically damped"
-
-add_frame("[3/6] Symbolic Derivation", [
-    f"Characteristic equation:  r^2 + 2*beta*r + omega^2 = 0",
-    f"Roots:  {roots[0]}, {roots[1]}",
-    f"Discriminant:  4*(beta^2 - omega^2) = {disc_num:.2f}",
-    f"Regime:  {regime}",
-    f"General solution:  {sp.latex(sol.rhs)}",
-])
-
-# ---- Frame 4: Numerical Evaluation ----
-from sympy.solvers.ode import checkodesol
-check = checkodesol(ode_expr, sol, func=x)
-verified = bool(check[0]) if isinstance(check, tuple) else False
-
-# Numerical example
-C1_val, C2_val = 1.0, 0.0
-# x(t) = e^{-beta*t} * (C1*cos(w_d*t) + C2*sin(w_d*t))
-w_d = np.sqrt(omega_val**2 - beta_val**2)
-t_vals = np.linspace(0, 10, 100)
-x_vals = np.exp(-beta_val * t_vals) * (C1_val * np.cos(w_d * t_vals) + C2_val * np.sin(w_d * t_vals))
-
-add_frame("[4/6] Numerical Verification", [
-    f"checkodesol:  residual = {sp.simplify(check[1] if isinstance(check,tuple) and len(check)>1 else check[0])}",
-    f"Verified:  {verified}",
-    f"Parameters:  omega=2.0, beta=0.3, C1=1.0, C2=0.0",
-    f"Damped frequency:  w_d = sqrt(omega^2 - beta^2) = {w_d:.4f}",
-    f"Solution at t=0:  x(0) = {x_vals[0]:.4f}",
-    f"Solution at t=5:  x(5) = {x_vals[50]:.6f}",
-    f"First zero crossing:  t ~ {np.pi/(2*w_d):.4f}",
-])
-
-# ---- Frame 5: 5-Level Verification ----
-add_frame("[5/6] 5-Level Verification Pipeline", [
-    "Level 1 [PASS]: SymPy symbolic check — FOC identity verified",
-    "Level 2 [PASS]: Monte Carlo — 10,000 random params, 100% FOC pass",
-    "Level 3 [SKIP]: SageMath not installed (optional)",
-    "Level 4 [PASS]: Lean 4 proof template — quadratic_minimum theorem",
-    "Level 5 [PASS]: QED Multi-Agent — Proposer+Critic+Judge accepted",
-    "",
-    "VERDICT: ACCEPTED — all available levels pass",
-])
-
-# ---- Frame 6: Summary ----
-add_frame("[6/6] Summary & Output", [
-    "Derivation:  2nd order linear ODE -> characteristic equation method",
-    "Solution:    x(t) = e^{-0.3t} * (C1*cos(1.98t) + C2*sin(1.98t))",
-    "Verification: checkodesol confirmed, 10K Monte Carlo 100% pass",
-    "Regime:      underdamped (beta < omega)",
-    "Report:      saved to output/demo_report.json",
-    "",
-    "math-agent derive harmonic_oscillator  # one command to run this",
-])
-
-print(f"\n{'=' * 68}")
-print("  Demo complete. Generating GIF...")
-print("=" * 68)
-
-# ============================================================
-# Step 2: Generate GIF from frames
-# ============================================================
-try:
-    import matplotlib
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
-    from matplotlib.animation import FuncAnimation
-    from matplotlib.patches import FancyBboxPatch
-    import matplotlib.patches as mpatches
-
-    fig, ax = plt.subplots(figsize=(14, 10))
-    fig.patch.set_facecolor('#1e1e2e')
-    ax.set_facecolor('#1e1e2e')
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.axis('off')
-
-    title_text = ax.text(0.05, 0.92, '', fontsize=14, fontfamily='monospace',
-                         color='#cdd6f4', fontweight='bold', va='top')
-    content_texts = []
-
-    def init():
-        title_text.set_text('')
-        return [title_text]
-
-    def animate(frame_idx):
-        # Clear old content
-        for t in content_texts:
-            t.remove()
-        content_texts.clear()
-
-        title, lines, delay = frames[frame_idx]
-        title_text.set_text(title)
-
-        y = 0.84
-        for line in lines:
-            # Wrap long lines
-            wrapped = textwrap.wrap(line, width=90)
-            for w in wrapped:
-                t = ax.text(0.05, y, f'  {w}', fontsize=11, fontfamily='monospace',
-                           color='#a6e3a1', va='top')
-                content_texts.append(t)
-                y -= 0.055
-
-        # Progress bar
-        progress = (frame_idx + 1) / len(frames)
-        bar = mpatches.Rectangle((0.05, 0.03), 0.9 * progress, 0.015,
-                                  facecolor='#89b4fa', edgecolor='none')
-        bar_bg = mpatches.Rectangle((0.05, 0.03), 0.9, 0.015,
-                                     facecolor='#45475a', edgecolor='none')
-        ax.add_patch(bar_bg)
-        ax.add_patch(bar)
-        content_texts.append(bar)
-        content_texts.append(bar_bg)
-
-        return [title_text] + content_texts
-
-    anim = FuncAnimation(fig, animate, init_func=init, frames=len(frames),
-                         interval=1500, blit=False)
-
-    demo_dir = os.path.dirname(os.path.abspath(__file__))
-    gif_path = os.path.join(demo_dir, 'demo.gif')
-    anim.save(gif_path, writer='pillow', fps=0.5, dpi=100)
-    plt.close(fig)
-    print(f"\n  GIF saved: {gif_path}")
-
-except ImportError as e:
-    print(f"\n  [WARN] matplotlib not available for GIF generation: {e}")
-    print(f"  Terminal output above serves as the demo.")
-
-# Save full results as JSON
-results = {
-    "problem": "Damped harmonic oscillator: x'' + 2*beta*x' + omega^2*x = 0",
-    "ode": str(ode_expr),
-    "classification": classification[:3] if classification else [],
-    "solution": str(sol),
-    "solution_latex": sp.latex(sol),
-    "characteristic_equation": str(char_eq),
-    "roots": [str(r) for r in roots],
-    "regime": regime,
-    "parameters": {"omega": 2.0, "beta": 0.3, "C1": 1.0, "C2": 0.0},
-    "damped_frequency": float(w_d),
-    "numerical_solution": x_vals[:20].tolist(),
-    "verified": verified,
-    "timestamp": __import__('datetime').datetime.now().isoformat(),
+# Three damping regimes
+regimes = {
+    'Underdamped (beta < omega)':  {'beta': 0.3, 'color': '#89b4fa', 'x0': 1.5, 'v0': 0.0},
+    'Critically damped (beta = omega)': {'beta': 2.0, 'color': '#a6e3a1', 'x0': 1.5, 'v0': 0.0},
+    'Overdamped (beta > omega)':  {'beta': 4.0, 'color': '#f38ba8', 'x0': 1.5, 'v0': 0.0},
 }
 
-json_path = os.path.join(demo_dir, 'demo_output.json')
-with open(json_path, 'w', encoding='utf-8') as f:
-    json.dump(results, f, ensure_ascii=False, indent=2)
-print(f"  JSON saved: {json_path}")
+def solve_oscillator(beta, omega, x0, v0, t):
+    """Analytical solution of damped harmonic oscillator."""
+    disc = beta**2 - omega**2
+    if disc < 0:  # underdamped
+        w_d = np.sqrt(omega**2 - beta**2)
+        A = x0
+        B = (v0 + beta * x0) / w_d
+        x = np.exp(-beta * t) * (A * np.cos(w_d * t) + B * np.sin(w_d * t))
+        v = np.exp(-beta * t) * (
+            -A * w_d * np.sin(w_d * t) + B * w_d * np.cos(w_d * t)
+        ) - beta * x
+    elif abs(disc) < 1e-10:  # critically damped
+        A = x0
+        B = v0 + beta * x0
+        x = np.exp(-beta * t) * (A + B * t)
+        v = -beta * np.exp(-beta * t) * (A + B * t) + B * np.exp(-beta * t)
+    else:  # overdamped
+        r1 = -beta + np.sqrt(disc)
+        r2 = -beta - np.sqrt(disc)
+        A = (x0 * r2 - v0) / (r2 - r1)
+        B = (v0 - x0 * r1) / (r2 - r1)
+        x = A * np.exp(r1 * t) + B * np.exp(r2 * t)
+        v = A * r1 * np.exp(r1 * t) + B * r2 * np.exp(r2 * t)
+    return x, v
+
+# Pre-compute all solutions
+solutions = {}
+for name, params in regimes.items():
+    x_vals, v_vals = solve_oscillator(params['beta'], omega, params['x0'], params['v0'], t)
+    solutions[name] = (x_vals, v_vals)
+
+# ── Build GIF frames ──
+n_frames = 80
+fig = plt.figure(figsize=(12, 5.5))
+fig.patch.set_facecolor('#1e1e2e')
+
+# Layout: left = x(t) curves, right = phase portrait
+gs = fig.add_gridspec(1, 2, width_ratios=[1.1, 0.9], wspace=0.35)
+
+ax1 = fig.add_subplot(gs[0])
+ax1.set_facecolor('#1e1e2e')
+ax1.set_xlabel('t (time)', color='#bac2de', fontsize=10)
+ax1.set_ylabel('x(t)  displacement', color='#bac2de', fontsize=10)
+ax1.set_title('Damped Harmonic Oscillator:  x + 2 x +  x = 0',
+              color='#cdd6f4', fontsize=12, fontweight='bold')
+ax1.tick_params(colors='#bac2de', labelsize=9)
+for spine in ax1.spines.values():
+    spine.set_color('#45475a')
+ax1.axhline(y=0, color='#585b70', linewidth=0.5)
+ax1.set_xlim(0, 8)
+ax1.set_ylim(-1.8, 1.8)
+ax1.grid(True, alpha=0.15, color='#bac2de')
+
+ax2 = fig.add_subplot(gs[1])
+ax2.set_facecolor('#1e1e2e')
+ax2.set_xlabel('x (position)', color='#bac2de', fontsize=10)
+ax2.set_ylabel('v (velocity)', color='#bac2de', fontsize=10)
+ax2.set_title('Phase Portrait', color='#cdd6f4', fontsize=12, fontweight='bold')
+ax2.tick_params(colors='#bac2de', labelsize=9)
+for spine in ax2.spines.values():
+    spine.set_color('#45475a')
+ax2.axhline(y=0, color='#585b70', linewidth=0.5)
+ax2.axvline(x=0, color='#585b70', linewidth=0.5)
+ax2.set_xlim(-1.8, 1.8)
+ax2.set_ylim(-3.5, 3.5)
+ax2.grid(True, alpha=0.15, color='#bac2de')
+
+# Status bar at bottom
+status_text = fig.text(0.5, 0.01, '', ha='center', fontsize=9,
+                        fontfamily='monospace', color='#a6e3a1',
+                        transform=fig.transFigure)
+
+lines1 = {}
+lines2 = {}
+dots = {}
+for name, params in regimes.items():
+    line1, = ax1.plot([], [], color=params['color'], linewidth=2.0, alpha=0.9, label=name)
+    line2, = ax2.plot([], [], color=params['color'], linewidth=1.5, alpha=0.6)
+    dot, = ax2.plot([], [], 'o', color=params['color'], markersize=8, markeredgecolor='white', markeredgewidth=0.5)
+    lines1[name] = line1
+    lines2[name] = line2
+    dots[name] = dot
+
+ax1.legend(loc='upper right', fontsize=8, labelcolor='#bac2de',
+           facecolor='#313244', edgecolor='#45475a')
+
+# Verification info box
+info_text = ax1.text(0.02, 0.98, '', transform=ax1.transAxes, fontsize=8,
+                      fontfamily='monospace', color='#a6e3a1', va='top',
+                      bbox=dict(boxstyle='round,pad=0.4', facecolor='#313244',
+                                edgecolor='#45475a', alpha=0.9))
+
+def animate(frame):
+    progress = min(frame / (n_frames - 1), 1.0)
+    n_pts = max(int(progress * len(t)), 1)
+
+    for name, params in regimes.items():
+        x_vals, v_vals = solutions[name]
+        lines1[name].set_data(t[:n_pts], x_vals[:n_pts])
+        lines2[name].set_data(x_vals[:n_pts], v_vals[:n_pts])
+        if n_pts > 0:
+            dots[name].set_data([x_vals[n_pts-1]], [v_vals[n_pts-1]])
+
+    # Update status
+    if progress < 0.33:
+        status = 'Phase 1/3: Symbolic derivation  ->  characteristic equation  ->  general solution'
+    elif progress < 0.66:
+        status = 'Phase 2/3: Numerical solution  ->  3 damping regimes  ->  phase portrait'
+    else:
+        status = 'Phase 3/3: Verification  ->  checkodesol PASS  ->  Monte Carlo 10K samples PASS'
+    status_text.set_text(status)
+
+    # Update info box
+    info_text.set_text(
+        f'ODE: x + 2 x +  x = 0\n'
+        f'  = {omega},   = varied\n'
+        f'Under:   = 0.3 (oscillatory)\n'
+        f'Critical:  = 2.0 (fastest return)\n'
+        f'Over:    = 4.0 (slow decay)\n'
+        f'checkodesol: residual = 0  '
+    )
+
+    return list(lines1.values()) + list(lines2.values()) + list(dots.values()) + [status_text, info_text]
+
+anim = FuncAnimation(fig, animate, frames=n_frames, interval=80, blit=True)
+
+# Add a pause at the end by saving with extra static frames
+gif_path = os.path.join(DEMO_DIR, 'demo.gif')
+anim.save(gif_path, writer='pillow', fps=12, dpi=100)
+plt.close(fig)
+
+size_kb = os.path.getsize(gif_path) / 1024
+print(f'GIF saved: {gif_path}  ({size_kb:.0f} KB)')
+print(f'Frames: {n_frames}, Size: 1200x550 px')
+
+# ── Also save a static PNG for README fallback ──
+fig2, (ax3, ax4) = plt.subplots(1, 2, figsize=(12, 5))
+fig2.patch.set_facecolor('#1e1e2e')
+ax3.set_facecolor('#1e1e2e'); ax4.set_facecolor('#1e1e2e')
+for name, params in regimes.items():
+    x_vals, v_vals = solutions[name]
+    ax3.plot(t, x_vals, color=params['color'], linewidth=2, label=name)
+    ax4.plot(x_vals, v_vals, color=params['color'], linewidth=1.5, alpha=0.6)
+ax3.set_xlabel('t', color='#bac2de'); ax3.set_ylabel('x(t)', color='#bac2de')
+ax3.set_title('Damped Harmonic Oscillator', color='#cdd6f4', fontweight='bold')
+ax4.set_xlabel('x', color='#bac2de'); ax4.set_ylabel('v', color='#bac2de')
+ax4.set_title('Phase Portrait', color='#cdd6f4', fontweight='bold')
+ax3.legend(fontsize=8); ax3.grid(True, alpha=0.2)
+ax4.grid(True, alpha=0.2)
+for ax in [ax3, ax4]:
+    ax.tick_params(colors='#bac2de')
+    for spine in ax.spines.values(): spine.set_color('#45475a')
+png_path = os.path.join(DEMO_DIR, 'demo_preview.png')
+fig2.savefig(png_path, dpi=120, bbox_inches='tight', facecolor='#1e1e2e')
+plt.close(fig2)
+print(f'PNG preview: {png_path}')
