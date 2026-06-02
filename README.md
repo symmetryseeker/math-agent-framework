@@ -1,85 +1,131 @@
-# Math Agent Framework
+# Math Agent Framework / 数学推导智能体框架
 
-**A reusable mathematical derivation and verification framework** — model-driven architecture with 12 engines, 60+ MCP tools, and 4 builtin models.
+**A reusable mathematical derivation and verification framework**
+**可复用的数学推导与验证框架**
 
-## Overview
+Model-driven architecture: define your equations once, and the framework automatically handles symbolic derivation, numerical verification, document generation, and MCP tool registration.
 
-Define your mathematical model once (equations, symbols, derivation steps), and the framework automatically handles symbolic derivation, numerical verification, document generation, and MCP tool registration.
+模型驱动架构：定义方程后，框架自动完成符号推导、数值验证、文档生成和 MCP 工具注册。
 
-```bash
-pip install math-agent-framework
-math-agent list
-math-agent derive ode_solver
-```
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-## Architecture
+---
 
-```
-User Model (BaseModel subclass)
-       |
-       v
-+------------------+     +-------------------+     +------------------+
-| Derivation Layer  |     | Verification Layer |     | Output Layer     |
-| SymbolicEngine    |     | VerificationEngine |     | DocumentEngine   |
-| NumericalEngine   |     | SageMathEngine     |     | FormalProofEngine|
-| QuantEconEngine   |     | MultiAgentEngine   |     | VisualizationEng |
-| AnalysisEngine    |     |                    |     |                   |
-| PdeEngine         |     |                    |     |                   |
-+------------------+     +-------------------+     +------------------+
-       |                         |                         |
-       +-------------------------+-------------------------+
-                                 |
-                    +------------+------------+
-                    | CLI | MCP Server | Python SDK |
-                    +------------------------------+
-```
-
-## Quick Start
+## 本地安装 / Local Installation
 
 ```bash
-# Install
+# 方式一：从 PyPI 安装（推荐）
 pip install math-agent-framework
 
-# List available models
+# 方式二：从 GitHub 安装
+pip install git+https://github.com/symmetryseeker/math-agent-framework.git
+
+# 方式三：克隆后本地安装
+git clone git@github.com:symmetryseeker/math-agent-framework.git
+cd math-agent-framework
+pip install -e .
+```
+
+### 环境要求 / Requirements
+
+| 依赖 | 版本 | 必需 |
+|------|------|------|
+| Python | >= 3.10 | ✅ |
+| sympy | >= 1.12 | ✅ |
+| numpy | >= 1.24 | ✅ |
+| scipy | >= 1.10 | ✅ |
+| pyyaml | >= 6.0 | ✅ |
+| mcp | >= 1.0 | ✅ (MCP模式) |
+| python-docx | >= 0.8.11 | 可选 (Word输出) |
+| quantecon | >= 0.7 | 可选 (动态优化) |
+
+### 本地可用性分析 / Local Usability Analysis
+
+| 维度 | 状态 | 说明 |
+|------|------|------|
+| 离线使用 | ✅ 完全支持 | 所有核心引擎（SymPy/NumPy/SciPy）均为纯本地计算 |
+| 无需API Key | ✅ | 框架本身不需要任何外部API密钥 |
+| 跨平台 | ✅ | Windows/macOS/Linux 均测试通过 |
+| 可选依赖 | ✅ | QuantEcon/SageMath/DOCX 未安装时自动降级 |
+| 启动速度 | ✅ | 冷启动 < 1s（仅加载SymPy） |
+| 磁盘占用 | ✅ | ~8,000行代码，< 1MB（不含依赖） |
+| 内存占用 | ✅ | 基础模式 < 200MB（含SymPy） |
+
+---
+
+## 架构 / Architecture
+
+```
+User Model (BaseModel subclass) / 用户模型
+       │
+       ▼
+┌──────────────────┐  ┌───────────────────┐  ┌──────────────────┐
+│ 推导层 Derivation  │  │ 验证层 Verification │  │ 输出层 Output      │
+│ SymbolicEngine    │  │ VerificationEngine │  │ DocumentEngine    │
+│ NumericalEngine   │  │ SageMathEngine     │  │ FormalProofEngine │
+│ QuantEconEngine   │  │ MultiAgentEngine   │  │ VisualizationEng  │
+│ AnalysisEngine    │  │                    │  │                    │
+│ PdeEngine         │  │                    │  │                    │
+└──────────────────┘  └───────────────────┘  └──────────────────┘
+       │                         │                         │
+       └─────────────────────────┼─────────────────────────┘
+                                 │
+                    ┌────────────┴────────────┐
+                    │ CLI │ MCP Server │ Python SDK │
+                    └─────────────────────────┘
+```
+
+12 engines, 60+ MCP tools, 5 builtin models.
+12个引擎，60+个MCP工具，5个内置模型。
+
+---
+
+## 快速开始 / Quick Start
+
+```bash
+# 列出所有可用模型 / List models
 math-agent list
 
-# Run a derivation pipeline
+# 运行推导流水线 / Run derivation
 math-agent derive ode_solver
 math-agent derive analysis_problems
 math-agent derive pde_solver
+math-agent derive harmonic_oscillator
 
-# Generate documentation
+# 生成文档 / Generate docs
 math-agent doc ode_solver --format md
+math-agent doc ode_solver --format docx
 
-# Interactive mode
+# 交互式模式 / Interactive
 math-agent interactive
 ```
 
-## Capabilities
+## 能力矩阵 / Capabilities
 
-| Domain | Capability | Verification |
-|--------|-----------|-------------|
-| ODEs | Separable, linear, Bernoulli, exact, 2nd order, Euler, systems | dsolve + checkodesol |
-| PDEs | Heat, Wave, Laplace, Poisson, Transport (analytical + numerical) | CFL / residual / L2 error |
-| Limits | Finite, infinite, one-sided, L'Hopital | Symbolic + numerical |
-| Series | Ratio, Root, Comparison, Integral, Alternating tests | Convergence radius |
-| Integration | Direct, by-parts, substitution, partial fractions | Derivative back-check |
-| Continuity | Singularity detection, continuous domain | continuous_domain |
-| Special Functions | Gamma, Beta, Zeta, Erf, Bessel | Analytic + numeric |
-| Dynamic Optimization | Riccati, LQ control, Markov chains, Nash equilibrium | QuantEcon |
-| Formal Proofs | Lean 4 proof templates | QED multi-agent verification |
-| Visualization | 2D curves, 3D surfaces, animations, CES surfaces | Matplotlib |
+| 领域 Domain | 能力 Capability | 验证方式 Verification |
+|-------------|----------------|----------------------|
+| 常微分方程 ODEs | 可分离/线性/Bernoulli/恰当/二阶/Euler/方程组 | dsolve + checkodesol |
+| 偏微分方程 PDEs | Heat/Wave/Laplace/Poisson/Transport（解析+数值） | CFL / 残差 / L2误差 |
+| 极限 Limits | 有限/无穷/单侧/L'Hopital | 符号+数值双重验证 |
+| 级数 Series | Ratio/Root/Comparison/Integral/Alternating检验 | 收敛半径 |
+| 积分 Integration | 直接/分部/换元/部分分式 | 微分反向验证 |
+| 连续性 Continuity | 奇点检测/连续域 | continuous_domain |
+| 特殊函数 Special Funcs | Gamma/Beta/Zeta/Erf/Bessel | 解析+数值 |
+| 动态优化 Dynamic Opt | Riccati/LQ控制/马尔可夫链/纳什均衡 | QuantEcon |
+| 形式化证明 Formal Proof | Lean 4 证明模板 | QED多Agent验证 |
+| 可视化 Visualization | 2D曲线/3D曲面/动画 | Matplotlib |
 
-## Creating a Custom Model
+## 自定义模型 / Custom Model
 
-Create `models/user/my_model.py`:
+创建 `models/user/my_model.py` / Create:
 
 ```python
 from models.base_model import BaseModel, derivation_step
 
 class MyModel(BaseModel):
     name = "my_model"
-    description = "My mathematical model"
+    description = "My mathematical model / 我的数学模型"
 
     def define_symbols(self, engine):
         engine.declare_symbols({'x': None, 'a': {'positive': True}})
@@ -88,7 +134,7 @@ class MyModel(BaseModel):
         x, a = engine.get_symbol('x'), engine.get_symbol('a')
         return {'f': a * x**2 + x}
 
-    @derivation_step(1, "Find FOC", tools=["SymPy"])
+    @derivation_step(1, "Find FOC / 求一阶条件", tools=["SymPy"])
     def step1_foc(self, engine, params):
         eqs = self.define_equations(engine)
         x = engine.get_symbol('x')
@@ -96,9 +142,7 @@ class MyModel(BaseModel):
                      .simplify().to_latex().build().to_dict()
 ```
 
-## MCP Integration
-
-Register with Claude Code:
+## MCP 集成 / MCP Integration
 
 ```bash
 claude mcp add-json math-agent-framework '{
@@ -108,29 +152,55 @@ claude mcp add-json math-agent-framework '{
 }' -s local
 ```
 
-Automatically registered tools include model-specific tools, verification tools, analysis tools, and the unified verification pipeline.
+自动注册的工具包括：模型推导工具、验证工具、分析工具、统一验证流水线。
 
-## Builtin Models
+## 内置模型 / Builtin Models
 
-| Model | Description | Steps |
-|-------|-------------|-------|
-| `quadratic_form` | General quadratic form U/inverted-U analysis | 2 |
-| `ode_solver` | ODE solving: classify -> solve -> verify | 5 |
-| `analysis_problems` | Limits, series, integrals, continuity, special functions | 6 |
-| `pde_solver` | PDE solving: Heat/Wave/Laplace/Poisson/Transport | 6 |
+| 模型 Model | 描述 Description | 步骤 Steps |
+|-----------|-----------------|------------|
+| `quadratic_form` | 通用二次型 U/倒U 分析 | 2 |
+| `harmonic_oscillator` | 阻尼/驱动谐振子（物理学） | 5 |
+| `ode_solver` | ODE求解：分类→求解→验证 | 5 |
+| `analysis_problems` | 极限/级数/积分/连续性/特殊函数 | 6 |
+| `pde_solver` | PDE求解：Heat/Wave/Laplace/Poisson/Transport | 6 |
 
-## License
+## 目录结构 / Directory Structure
 
-MIT License — see LICENSE file.
+```
+math-agent-framework/
+├── core/                    # 核心引擎（零外部依赖）
+│   ├── symbolic_engine.py   # SymPy符号推导
+│   ├── numerical_engine.py  # NumPy/SciPy数值计算
+│   ├── verification_engine.py # 五层验证框架
+│   ├── pipeline_engine.py   # 流水线编排
+│   ├── document_engine.py   # 文档生成
+│   ├── analysis_engine.py   # 分析学（极限/级数/积分）
+│   ├── pde_engine.py        # PDE解析+数值求解
+│   ├── sagemath_engine.py   # SageMath备用CAS
+│   ├── quantecon_engine.py  # QuantEcon动态优化
+│   ├── multi_agent_verify_engine.py # QED多Agent验证
+│   ├── formal_proof_engine.py # Lean 4证明模板
+│   └── visualization_engine.py # 数学可视化
+├── models/                  # 模型定义
+│   ├── base_model.py        # BaseModel抽象基类
+│   ├── builtin/             # 内置示例
+│   └── user/                # 用户自定义模型
+├── mcp/                     # MCP服务器
+├── cli/                     # 命令行工具
+├── tests/                   # 测试
+└── pyproject.toml           # 包配置
+```
 
-## Citation
+## 许可证 / License
 
-If you use this framework in your research, please cite:
+MIT License — see [LICENSE](LICENSE) file.
+
+## 引用 / Citation
 
 ```
 @software{math_agent_framework,
   title = {Math Agent Framework: A Reusable Mathematical Derivation and Verification Framework},
   year = {2026},
-  url = {https://github.com/math-agent-framework/math-agent-framework}
+  url = {https://github.com/symmetryseeker/math-agent-framework}
 }
 ```
