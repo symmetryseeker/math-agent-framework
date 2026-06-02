@@ -1,0 +1,52 @@
+# Math Agent Framework — Global Configuration
+
+framework:
+  name: "Math Agent Framework"
+  version: "0.1.0"
+  description: "A reusable mathematical derivation and verification framework"
+
+paths:
+  output_dir: "./output"
+  models_dir: "./models"
+  templates_dir: "./templates"
+
+engines:
+  symbolic:
+    backend: "sympy"
+    latex_output: true
+    simplify_aggressively: true
+
+  numerical:
+    default_samples: 10000
+    default_seed: 42
+    tolerance_foc: 1e-6
+    tolerance_soc: 1e-4
+
+  verification:
+    symbolic_checks: 30
+    monte_carlo_samples: 10000
+    counterexample_search_iterations: 50000
+
+  pipeline:
+    timeout_per_step: 300
+    save_intermediate: true
+    output_format: "json"
+
+  documentation:
+    formats: ["md", "docx", "latex", "json"]
+    default_format: "md"
+
+mcp:
+  enabled: true
+  server_name: "math-agent-framework"
+  auto_register_models: true
+  log_level: "INFO"
+
+# Optional engine paths (set via environment variables)
+optional_engines:
+  sagemath:
+    enabled: false
+    npm_package: "@justice8096/sagemath-mcp-server"
+    node_path_env: "NODE_PATH"
+  quantecon:
+    enabled: false

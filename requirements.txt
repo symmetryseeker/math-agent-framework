@@ -1,0 +1,15 @@
+# Core dependencies
+sympy>=1.12,<2.0
+numpy>=1.24,<2.0
+scipy>=1.10,<2.0
+pyyaml>=6.0,<7.0
+mcp>=1.0,<2.0
+
+# Optional: document generation
+python-docx>=0.8.11; extra == "docx"
+
+# Optional: dynamic optimization
+quantecon>=0.7; extra == "quantecon"
+
+# Optional: mathematical animation
+manim>=0.18; extra == "manim"

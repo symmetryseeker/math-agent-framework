@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "math-agent-framework"
+version = "0.1.0"
+description = "A reusable mathematical derivation and verification framework with 12 engines, supporting ODEs, PDEs, analysis, optimization, and formal proofs."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Math Agent Framework Contributors"}
+]
+keywords = [
+    "mathematics", "symbolic", "sympy", "ode", "pde", "numerical-methods",
+    "verification", "formal-proof", "mcp", "claude", "ai-agent"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "sympy>=1.12",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pyyaml>=6.0",
+    "mcp>=1.0",
+]
+
+[project.optional-dependencies]
+docx = ["python-docx>=0.8.11"]
+quantecon = ["quantecon>=0.7"]
+manim = ["manim>=0.18"]
+full = ["math-agent-framework[docx,quantecon,manim]"]
+
+[project.scripts]
+math-agent = "cli.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/math-agent-framework/math-agent-framework"
+Repository = "https://github.com/math-agent-framework/math-agent-framework"
+Issues = "https://github.com/math-agent-framework/math-agent-framework/issues"
+
+[tool.setuptools.packages.find]
+include = ["core*", "models*", "mcp*", "cli*", "templates*"]
