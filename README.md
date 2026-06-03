@@ -3,6 +3,10 @@
 **Give LLMs mathematical rigor. Give computation conceptual understanding.**
 **让 LLM 的数学推理接受严格检验，让符号计算获得概念理解。**
 
+> **This library contains zero API keys. All computation is local.**
+> **To use Agent mode (LLM-driven derivation), you must provide your own LLM API key — the framework never ships with one.**
+> **本库不包含任何 API Key，全部本地计算。Agent 模式需自行提供 LLM API Key。**
+
 ---
 
 ### The Problem / 问题
@@ -241,6 +245,19 @@ claude mcp add-json math-agent-framework '{
 
 Automatically registered tools include: model derivation, verification, analysis, unified pipeline, and harness orchestration.
 自动注册工具包括：模型推导、验证、分析、统一流水线、编排调度。
+
+## Security / 安全
+
+**This library never ships with API keys.** All engines run locally on your machine.
+
+| Mode | Needs API Key? | Provider |
+|------|---------------|----------|
+| CLI (`math-agent derive`) | No | — |
+| Python SDK (`from core import ...`) | No | — |
+| MCP Agent mode (Claude Code) | Yes | **You provide** (Claude/GPT/DeepSeek API key) |
+| SageMath cross-verification | No | Local npm package (optional) |
+
+The framework and LLM API keys are completely separated. You control which LLM provider to use and where your API key lives.
 
 ## License / 许可证
 
