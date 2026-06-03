@@ -1,11 +1,74 @@
-# Math Agent Framework · [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![MCP-ready](https://img.shields.io/badge/MCP-ready-green.svg)](https://modelcontextprotocol.io/)
+# Math Agent Framework [![PyPI](https://img.shields.io/pypi/v/math-agent-framework)](https://pypi.org/project/math-agent-framework/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![MCP-ready](https://img.shields.io/badge/MCP-ready-green.svg)](https://modelcontextprotocol.io/)
 
 **Give LLMs mathematical rigor. Give computation conceptual understanding.**
 **让 LLM 的数学推理接受严格检验，让符号计算获得概念理解。**
 
-> **This library contains zero API keys. All computation is local.**
-> **To use Agent mode (LLM-driven derivation), you must provide your own LLM API key — the framework never ships with one.**
-> **本库不包含任何 API Key，全部本地计算。Agent 模式需自行提供 LLM API Key。**
+---
+
+### Install / 安装
+
+```bash
+pip install math-agent-framework        # PyPI (recommended)
+# or: pip install git+https://github.com/symmetryseeker/math-agent-framework.git
+```
+
+### Three Ways to Use / 三种使用方式
+
+| Mode | Command | Needs API Key? |
+|------|---------|---------------|
+| **CLI** | `math-agent derive harmonic_oscillator` | No |
+| **Python SDK** | `from core import SymbolicEngine` | No |
+| **MCP Agent** | Register in Claude Code → LLM plans, engines compute | **You provide your own** |
+
+#### Mode 1: CLI (no API key) / 命令行
+
+```bash
+math-agent quickstart          # Interactive guided tour
+math-agent list                # List all available models
+math-agent derive ode_solver   # Solve ODE with verification
+math-agent doc ode_solver --format md  # Generate report
+```
+
+#### Mode 2: Python SDK (no API key) / Python调用
+
+```python
+from core.symbolic_engine import SymbolicEngine
+engine = SymbolicEngine()
+engine.declare_symbols({"x": None})
+# ... build your derivation
+```
+
+#### Mode 3: MCP Agent (requires your own LLM API key) / Agent模式
+
+This mode lets an LLM plan derivations while the framework computes and verifies:
+LLM 负责规划推导路径，框架负责计算和验证。
+
+**Step 1:** Register the MCP server in Claude Code (or any MCP client):
+
+```bash
+claude mcp add-json math-agent-framework '{
+  "command": "python",
+  "args": ["-m", "mcp.mcp_server"],
+  "env": {}
+}' -s local
+```
+
+**Step 2:** Your LLM API key is configured in Claude Code separately — **this framework never touches your key**. The framework only provides the math tools; Claude Code handles LLM authentication with your key.
+
+**Step 2:** 你的 LLM API Key 在 Claude Code 中单独配置——**本框架不接触你的 Key**。框架只提供数学工具，Claude Code 负责使用你的 Key 调用 LLM。
+
+**Where to put your API key / API Key 放在哪:**
+
+```bash
+# Claude Code (recommended) — your key stays in Claude's config
+export ANTHROPIC_API_KEY="sk-your-key-here"
+# or for DeepSeek:
+export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
+export ANTHROPIC_AUTH_TOKEN="sk-your-key-here"
+```
+
+> **This library ships with zero API keys. You control which LLM provider to use.**
+> **本库不含任何 API Key。你决定用哪个 LLM 供应商。**
 
 ---
 
