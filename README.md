@@ -20,7 +20,7 @@ pip install math-agent-framework        # PyPI (recommended)
 | **Python SDK** | `from core import SymbolicEngine` | No |
 | **MCP Agent** | Register in Claude Code → LLM plans, engines compute | **You provide your own** |
 
-#### Mode 1: CLI (no API key) / 命令行
+#### Mode 1: CLI / 命令行
 
 ```bash
 math-agent quickstart          # Interactive guided tour
@@ -29,7 +29,7 @@ math-agent derive ode_solver   # Solve ODE with verification
 math-agent doc ode_solver --format md  # Generate report
 ```
 
-#### Mode 2: Python SDK (no API key) / Python调用
+#### Mode 2: Python SDK / Python调用
 
 ```python
 from core.symbolic_engine import SymbolicEngine
@@ -38,7 +38,7 @@ engine.declare_symbols({"x": None})
 # ... build your derivation
 ```
 
-#### Mode 3: MCP Agent (requires your own LLM API key) / Agent模式
+#### Mode 3: MCP Agent / Agent模式
 
 This mode lets an LLM plan derivations while the framework computes and verifies:
 LLM 负责规划推导路径，框架负责计算和验证。
@@ -53,11 +53,7 @@ claude mcp add-json math-agent-framework '{
 }' -s local
 ```
 
-**Step 2:** Your LLM API key is configured in Claude Code separately — **this framework never touches your key**. The framework only provides the math tools; Claude Code handles LLM authentication with your key.
-
-**Step 2:** 你的 LLM API Key 在 Claude Code 中单独配置——**本框架不接触你的 Key**。框架只提供数学工具，Claude Code 负责使用你的 Key 调用 LLM。
-
-**Where to put your API key / API Key 放在哪:**
+**Configure your LLM API key / 配置你的 LLM API Key:**
 
 ```bash
 # Claude Code (recommended) — your key stays in Claude's config
@@ -67,8 +63,6 @@ export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
 export ANTHROPIC_AUTH_TOKEN="sk-your-key-here"
 ```
 
-> **This library ships with zero API keys. You control which LLM provider to use.**
-> **本库不含任何 API Key。你决定用哪个 LLM 供应商。**
 
 ---
 
@@ -218,8 +212,8 @@ Level 5: QED Multi-Agent   — Proposer + Critic + Judge / 多Agent对抗验证
                ▼
 ┌─────────────────────────────────────────┐
 │  Math Agent Framework (this repo)        │
-│  Zero API keys — all local computation   │
-│  零 API Key，全部本地计算                  │
+│  All computation runs locally             │
+│  全部本地计算                               │
 │                                          │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐ │
 │  │Derivation│ │Verification│ │Output    │ │
@@ -309,18 +303,30 @@ claude mcp add-json math-agent-framework '{
 Automatically registered tools include: model derivation, verification, analysis, unified pipeline, and harness orchestration.
 自动注册工具包括：模型推导、验证、分析、统一流水线、编排调度。
 
-## Security / 安全
+## API Key 配置 / API Key Setup
 
-**This library never ships with API keys.** All engines run locally on your machine.
+Agent 模式需要 LLM API Key。CLI 和 Python SDK 模式不需要。
 
-| Mode | Needs API Key? | Provider |
-|------|---------------|----------|
-| CLI (`math-agent derive`) | No | — |
-| Python SDK (`from core import ...`) | No | — |
-| MCP Agent mode (Claude Code) | Yes | **You provide** (Claude/GPT/DeepSeek API key) |
-| SageMath cross-verification | No | Local npm package (optional) |
+| 模式 Mode | 需要 API Key? | 配置位置 |
+|-----------|---------------|---------|
+| CLI (`math-agent derive`) | 不需要 | — |
+| Python SDK (`from core import ...`) | 不需要 | — |
+| MCP Agent (Claude Code) | 需要 | 在 Claude Code 中设置环境变量 |
 
-The framework and LLM API keys are completely separated. You control which LLM provider to use and where your API key lives.
+**Claude Code 配置:**
+
+```bash
+export ANTHROPIC_API_KEY="sk-your-key-here"
+```
+
+**DeepSeek 配置:**
+
+```bash
+export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
+export ANTHROPIC_AUTH_TOKEN="sk-your-key-here"
+```
+
+你的 API Key 只在 Claude Code 中使用，本框架不接触。
 
 ## License / 许可证
 
