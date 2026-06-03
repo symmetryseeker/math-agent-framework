@@ -1,0 +1,460 @@
+{
+  "meta": {
+    "name": "MathReliability-v1",
+    "version": "0.1.0",
+    "total_problems": 50,
+    "categories": ["ode", "analysis", "pde", "optimization", "special"]
+  },
+  "problems": [
+    {
+      "id": "ode-001",
+      "category": "ode",
+      "difficulty": "easy",
+      "problem": "Solve y' = y. Classify the ODE, give the general solution, and verify.",
+      "expected_tools": ["math_ode_solver_step1_classify", "math_ode_solver_step2_solve_separable"],
+      "expected_answer_pattern": "C1*exp",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-002",
+      "category": "ode",
+      "difficulty": "easy",
+      "problem": "Solve y' + 2xy = exp(-x^2). Use the integrating factor method and verify.",
+      "expected_tools": ["math_ode_solver_step3_solve_linear"],
+      "expected_answer_pattern": "exp(-x^2)",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-003",
+      "category": "ode",
+      "difficulty": "medium",
+      "problem": "Solve y'' + 3y' + 2y = 0. Find the characteristic equation, roots, and general solution. Verify.",
+      "expected_tools": ["math_ode_solver_step4_solve_2nd_order"],
+      "expected_answer_pattern": "C1.*C2",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-004",
+      "category": "ode",
+      "difficulty": "medium",
+      "problem": "Solve y'' + y = 0 with initial conditions y(0)=1, y'(0)=0. Verify the solution.",
+      "expected_tools": ["math_ode_solver_step4_solve_2nd_order"],
+      "expected_answer_pattern": "cos",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-005",
+      "category": "ode",
+      "difficulty": "medium",
+      "problem": "Solve y'' + 2y' + 5y = 0. Determine if the system is underdamped, critically damped, or overdamped.",
+      "expected_tools": ["math_ode_solver_step4_solve_2nd_order"],
+      "expected_answer_pattern": "exp.*sin",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-006",
+      "category": "ode",
+      "difficulty": "hard",
+      "problem": "Solve the ODE system: x' = y, y' = -x. Classify and give the general solution.",
+      "expected_tools": ["math_ode_solver_step5_solve_system"],
+      "expected_answer_pattern": "cos.*sin",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-007",
+      "category": "ode",
+      "difficulty": "easy",
+      "problem": "Solve y' = x*y. This is a separable ODE. Classify first, then solve.",
+      "expected_tools": ["math_ode_solver_step1_classify", "math_ode_solver_step2_solve_separable"],
+      "expected_answer_pattern": "C.*exp",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-008",
+      "category": "ode",
+      "difficulty": "hard",
+      "problem": "Solve x^2*y'' + x*y' - y = 0. This is an Euler equation. Classify and solve.",
+      "expected_tools": ["math_ode_solver_step1_classify"],
+      "expected_answer_pattern": "x\\^",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-009",
+      "category": "ode",
+      "difficulty": "medium",
+      "problem": "Solve y' + y/x = x^2. This is a first-order linear ODE. Use integrating factor.",
+      "expected_tools": ["math_ode_solver_step3_solve_linear"],
+      "expected_answer_pattern": "x\\^3",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "ode-010",
+      "category": "ode",
+      "difficulty": "medium",
+      "problem": "Solve y'' - 4y' + 4y = 0. Determine the type of damping and give the general solution.",
+      "expected_tools": ["math_ode_solver_step4_solve_2nd_order"],
+      "expected_answer_pattern": "exp.*x.*exp",
+      "verification": "checkodesol"
+    },
+    {
+      "id": "limit-001",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Evaluate lim_{x->0} sin(x)/x. Show your steps.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "1",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-002",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Evaluate lim_{n->infinity} (1 + 1/n)^n.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "E",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-003",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Evaluate lim_{x->2} (x^3 - 8)/(x - 2). This is a 0/0 indeterminate form.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "12",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-004",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Evaluate lim_{x->infinity} (2x^2 + 3x)/(x^2 + 1). Identify the dominant terms.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "2",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-005",
+      "category": "analysis",
+      "difficulty": "hard",
+      "problem": "Evaluate lim_{x->0} (1 - cos(x))/x^2. Use series expansion or L'Hopital's rule.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "0.5",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-006",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Evaluate lim_{x->0} (e^x - 1 - x)/x^2.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "0.5",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-007",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Evaluate lim_{x->0} tan(x)/x.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "1",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-008",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Evaluate lim_{x->infinity} (1 + 2/x)^x.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "exp\\(2\\)",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-009",
+      "category": "analysis",
+      "difficulty": "hard",
+      "problem": "Evaluate lim_{x->0} (sin(x) - x)/x^3.",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "-1/6",
+      "verification": "numerical"
+    },
+    {
+      "id": "limit-010",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Evaluate lim_{x->0+} x*ln(x).",
+      "expected_tools": ["math_analyze_limit"],
+      "expected_answer_pattern": "0",
+      "verification": "numerical"
+    },
+    {
+      "id": "series-001",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Test the series sum 1/n^2 for convergence using the ratio test.",
+      "expected_tools": ["math_analyze_series"],
+      "expected_answer_pattern": "converge",
+      "verification": "symbolic"
+    },
+    {
+      "id": "series-002",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Test the series sum 1/n for convergence.",
+      "expected_tools": ["math_analyze_series"],
+      "expected_answer_pattern": "diverge",
+      "verification": "symbolic"
+    },
+    {
+      "id": "series-003",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Test the series sum (1/2)^n for convergence.",
+      "expected_tools": ["math_analyze_series"],
+      "expected_answer_pattern": "converge",
+      "verification": "symbolic"
+    },
+    {
+      "id": "series-004",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Test the alternating series sum (-1)^(n+1)/n for convergence.",
+      "expected_tools": ["math_analyze_series"],
+      "expected_answer_pattern": "converge",
+      "verification": "symbolic"
+    },
+    {
+      "id": "series-005",
+      "category": "analysis",
+      "difficulty": "hard",
+      "problem": "Test the series sum n!/n^n for convergence using the ratio test.",
+      "expected_tools": ["math_analyze_series"],
+      "expected_answer_pattern": "converge",
+      "verification": "symbolic"
+    },
+    {
+      "id": "integral-001",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Compute the integral of x*e^x dx. Verify by differentiation.",
+      "expected_tools": ["math_analyze_integral"],
+      "expected_answer_pattern": "x.*exp.*-.*exp",
+      "verification": "differentiation"
+    },
+    {
+      "id": "integral-002",
+      "category": "analysis",
+      "difficulty": "easy",
+      "problem": "Compute the integral of sin(x)^2 dx. Verify by differentiation.",
+      "expected_tools": ["math_analyze_integral"],
+      "expected_answer_pattern": "x.*sin.*cos",
+      "verification": "differentiation"
+    },
+    {
+      "id": "integral-003",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Compute the integral of 1/(x^2 - 1) dx. Use partial fractions.",
+      "expected_tools": ["math_analyze_integral"],
+      "expected_answer_pattern": "log.*x.*-.*1",
+      "verification": "differentiation"
+    },
+    {
+      "id": "integral-004",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Compute the definite integral from 0 to infinity of e^(-x^2) dx.",
+      "expected_tools": ["math_analyze_integral"],
+      "expected_answer_pattern": "sqrt.*pi",
+      "verification": "differentiation"
+    },
+    {
+      "id": "integral-005",
+      "category": "analysis",
+      "difficulty": "medium",
+      "problem": "Compute the integral of ln(x) dx. Use integration by parts.",
+      "expected_tools": ["math_analyze_integral"],
+      "expected_answer_pattern": "x.*ln.*-.*x",
+      "verification": "differentiation"
+    },
+    {
+      "id": "pde-001",
+      "category": "pde",
+      "difficulty": "easy",
+      "problem": "Classify the heat equation u_t = alpha*u_xx. Is it elliptic, parabolic, or hyperbolic?",
+      "expected_tools": ["math_pde_solver_step1_classify"],
+      "expected_answer_pattern": "parabolic",
+      "verification": "classification"
+    },
+    {
+      "id": "pde-002",
+      "category": "pde",
+      "difficulty": "easy",
+      "problem": "Classify the wave equation u_tt = c^2*u_xx. Is it elliptic, parabolic, or hyperbolic?",
+      "expected_tools": ["math_pde_solver_step1_classify"],
+      "expected_answer_pattern": "hyperbolic",
+      "verification": "classification"
+    },
+    {
+      "id": "pde-003",
+      "category": "pde",
+      "difficulty": "easy",
+      "problem": "Classify the Laplace equation u_xx + u_yy = 0. Is it elliptic, parabolic, or hyperbolic?",
+      "expected_tools": ["math_pde_solver_step1_classify"],
+      "expected_answer_pattern": "elliptic",
+      "verification": "classification"
+    },
+    {
+      "id": "pde-004",
+      "category": "pde",
+      "difficulty": "medium",
+      "problem": "Solve the first-order transport PDE: u_x + u_y = 0. Give the general solution.",
+      "expected_tools": ["math_pde_solver_step2_first_order"],
+      "expected_answer_pattern": "F\\(x.*-.*y\\)",
+      "verification": "analytical"
+    },
+    {
+      "id": "pde-005",
+      "category": "pde",
+      "difficulty": "medium",
+      "problem": "For the heat equation u_t = 0.01*u_xx on [0,1] with u(x,0)=sin(pi*x) and u=0 at boundaries, what is the analytical solution?",
+      "expected_tools": ["math_pde_solver_step3_heat"],
+      "expected_answer_pattern": "sin.*exp",
+      "verification": "analytical"
+    },
+    {
+      "id": "opt-001",
+      "category": "optimization",
+      "difficulty": "easy",
+      "problem": "Find the minimum of f(x) = x^2 - 4x + 5. Find FOC, solve, and verify with SOC.",
+      "expected_tools": ["math_quadratic_form_step1_foc", "math_quadratic_form_step2_hessian"],
+      "expected_answer_pattern": "2",
+      "verification": "SOC"
+    },
+    {
+      "id": "opt-002",
+      "category": "optimization",
+      "difficulty": "medium",
+      "problem": "Find the turning point of f(x) = -0.5*x + 0.3*x^2. Classify as min or max.",
+      "expected_tools": ["math_quadratic_form_step1_foc"],
+      "expected_answer_pattern": "0.833",
+      "verification": "SOC"
+    },
+    {
+      "id": "opt-003",
+      "category": "optimization",
+      "difficulty": "medium",
+      "problem": "For f(x,y) = x^2 + y^2, compute the Hessian matrix and classify the stationary point at (0,0).",
+      "expected_tools": ["math_quadratic_form_step2_hessian"],
+      "expected_answer_pattern": "minimum",
+      "verification": "eigenvalues"
+    },
+    {
+      "id": "opt-004",
+      "category": "optimization",
+      "difficulty": "hard",
+      "problem": "Find all stationary points of f(x,y) = x^2 - y^2 and classify each.",
+      "expected_tools": ["math_quadratic_form_step2_hessian"],
+      "expected_answer_pattern": "saddle",
+      "verification": "eigenvalues"
+    },
+    {
+      "id": "opt-005",
+      "category": "optimization",
+      "difficulty": "easy",
+      "problem": "Find the maximum of f(x) = -x^2 + 6x - 5. Verify with second derivative test.",
+      "expected_tools": ["math_quadratic_form_step1_foc"],
+      "expected_answer_pattern": "3",
+      "verification": "SOC"
+    },
+    {
+      "id": "special-001",
+      "category": "special",
+      "difficulty": "easy",
+      "problem": "What is the value of Gamma(1/2)? Express in terms of pi.",
+      "expected_tools": ["math_analysis_problems_step5_special_functions"],
+      "expected_answer_pattern": "sqrt.*pi",
+      "verification": "numerical"
+    },
+    {
+      "id": "special-002",
+      "category": "special",
+      "difficulty": "easy",
+      "problem": "What is the value of Zeta(2)? Express in terms of pi.",
+      "expected_tools": ["math_analysis_problems_step5_special_functions"],
+      "expected_answer_pattern": "pi\\^2.*6",
+      "verification": "numerical"
+    },
+    {
+      "id": "special-003",
+      "category": "special",
+      "difficulty": "medium",
+      "problem": "Evaluate the Beta function Beta(1/2, 1/2) and relate it to Gamma.",
+      "expected_tools": ["math_analysis_problems_step5_special_functions"],
+      "expected_answer_pattern": "pi",
+      "verification": "numerical"
+    },
+    {
+      "id": "special-004",
+      "category": "special",
+      "difficulty": "medium",
+      "problem": "What is Stirling's approximation for n! ? State the formula and evaluate lim_{n->infinity} n!/(sqrt(2*pi*n)*(n/e)^n).",
+      "expected_tools": ["math_analysis_problems_step6_asymptotic"],
+      "expected_answer_pattern": "1",
+      "verification": "numerical"
+    },
+    {
+      "id": "special-005",
+      "category": "special",
+      "difficulty": "hard",
+      "problem": "Compare the growth rates: which grows faster as x->infinity: e^x, x^100, or ln(x)? Justify with limits.",
+      "expected_tools": ["math_analysis_problems_step6_asymptotic"],
+      "expected_answer_pattern": "exp.*>.*x.*>.*ln",
+      "verification": "limits"
+    },
+    {
+      "id": "physics-001",
+      "category": "special",
+      "difficulty": "medium",
+      "problem": "A damped harmonic oscillator has m=1, k=4, c=0.6. What is the damping ratio? Is the system underdamped?",
+      "expected_tools": ["math_harmonic_oscillator_step3_damped"],
+      "expected_answer_pattern": "underdamped",
+      "verification": "analytical"
+    },
+    {
+      "id": "physics-002",
+      "category": "special",
+      "difficulty": "medium",
+      "problem": "Find the resonance frequency for a driven oscillator with natural frequency omega=2 and damping beta=0.3.",
+      "expected_tools": ["math_harmonic_oscillator_step4_resonance"],
+      "expected_answer_pattern": "1\\.9",
+      "verification": "analytical"
+    },
+    {
+      "id": "physics-003",
+      "category": "special",
+      "difficulty": "easy",
+      "problem": "For an undamped harmonic oscillator x'' + omega^2*x = 0, what is the period?",
+      "expected_tools": ["math_harmonic_oscillator_step2_undamped"],
+      "expected_answer_pattern": "2.*pi.*omega",
+      "verification": "analytical"
+    },
+    {
+      "id": "physics-004",
+      "category": "special",
+      "difficulty": "easy",
+      "problem": "Is energy conserved in an undamped harmonic oscillator? Prove by computing dE/dt.",
+      "expected_tools": ["math_harmonic_oscillator_step5_energy"],
+      "expected_answer_pattern": "conserve",
+      "verification": "analytical"
+    },
+    {
+      "id": "physics-005",
+      "category": "special",
+      "difficulty": "hard",
+      "problem": "For a driven oscillator x'' + 2*beta*x' + omega^2*x = F0*cos(gamma*t), find the steady-state amplitude as a function of gamma.",
+      "expected_tools": ["math_harmonic_oscillator_step4_resonance"],
+      "expected_answer_pattern": "F0.*sqrt",
+      "verification": "analytical"
+    }
+  ]
+}
