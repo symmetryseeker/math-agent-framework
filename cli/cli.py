@@ -197,6 +197,119 @@ def cmd_proof(args):
         print()
 
 
+def cmd_quickstart(args):
+    """Interactive guided introduction for new users."""
+    from core.friendly_errors import print_status_banner
+    print()
+    print("=" * 60)
+    print("  Math Agent Framework — Quickstart Guide")
+    print("=" * 60)
+    print()
+    print("  Welcome! This framework lets you:")
+    print("    - Solve ODEs and PDEs with automatic verification")
+    print("    - Evaluate limits, series, and integrals")
+    print("    - Build reusable mathematical pipelines")
+    print("    - Integrate with LLMs via MCP tools")
+    print()
+
+    # Show engine status
+    print(print_status_banner())
+    print()
+
+    # Interactive menu
+    while True:
+        print("  What would you like to do?")
+        print("  [1] Run the demo (harmonic oscillator, 30 seconds)")
+        print("  [2] Solve an ODE")
+        print("  [3] Evaluate a limit")
+        print("  [4] Test a series for convergence")
+        print("  [5] Compute an integral")
+        print("  [6] List all available models")
+        print("  [7] Create a custom model template")
+        print("  [q] Quit")
+        print()
+        try:
+            choice = input("  Choice [1-7/q]: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n  Goodbye!")
+            break
+
+        if choice == "1":
+            print("\n  Running demo: damped harmonic oscillator...\n")
+            import subprocess, os
+            demo_path = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                "demo", "generate_demo.py"
+            )
+            subprocess.run([sys.executable, demo_path])
+        elif choice == "2":
+            print("\n  Example ODE: y'' + 3y' + 2y = 0")
+            print("  Running ode_solver pipeline...\n")
+            args.model = "ode_solver"
+            cmd_derive(args)
+        elif choice == "3":
+            print("\n  Example: lim_{x->0} sin(x)/x")
+            from core.analysis_engine import AnalysisEngine
+            ae = AnalysisEngine()
+            r = ae.evaluate_limit("sin(x)/x", "x", 0)
+            print(f"  Result: {r.final_answer}")
+            print(f"  Verified: {r.verified}")
+        elif choice == "4":
+            print("\n  Example: sum 1/n^2")
+            from core.analysis_engine import AnalysisEngine
+            ae = AnalysisEngine()
+            r = ae.test_series_convergence("1/n**2", "n")
+            print(f"  Result: {r.final_answer}")
+        elif choice == "5":
+            print("\n  Example: integral of x*e^x dx")
+            from core.analysis_engine import AnalysisEngine
+            ae = AnalysisEngine()
+            r = ae.integrate_with_technique("x*exp(x)", "x")
+            print(f"  Result: {r.final_answer}")
+            print(f"  Verified: {r.verified}")
+        elif choice == "6":
+            cmd_list(args)
+        elif choice == "7":
+            template = '''"""My custom mathematical model."""
+from models.base_model import BaseModel, derivation_step
+
+class MyModel(BaseModel):
+    name = "my_model"
+    description = "My first mathematical model"
+
+    def define_symbols(self, engine):
+        engine.declare_symbols({"x": None, "a": {"positive": True, "real": True}})
+
+    def define_equations(self, engine):
+        x, a = engine.get_symbol("x"), engine.get_symbol("a")
+        return {"f": a * x**2 + x}
+
+    @derivation_step(1, "Find the derivative", tools=["SymPy"])
+    def step1_derivative(self, engine, params):
+        eqs = self.define_equations(engine)
+        x = engine.get_symbol("x")
+        result = engine.differentiate(eqs["f"], x).simplify().to_latex().build()
+        return {"step": 1, "result": result.to_dict(), "verified": True}
+'''
+            user_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "models", "user")
+            os.makedirs(user_dir, exist_ok=True)
+            template_path = os.path.join(user_dir, "my_model.py")
+            if os.path.exists(template_path):
+                print(f"\n  Template already exists: {template_path}")
+            else:
+                with open(template_path, "w") as f:
+                    f.write(template)
+                print(f"\n  Template created: {template_path}")
+                print("  Edit this file to define your model, then run:")
+                print("    math-agent derive my_model")
+        elif choice.lower() == "q":
+            print("\n  Ready for more? Try: math-agent derive harmonic_oscillator")
+            break
+        else:
+            print("\n  Please enter 1-7 or q")
+        print()
+
+
 def cmd_interactive(args):
     """交互式模式"""
     print("\n" + "=" * 60)
@@ -290,6 +403,7 @@ def main():
     p_proof.add_argument("--style", default="verbose", choices=["verbose", "lean_only"])
 
     # interactive
+    sub.add_parser("quickstart", help="交互式引导 (推荐首次使用)")
     sub.add_parser("interactive", help="交互式模式")
 
     args = parser.parse_args()
@@ -306,6 +420,7 @@ def main():
         "verify": cmd_verify,
         "doc": cmd_doc,
         "proof": cmd_proof,
+        "quickstart": cmd_quickstart,
         "interactive": cmd_interactive,
     }
 

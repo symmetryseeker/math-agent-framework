@@ -1,0 +1,5 @@
+include README.md LICENSE pyproject.toml requirements.txt config.yaml
+recursive-include harness/prompts *.txt
+recursive-include harness/skills *.yaml
+recursive-include models/user .gitkeep
+recursive-include demo *.gif *.png *.json

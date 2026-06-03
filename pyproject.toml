@@ -1,10 +1,10 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "math-agent-framework"
-version = "0.1.0"
+version = "0.2.0"
 description = "A reusable mathematical derivation and verification framework with 12 engines, supporting ODEs, PDEs, analysis, optimization, and formal proofs."
 readme = "README.md"
 license = {text = "MIT"}
@@ -50,4 +50,5 @@ Repository = "https://github.com/math-agent-framework/math-agent-framework"
 Issues = "https://github.com/math-agent-framework/math-agent-framework/issues"
 
 [tool.setuptools.packages.find]
-include = ["core*", "models*", "mcp*", "cli*", "templates*"]
+where = ["."]
+include = ["core*", "models*", "mcp*", "cli*", "harness*"]
