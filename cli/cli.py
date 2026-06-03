@@ -310,6 +310,14 @@ class MyModel(BaseModel):
         print()
 
 
+def cmd_solve(args):
+    """Agent-driven problem solving with LLM planning + local computation."""
+    from core.agent_loop import MathAgent
+    agent = MathAgent()
+    result = agent.solve(args.problem, verbose=True)
+    return result
+
+
 def cmd_interactive(args):
     """交互式模式"""
     print("\n" + "=" * 60)
@@ -403,6 +411,8 @@ def main():
     p_proof.add_argument("--style", default="verbose", choices=["verbose", "lean_only"])
 
     # interactive
+    p_solve = sub.add_parser("solve", help="Agent求解: LLM规划+引擎计算+验证")
+    p_solve.add_argument("problem", help="数学问题描述 (如 solve y'' + 3y' + 2y = 0)")
     sub.add_parser("quickstart", help="交互式引导 (推荐首次使用)")
     sub.add_parser("interactive", help="交互式模式")
 
@@ -419,6 +429,7 @@ def main():
         "step": cmd_step,
         "verify": cmd_verify,
         "doc": cmd_doc,
+        "solve": cmd_solve,
         "proof": cmd_proof,
         "quickstart": cmd_quickstart,
         "interactive": cmd_interactive,

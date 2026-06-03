@@ -14,36 +14,42 @@ pip install math-agent-framework        # PyPI (recommended)
 
 ### Three Ways to Use / 三种使用方式
 
-| Mode | Command | Needs API Key? |
-|------|---------|---------------|
-| **CLI** | `math-agent derive harmonic_oscillator` | No |
-| **Python SDK** | `from core import SymbolicEngine` | No |
-| **MCP Agent** | Register in Claude Code → LLM plans, engines compute | **You provide your own** |
+| Mode | Command | API Key |
+|------|---------|---------|
+| **CLI** | `math-agent solve "y'' + 3y' + 2y = 0"` | Required for LLM reasoning |
+| **Python SDK** | `from core.agent_loop import MathAgent` | Required for LLM reasoning |
+| **MCP** | Register in Claude Code (optional) | Same key, configured in Claude Code |
 
 #### Mode 1: CLI / 命令行
 
 ```bash
-math-agent quickstart          # Interactive guided tour
-math-agent list                # List all available models
-math-agent derive ode_solver   # Solve ODE with verification
-math-agent doc ode_solver --format md  # Generate report
+# Set your API key once / 设置一次API Key
+export MATH_AGENT_API_KEY="sk-your-key-here"
+
+# Agent-driven solving / Agent驱动求解
+math-agent solve "solve y'' + 3y' + 2y = 0"
+math-agent solve "evaluate lim_{x->0} sin(x)/x"
+math-agent solve "classify and solve the heat equation"
+
+# Run predefined models (no API key needed) / 预定义模型（不需要API Key）
+math-agent derive harmonic_oscillator
+math-agent list
+math-agent quickstart
 ```
 
 #### Mode 2: Python SDK / Python调用
 
 ```python
-from core.symbolic_engine import SymbolicEngine
-engine = SymbolicEngine()
-engine.declare_symbols({"x": None})
-# ... build your derivation
+from core.agent_loop import MathAgent
+
+agent = MathAgent(api_key="sk-your-key-here")
+result = agent.solve("solve y'' + 3y' + 2y = 0 and verify")
+print(result["answer"])
 ```
 
-#### Mode 3: MCP Agent / Agent模式
+#### Mode 3: MCP (optional) / MCP模式（可选）
 
-This mode lets an LLM plan derivations while the framework computes and verifies:
-LLM 负责规划推导路径，框架负责计算和验证。
-
-**Step 1:** Register the MCP server in Claude Code (or any MCP client):
+Register as MCP tools for Claude Code:
 
 ```bash
 claude mcp add-json math-agent-framework '{
@@ -53,15 +59,21 @@ claude mcp add-json math-agent-framework '{
 }' -s local
 ```
 
-**Configure your LLM API key / 配置你的 LLM API Key:**
+### API Key Setup / 配置 API Key
 
 ```bash
-# Claude Code (recommended) — your key stays in Claude's config
+# OpenAI-compatible endpoints / 兼容OpenAI的API
+export MATH_AGENT_API_KEY="sk-your-key-here"
+export MATH_AGENT_BASE_URL="https://api.deepseek.com/anthropic"  # default
+export MATH_AGENT_MODEL="deepseek-v4-pro"                        # default
+
+# Or use existing env vars / 或使用已有的环境变量
 export ANTHROPIC_API_KEY="sk-your-key-here"
-# or for DeepSeek:
-export ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic"
-export ANTHROPIC_AUTH_TOKEN="sk-your-key-here"
+# export OPENAI_API_KEY="sk-your-key-here"
 ```
+
+Your API key is only used to call the LLM. All math computation runs locally on your machine.
+API Key 仅用于调用 LLM。所有数学计算在本地执行。
 
 
 ---

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "math-agent-framework"
-version = "0.2.0"
+version = "0.2.1"
 description = "A reusable mathematical derivation and verification framework with 12 engines, supporting ODEs, PDEs, analysis, optimization, and formal proofs."
 readme = "README.md"
 license = {text = "MIT"}

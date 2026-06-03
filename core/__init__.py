@@ -41,6 +41,8 @@ from .multi_agent_verify_engine import MultiAgentVerificationEngine
 from .visualization_engine import VisualizationEngine
 from .analysis_engine import AnalysisEngine
 from .pde_engine import PdeEngine
+from .llm_client import LLMClient, get_client
+from .agent_loop import MathAgent, ToolExecutor
 
 __all__ = [
     # 推导层
