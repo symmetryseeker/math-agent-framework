@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-06-04",
+  "data": {
+    "qwen3-8b": {
+      "Raw LLM (no tools)": {
+        "easy": 0,
+        "medium": 0,
+        "hard": 0,
+        "overall": 0
+      },
+      "Raw MCP (LLM picks)": {
+        "easy": 60,
+        "medium": 60,
+        "hard": 40,
+        "overall": 42
+      }
+    },
+    "qwen3-32b": {
+      "Raw LLM (no tools)": {
+        "easy": 0,
+        "medium": 0,
+        "hard": 0,
+        "overall": 0
+      },
+      "Raw MCP (LLM picks)": {
+        "easy": 60,
+        "medium": 60,
+        "hard": 40,
+        "overall": 41
+      }
+    },
+    "DeepSeek-V3.2": {
+      "Raw LLM (no tools)": {
+        "easy": 80,
+        "medium": 73,
+        "hard": 100,
+        "overall": 80
+      },
+      "Raw MCP (LLM picks)": {
+        "easy": 80,
+        "medium": 87,
+        "hard": 80,
+        "overall": 81
+      }
+    },
+    "Math Agent Framework": {
+      "Harness (ToolRouter)": {
+        "easy": 100,
+        "medium": 100,
+        "hard": 100,
+        "overall": 100
+      }
+    }
+  },
+  "key_insights": {
+    "engine_correctness": "100% (deterministic, 19/19 verified)",
+    "raw_llm_best": "80% (DeepSeek-V3.2)",
+    "raw_llm_worst": "0% (qwen3-8b/32b)",
+    "raw_mcp_best": "81% (DeepSeek-V3.2)",
+    "raw_mcp_worst": "41% (qwen3-32b)",
+    "harness_mcp": "100% (26/26, ToolRouter eliminates selection errors)",
+    "largest_gap": "59pp (qwen3-32b raw MCP 41% -> Harness 100%)",
+    "bottleneck": "Tool selection, not math computation"
+  }
+}
