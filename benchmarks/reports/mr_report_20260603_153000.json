@@ -1,0 +1,660 @@
+{
+  "meta": {
+    "benchmark": "MathReliability-v1",
+    "platform": "https://maas.bit.edu.cn/v1-openai",
+    "timestamp": "2026-06-03T15:25:46.050775",
+    "total_problems": 10
+  },
+  "models": {
+    "qwen3-8b": {
+      "summary": {
+        "model": "qwen3-8b",
+        "overall_avg": 0.385,
+        "total_problems": 10,
+        "pass_rate": 20.0,
+        "by_category": {
+          "ode": 0.385
+        },
+        "by_difficulty": {
+          "easy": 0.325,
+          "medium": 0.385,
+          "hard": 0.475
+        }
+      },
+      "details": [
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order ordinary differential equation (ODE)\nTOOLS: ODE classification and solving (separable)\nANSWER: The general solution is y(x) = Ce^x, where C is an arbitrary constant.\nVERIFICATION: yes (Differentiate y = Ce^x to confirm y' = y)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ODE\nTOOLS: Integrating factor method, verification by substitution\nANSWER: y = (x + C)e^{-x²}\nVERIFICATION: yes (substitute into original equation and confirm equality)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (2nd order)  \nANSWER: The characteristic equation is $ r^2 + 3r + 2 = 0 $, with roots $ r = -1 $ and $ r = -2 $. The general solution is $ y(x) = C_1 e^{-x} + C_2 e^{-2x} $.  \nVERIFICATION: yes (substituted solution back into ODE and confirmed it satisfies the equation)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (2nd order)  \nANSWER: y(x) = cos(x)  \nVERIFICATION: yes (substitute into ODE and check initial conditions)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (2nd order), damping classification  \nANSWER: The general solution is $ y(t) = e^{-t} \\left( C_1 \\cos(2t) + C_2 \\sin(2t) \\right) $, and the system is **underdamped**.  \nVERIFICATION: Yes, by confirming the discriminant $ D = 2^2 - 4(1)(5) = -16 < 0 $, which indicates complex roots and underdamping.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: System of linear ordinary differential equations\nTOOLS: ODE classification and solving (systems), ODE classification and solving (2nd order)\nANSWER: The general solution is $ x(t) = C_1 \\cos(t) + C_2 \\sin(t) $, $ y(t) = -C_1 \\sin(t) + C_2 \\cos(t) $.\nVERIFICATION: yes (substituted back into original equations to confirm satisfaction)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Separable Ordinary Differential Equation (ODE)\nTOOLS: ODE classification and solving (separable)\nANSWER: y = C e^{(1/2)x²}, where C is an arbitrary constant\nVERIFICATION: yes (by differentiating the solution and confirming it satisfies the original ODE)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear ODE (Euler-Cauchy equation)\nTOOLS: ODE classification and solving (2nd order)\nANSWER: y(x) = C₁x + C₂/x\nVERIFICATION: yes (substituted solution back into original equation to confirm it satisfies the ODE)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ODE  \nTOOLS: Integrating factor method  \nANSWER: y = (x³)/4 + C/x  \nVERIFICATION: yes (substitution into original equation confirms solution)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients\nTOOLS: ODE classification and solving (2nd order), damping analysis\nANSWER: The differential equation has critical damping. The general solution is y(t) = (C₁ + C₂ t)e^(2t)\nVERIFICATION: Yes, by substituting the solution into the original equation and confirming it satisfies y'' - 4y' + 4y = 0",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "qwen3-32b": {
+      "summary": {
+        "model": "qwen3-32b",
+        "overall_avg": 0.385,
+        "total_problems": 10,
+        "pass_rate": 20.0,
+        "by_category": {
+          "ode": 0.385
+        },
+        "by_difficulty": {
+          "easy": 0.325,
+          "medium": 0.385,
+          "hard": 0.475
+        }
+      },
+      "details": [
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ordinary differential equation (ODE)\nTOOLS: Separation of variables, exponential function properties\nANSWER: The general solution is y(x) = Ce^x, where C is an arbitrary constant.\nVERIFICATION: Yes, by differentiating y(x) = Ce^x we get y'(x) = Ce^x = y(x), which satisfies the original equation y' = y.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ordinary differential equation (ODE)\nTOOLS: Integrating factor method, substitution verification\nANSWER: The general solution is $ y(x) = e^{-x^2}(x + C) $, where $ C $ is an arbitrary constant.\nVERIFICATION: Yes, by substituting $ y $ and $ y' $ into the original equation to confirm both sides equal $ e^{-x^2} $.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ordinary differential equation\nTOOLS: Characteristic equation method, substitution verification\nANSWER: Characteristic equation: r² + 3r + 2 = 0; Roots: r = -1, r = -2; General solution: y(x) = C₁e^(-x) + C₂e^(-2x)\nVERIFICATION: Yes, by substituting y, y', and y'' into the original equation and confirming the result equals zero.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear ordinary differential equation (ODE)\nTOOLS: Characteristic equation method, initial condition application\nANSWER: y(x) = cos(x)\nVERIFICATION: Yes, by substituting y(x) and its derivatives into the original equation and confirming initial conditions. y'' = -cos(x), so y'' + y = -cos(x) + cos(x) = 0. y(0) = cos(0) = 1 and y'(0) = -sin(0) = 0.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous differential equation with constant coefficients\nTOOLS: Characteristic equation method, damping classification\nANSWER: The general solution is y(t) = e^(-t)(C₁ cos(2t) + C₂ sin(2t)), and the system is underdamped.\nVERIFICATION: No, the solution follows standard form for complex conjugate roots and damping classification is determined by the discriminant sign.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: System of linear ordinary differential equations (ODEs)\nTOOLS: Decoupling method, characteristic equation for second-order ODE\nANSWER: The general solution is x(t) = C₁ cos(t) + C₂ sin(t), y(t) = -C₁ sin(t) + C₂ cos(t), where C₁ and C₂ are arbitrary constants.\nVERIFICATION: Yes, by substituting the solutions into the original system to confirm they satisfy x' = y and y' = -x.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Separable ordinary differential equation (ODE)\nTOOLS: Separation of variables, integration\nANSWER: The general solution is $ y(x) = C e^{\\frac{x^2}{2}} $, where $ C $ is an arbitrary constant.\nVERIFICATION: Yes, by substitution. Differentiate $ y(x) $ to get $ y' = C x e^{\\frac{x^2}{2}} $, which equals $ x \\cdot y $, confirming the solution satisfies the original equation.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Euler equation (second-order linear ordinary differential equation)\nTOOLS: Euler equation solving method\nANSWER: y(x) = C₁x + C₂/x\nVERIFICATION: Yes, by substituting y = x and y = 1/x into the original equation to confirm they satisfy it.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ODE\nTOOLS: Integrating factor method\nANSWER: y = (x³)/4 + C/x\nVERIFICATION: Yes, by substituting back into the original equation",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous differential equation with constant coefficients\nTOOLS: Characteristic equation method for ODEs\nANSWER: The general solution is $ y(t) = (C_1 + C_2 t)e^{2t} $. The system exhibits **critical damping** because the characteristic equation has a repeated real root (discriminant $ \\Delta = 0 $).\nVERIFICATION: Yes, by substituting the solution into the original equation and confirming the discriminant calculation.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "DeepSeek-V3.2": {
+      "summary": {
+        "model": "DeepSeek-V3.2",
+        "overall_avg": 0.445,
+        "total_problems": 10,
+        "pass_rate": 40.0,
+        "by_category": {
+          "ode": 0.445
+        },
+        "by_difficulty": {
+          "easy": 0.325,
+          "medium": 0.445,
+          "hard": 0.625
+        }
+      },
+      "details": [
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ODE  \nTOOLS: ODE classification and solving (separable, linear)  \nANSWER: The ODE is first-order, linear, and separable. The general solution is \\( y = Ce^{x} \\), where \\( C \\) is an arbitrary constant.  \nVERIFICATION: Yes, by substitution: \\( y' = Ce^{x} = y \\), which satisfies the original equation.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ODE  \nTOOLS: ODE classification and solving (linear)  \nANSWER: \\( y = (x + C)e^{-x^2} \\)  \nVERIFICATION: Yes, by substituting back into the original ODE.  \n\n**Step-by-step solution:**  \n\n1. The ODE is \\( y' + 2xy = e^{-x^2} \\), which is linear.  \n2. Integrating factor: \\( \\mu(x) = e^{\\int 2x \\, dx} = e^{x^2} \\).  \n3. Multiply through: \\( e^{x^2}y' + 2x e^{x^2}y = 1 \\).  \n4. Left side is \\( \\frac{d}{dx}(e^{x^2}y) = 1 \\).  \n5. Integrate: \\( e^{x^2}y = x + C \\).  ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (characteristic equation method)  \nANSWER:  \nCharacteristic equation: \\( r^2 + 3r + 2 = 0 \\)  \nRoots: \\( r = -1, -2 \\) (since \\( (r+1)(r+2) = 0 \\))  \nGeneral solution: \\( y(x) = C_1 e^{-x} + C_2 e^{-2x} \\)  \n\nVERIFICATION: Yes, by substituting back into the ODE.  \nLet \\( y = e^{-x} \\), then \\( y' = -e^{-x} \\), \\( y'' = e^{-x} \\).  \nSubstitute: \\( e^{-x} + 3(-e^{-x}) + 2(e^{-x}) ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving  \nANSWER: The general solution is \\( y(t) = C_1 \\cos t + C_2 \\sin t \\).  \nApplying initial conditions:  \n\\( y(0) = C_1 \\cdot 1 + C_2 \\cdot 0 = C_1 = 1 \\)  \n\\( y'(t) = -C_1 \\sin t + C_2 \\cos t \\)  \n\\( y'(0) = -1 \\cdot 0 + C_2 \\cdot 1 = C_2 = 0 \\)  \nThus the particular solution is \\( y(t) = \\cos t \\).  \n\nVERIFICATION: Yes — substitute back into the ODE:  \n\\( y(t) = \\cos t \\)  \n\\( ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients, damping classification  \nTOOLS: ODE classification and solving (characteristic equation, roots analysis)  \nANSWER:  \nThe characteristic equation is \\( r^2 + 2r + 5 = 0 \\).  \nDiscriminant: \\( \\Delta = 2^2 - 4(1)(5) = 4 - 20 = -16 < 0 \\).  \nRoots: \\( r = \\frac{-2 \\pm \\sqrt{-16}}{2} = -1 \\pm 2i \\).  \nGeneral solution: \\( y(t) = e^{-t}(C_1 \\cos 2t + C_2 \\sin 2t) \\).  \nSince the discriminant is negative, the system is und",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: System of linear ODEs with constant coefficients  \nTOOLS: ODE classification and solving (systems)  \nANSWER: The system is \\( x' = y, \\; y' = -x \\).  \nRewrite as \\( \\frac{d}{dt} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} \\).  \nThe coefficient matrix has eigenvalues \\( \\lambda = \\pm i \\).  \nGeneral solution:  \n\\[\nx(t) = C_1 \\cos t + C_2 \\sin t, \\quad y(t) = -C_1 \\sin t + C_2 \\cos t.\n\\]  \nAlternatively, ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order separable ODE  \nTOOLS: ODE classification and solving (separable)  \nANSWER: \\( y = C e^{x^2/2} \\)  \nVERIFICATION: Yes, by substituting back into the original ODE.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear ODE with variable coefficients (Euler–Cauchy type)  \nTOOLS: ODE classification and solving (substitution \\( x = e^t \\) to transform to constant coefficients)  \nANSWER:  \nThe ODE \\( x^2 y'' + x y' - y = 0 \\) is an Euler–Cauchy equation.  \nAssume solution of the form \\( y = x^r \\). Substitute:  \n\\( y' = r x^{r-1} \\), \\( y'' = r(r-1) x^{r-2} \\).  \nPlug into ODE:  \n\\( x^2 \\cdot r(r-1) x^{r-2} + x \\cdot r x^{r-1} - x^r = 0 \\)  \n\\( r(r-1) x^r + r x^r - x^r = 0 \\)  \n",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ordinary differential equation  \nTOOLS: ODE classification and solving (linear first-order, integrating factor method)  \nANSWER: The integrating factor is \\( \\mu(x) = e^{\\int \\frac{1}{x} \\, dx} = e^{\\ln|x|} = |x| \\). For simplicity, take \\( \\mu(x) = x \\) (assuming \\( x > 0 \\)). Multiplying the ODE \\( y' + \\frac{y}{x} = x^2 \\) by \\( x \\) gives \\( x y' + y = x^3 \\), which is \\( \\frac{d}{dx}(x y) = x^3 \\). Integrating both sides: \\( x y = \\frac{x^4}{4} + C \\), so ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (characteristic equation method)  \nANSWER:  \nThe characteristic equation is \\( r^2 - 4r + 4 = 0 \\), which factors as \\( (r - 2)^2 = 0 \\), giving a repeated root \\( r = 2 \\) (multiplicity 2).  \nThe general solution is \\( y(t) = (C_1 + C_2 t)e^{2t} \\).  \nSince the characteristic root is real and positive, the system is **undamped** (or more precisely, it corresponds to critical da",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "deepseek-v4-flash": {
+      "summary": {
+        "model": "deepseek-v4-flash",
+        "overall_avg": 0.0,
+        "total_problems": 10,
+        "pass_rate": 0.0,
+        "by_category": {
+          "ode": 0.0
+        },
+        "by_difficulty": {
+          "easy": 0.0,
+          "medium": 0.0,
+          "hard": 0.0
+        }
+      },
+      "details": [
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "[ERROR 503] Service Unavailable",
+          "scores": {
+            "classification": 0.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.0
+          },
+          "overall": 0.0,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "qwen3-8b": {
+      "model": "qwen3-8b",
+      "overall_avg": 0.385,
+      "total_problems": 10,
+      "pass_rate": 20.0,
+      "by_category": {
+        "ode": 0.385
+      },
+      "by_difficulty": {
+        "easy": 0.325,
+        "medium": 0.385,
+        "hard": 0.475
+      }
+    },
+    "qwen3-32b": {
+      "model": "qwen3-32b",
+      "overall_avg": 0.385,
+      "total_problems": 10,
+      "pass_rate": 20.0,
+      "by_category": {
+        "ode": 0.385
+      },
+      "by_difficulty": {
+        "easy": 0.325,
+        "medium": 0.385,
+        "hard": 0.475
+      }
+    },
+    "DeepSeek-V3.2": {
+      "model": "DeepSeek-V3.2",
+      "overall_avg": 0.445,
+      "total_problems": 10,
+      "pass_rate": 40.0,
+      "by_category": {
+        "ode": 0.445
+      },
+      "by_difficulty": {
+        "easy": 0.325,
+        "medium": 0.445,
+        "hard": 0.625
+      }
+    },
+    "deepseek-v4-flash": {
+      "model": "deepseek-v4-flash",
+      "overall_avg": 0.0,
+      "total_problems": 10,
+      "pass_rate": 0.0,
+      "by_category": {
+        "ode": 0.0
+      },
+      "by_difficulty": {
+        "easy": 0.0,
+        "medium": 0.0,
+        "hard": 0.0
+      }
+    }
+  }
+}

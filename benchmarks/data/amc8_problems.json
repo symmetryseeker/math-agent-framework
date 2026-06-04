@@ -1,0 +1,119 @@
+{
+  "dataset": "AMC8-style Mathematics Competition",
+  "source": "Representative problems matching AMC8 difficulty patterns",
+  "levels": {
+    "easy": {"range": "1-10", "grade": "6-7"},
+    "medium": {"range": "11-20", "grade": "7-8"},
+    "hard": {"range": "21-25", "grade": "8+"}
+  },
+  "problems": [
+    {
+      "id": "amc8_e1",
+      "level": "easy",
+      "domain": "arithmetic",
+      "statement": "What is the value of (8 * 7) + (6 * 5) - (4 * 3)?",
+      "answer": "74",
+      "solution_steps": ["8*7=56", "6*5=30", "4*3=12", "56+30-12=74"],
+      "required_tools": []
+    },
+    {
+      "id": "amc8_e2",
+      "level": "easy",
+      "domain": "arithmetic",
+      "statement": "What is the value of (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10) / 5?",
+      "answer": "11",
+      "solution_steps": ["Sum = 55", "55/5 = 11"],
+      "required_tools": []
+    },
+    {
+      "id": "amc8_e3",
+      "level": "easy",
+      "domain": "algebra",
+      "statement": "Solve for x: 3x + 7 = 22",
+      "answer": "5",
+      "solution_steps": ["3x = 15", "x = 5"],
+      "required_tools": ["symbolic_solve"]
+    },
+    {
+      "id": "amc8_e4",
+      "level": "easy",
+      "domain": "algebra",
+      "statement": "If 2(x + 3) = 16, what is the value of x?",
+      "answer": "5",
+      "solution_steps": ["2x + 6 = 16", "2x = 10", "x = 5"],
+      "required_tools": ["symbolic_solve"]
+    },
+    {
+      "id": "amc8_m1",
+      "level": "medium",
+      "domain": "algebra",
+      "statement": "Find all real solutions: x^2 - 5x + 6 = 0",
+      "answer": "x = 2, x = 3",
+      "solution_steps": ["Factor: (x-2)(x-3)=0", "x=2 or x=3"],
+      "required_tools": ["symbolic_solve", "verify_roots"]
+    },
+    {
+      "id": "amc8_m2",
+      "level": "medium",
+      "domain": "algebra",
+      "statement": "If the sum of three consecutive integers is 72, what is the largest of the three?",
+      "answer": "25",
+      "solution_steps": ["Let n-1,n,n+1 be the integers", "3n=72", "n=24", "largest = n+1 = 25"],
+      "required_tools": ["symbolic_solve"]
+    },
+    {
+      "id": "amc8_m3",
+      "level": "medium",
+      "domain": "algebra",
+      "statement": "Solve the system: 2x + y = 7, x - y = 2",
+      "answer": "x = 3, y = 1",
+      "solution_steps": ["Add equations: 3x = 9, x = 3", "Substitute: 3 - y = 2, y = 1"],
+      "required_tools": ["symbolic_solve", "verify_system"]
+    },
+    {
+      "id": "amc8_m4",
+      "level": "medium",
+      "domain": "algebra",
+      "statement": "Factor completely: x^2 - 9",
+      "answer": "(x - 3)(x + 3)",
+      "solution_steps": ["Difference of squares: (x-3)(x+3)"],
+      "required_tools": ["symbolic_factor"]
+    },
+    {
+      "id": "amc8_m5",
+      "level": "medium",
+      "domain": "algebra",
+      "statement": "Solve the quadratic equation: 2x^2 - 7x + 3 = 0",
+      "answer": "x = 3, x = 1/2",
+      "solution_steps": ["2x^2 - 7x + 3 = 0", "Factor: (2x-1)(x-3)=0", "x=1/2 or x=3"],
+      "required_tools": ["symbolic_solve", "verify_roots", "monte_carlo_check"]
+    },
+    {
+      "id": "amc8_h1",
+      "level": "hard",
+      "domain": "algebra",
+      "statement": "Find all real solutions: x^4 - 5x^2 + 4 = 0",
+      "answer": "x = -2, -1, 1, 2",
+      "solution_steps": ["Let u = x^2", "u^2 - 5u + 4 = 0", "(u-1)(u-4)=0", "u=1 or u=4", "x^2=1 -> x=+-1", "x^2=4 -> x=+-2"],
+      "required_tools": ["symbolic_solve", "verify_roots", "monte_carlo_check"]
+    },
+    {
+      "id": "amc8_h2",
+      "level": "hard",
+      "domain": "algebra",
+      "statement": "Solve for real x: |2x - 1| = 5",
+      "answer": "x = 3, x = -2",
+      "solution_steps": ["2x-1=5 -> x=3", "2x-1=-5 -> 2x=-4 -> x=-2"],
+      "required_tools": ["symbolic_solve", "verify_all_cases"]
+    },
+    {
+      "id": "amc8_h3",
+      "level": "hard",
+      "domain": "algebra",
+      "statement": "Find the sum of all real roots of x^3 - 6x^2 + 11x - 6 = 0",
+      "answer": "6",
+      "solution_steps": ["Factor: (x-1)(x-2)(x-3)=0", "Roots: 1,2,3", "Sum: 6"],
+      "required_tools": ["symbolic_factor", "verify_roots", "monte_carlo_check"]
+    }
+  ]
+}

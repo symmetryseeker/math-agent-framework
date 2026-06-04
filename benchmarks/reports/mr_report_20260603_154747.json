@@ -1,0 +1,1184 @@
+{
+  "meta": {
+    "benchmark": "MathReliability-v1",
+    "platform": "https://maas.bit.edu.cn/v1-openai",
+    "timestamp": "2026-06-03T15:30:36.566352",
+    "total_problems": 20
+  },
+  "models": {
+    "qwen3-8b": {
+      "summary": {
+        "model": "qwen3-8b",
+        "overall_avg": 0.4625,
+        "total_problems": 20,
+        "pass_rate": 45.0,
+        "by_category": {
+          "ode": 0.3525,
+          "analysis": 0.5725
+        },
+        "by_difficulty": {
+          "easy": 0.5125,
+          "medium": 0.4275,
+          "hard": 0.475
+        }
+      },
+      "details": [
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order ordinary differential equation (ODE)\nTOOLS: ODE classification and solving (separable)\nANSWER: The general solution is y(x) = Ce^x, where C is an arbitrary constant.\nVERIFICATION: yes (Differentiate y = Ce^x to confirm y' = y)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ODE\nTOOLS: Integrating factor method, verification by substitution\nANSWER: y = (x + C)e^{-x²}\nVERIFICATION: yes (substitution into original equation confirms solution)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (2nd order)  \nANSWER: Characteristic equation: $ r^2 + 3r + 2 = 0 $, roots: $ r = -1, -2 $, general solution: $ y(x) = C_1 e^{-x} + C_2 e^{-2x} $  \nVERIFICATION: Yes, by substituting the general solution into the original ODE and confirming it satisfies the equation.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (2nd order)  \nANSWER: y(x) = cos(x)  \nVERIFICATION: yes (substitute into ODE and check initial conditions)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (2nd order), damping analysis  \nANSWER: The general solution is $ y(t) = e^{-t} \\left( C_1 \\cos(2t) + C_2 \\sin(2t) \\right) $, and the system is **underdamped**.  \nVERIFICATION: Yes, by confirming the discriminant $ D = 2^2 - 4(1)(5) = -16 < 0 $, which confirms complex roots and underdamped behavior.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: System of linear ordinary differential equations\nTOOLS: ODE classification and solving (systems), Integration\nANSWER: The general solution is x(t) = C₁ cos(t) + C₂ sin(t), y(t) = -C₁ sin(t) + C₂ cos(t)\nVERIFICATION: yes (by substituting back into original equations)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Separable Ordinary Differential Equation (ODE)\nTOOLS: ODE classification and solving (separable)\nANSWER: y = C e^{x²/2}, where C is an arbitrary constant\nVERIFICATION: yes (by substitution: y' = C e^{x²/2} * x = x*y)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear ODE (Euler-Cauchy equation)\nTOOLS: ODE classification and solving\nANSWER: y(x) = C₁x + C₂/x\nVERIFICATION: yes (substitution into original equation confirms solution)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ODE  \nTOOLS: Integrating factor method  \nANSWER: y = (x³)/4 + C/x  \nVERIFICATION: yes (substituted back into original equation to confirm)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "",
+          "scores": {},
+          "overall": 0.0,
+          "error": "'NoneType' object is not subscriptable",
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: L'Hospital's Rule, numerical verification  \nANSWER: 1  \nVERIFICATION: yes (numerical verification with small x values confirms the result)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-001",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)\nANSWER: e\nVERIFICATION: yes (using L'Hospital's Rule on the transformed limit expression)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-002",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: Direct substitution (with indeterminate form handling), L'Hôpital's Rule  \nANSWER: 12  \nVERIFICATION: yes (confirmed via factoring and L'Hôpital's Rule)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-003",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: Direct method, L'Hospital's Rule  \nANSWER: 2  \nVERIFICATION: yes (numerical verification with large x value)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-004",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: Series expansion, L'Hopital's rule\nANSWER: 1/2\nVERIFICATION: yes (confirmed by both series expansion and L'Hopital's rule)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "limit-005",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: L'Hopital's Rule, Taylor series expansion  \nANSWER: 1/2  \nVERIFICATION: yes (confirmed via L'Hospital's Rule twice and Taylor series expansion)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "limit-006",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: Direct limit knowledge, L'Hôpital's Rule, numerical verification  \nANSWER: 1  \nVERIFICATION: yes (numerical verification with x=0.001 confirms result)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-007",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: L'Hopital's Rule, Series expansion  \nANSWER: e²  \nVERIFICATION: yes (confirmed via L'Hospital's Rule and Taylor series expansion)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "limit-008",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hopital's Rule, Taylor series expansion\nANSWER: -1/6\nVERIFICATION: yes (confirmed via L'Hospital's Rule and Taylor series expansion)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-009",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hopital's Rule, substitution\nANSWER: 0\nVERIFICATION: yes (numerical verification with small x values and analytical methods)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-010",
+          "category": "analysis",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "qwen3-32b": {
+      "summary": {
+        "model": "qwen3-32b",
+        "overall_avg": 0.5237,
+        "total_problems": 20,
+        "pass_rate": 55.0,
+        "by_category": {
+          "ode": 0.445,
+          "analysis": 0.6025
+        },
+        "by_difficulty": {
+          "easy": 0.5,
+          "medium": 0.5125,
+          "hard": 0.5875
+        }
+      },
+      "details": [
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order ordinary differential equation (ODE)\nTOOLS: Separable ODE solver, Integration\nANSWER: The general solution is y(x) = Ce^x, where C is an arbitrary constant.\nVERIFICATION: Yes, by substituting y = Ce^x into the equation y' = y, we get y' = Ce^x = y, confirming the solution.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ordinary differential equation\nTOOLS: Integrating factor method, derivative verification\nANSWER: y(x) = (x + C)e^{-x^2}\nVERIFICATION: Yes, by substituting the solution back into the original equation and confirming both sides equal e^{-x^2}",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous differential equation with constant coefficients  \nTOOLS: Characteristic equation method, substitution verification  \nANSWER:  \n- Characteristic equation: $ r^2 + 3r + 2 = 0 $  \n- Roots: $ r = -1 $ and $ r = -2 $  \n- General solution: $ y(x) = C_1 e^{-x} + C_2 e^{-2x} $ (where $ C_1, C_2 $ are constants)  \nVERIFICATION: Yes, by substituting $ y(x) $, $ y'(x) $, and $ y''(x) $ into the original equation and confirming all terms cancel.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear ordinary differential equation\nTOOLS: Characteristic equation method, initial condition application\nANSWER: y(x) = cos(x)\nVERIFICATION: Yes, by substituting y(x) and its derivatives into the original equation and checking initial conditions.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous differential equation\nTOOLS: Characteristic equation method, damping classification\nANSWER: The general solution is y(t) = e^(-t)(C₁ cos(2t) + C₂ sin(2t)). The system is underdamped.\nVERIFICATION: Yes, by checking the discriminant of the characteristic equation (b² - 4ac = -16 < 0) and verifying the solution satisfies the original ODE.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Linear system of ordinary differential equations\nTOOLS: Eigenvalue method for linear systems, decoupling into second-order ODE\nANSWER: The general solution is x(t) = C₁ cos(t) + C₂ sin(t), y(t) = -C₁ sin(t) + C₂ cos(t), where C₁ and C₂ are arbitrary constants.\nVERIFICATION: Yes, by substituting into the original system: x'(t) = y(t) and y'(t) = -x(t).",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Separable ordinary differential equation (ODE)\nTOOLS: ODE solving (separable)\nANSWER: The general solution is y(x) = C * e^(x²/2), where C is an arbitrary constant.\nVERIFICATION: Yes, by differentiating the solution and confirming it satisfies y' = x*y.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Euler equation (second-order linear ODE with variable coefficients)\nTOOLS: Euler equation solving method (ansatz y = x^r)\nANSWER: y(x) = C₁x + C₂/x\nVERIFICATION: No (standard substitution method for Euler equations confirms solution)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: First-order linear ordinary differential equation (ODE)\nTOOLS: Integrating factor method\nANSWER: The general solution is $ y(x) = \\frac{x^3}{4} + \\frac{C}{x} $, where $ C $ is an arbitrary constant.\nVERIFICATION: Yes, by substituting the solution into the original equation.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Second-order linear homogeneous differential equation with constant coefficients\nTOOLS: Characteristic equation method for ODEs\nANSWER: The differential equation has a repeated real root (r = 2), indicating critical damping. The general solution is y(t) = (C₁ + C₂ t)e²ᵗ.\nVERIFICATION: Yes, by substituting the solution into the original equation and confirming the damping classification matches the discriminant analysis.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hospital's Rule, numerical verification\nANSWER: The limit is 1. Applying L'Hospital's Rule to the indeterminate form 0/0, we differentiate numerator and denominator: lim_{x->0} cos(x)/1 = cos(0) = 1. Numerical verification with x=0.001 gives sin(0.001)/0.001 ≈ 0.99999983, confirming the result.\nVERIFICATION: Yes, using numerical approximation with small x-values.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-001",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: Natural logarithm transformation, L'Hospital's Rule\nANSWER: e\nVERIFICATION: No, as it is a standard limit definition of e. Alternatively, numerical evaluation for large n (e.g., n=1000) would approximate e ≈ 2.71828.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-002",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation (indeterminate form 0/0)\nTOOLS: L'Hospital's Rule, direct substitution after factoring\nANSWER: 12\nVERIFICATION: Yes, using numerical evaluation with values approaching 2 from both sides confirms the result.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-003",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: Direct limit evaluation, dominant term analysis\nANSWER: The limit is 2. The dominant terms are 2x² in the numerator and x² in the denominator.\nVERIFICATION: Yes, by simplifying the expression and numerical verification.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-004",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hopital's rule, Taylor series expansion\nANSWER: 1/2\nVERIFICATION: Yes, using both analytical methods (L'Hopital and series expansion) and numerical approximation with small x values.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.4,
+          "problem_id": "limit-005",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hospital's Rule, Taylor series expansion\nANSWER: 1/2\nVERIFICATION: Yes, using Taylor series expansion and numerical substitution with small x values.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.4,
+          "problem_id": "limit-006",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation  \nTOOLS: L'Hospital's Rule  \nANSWER: 1  \nVERIFICATION: Yes, by applying L'Hospital's Rule and evaluating the resulting limit.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-007",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: Natural logarithm transformation, L'Hospital's Rule, numerical verification\nANSWER: e²\nVERIFICATION: Yes, using Taylor series expansion and numerical approximation with x=1000 confirms the result.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.4,
+          "problem_id": "limit-008",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hospital's Rule, Taylor series expansion\nANSWER: -1/6\nVERIFICATION: Yes, using numerical substitution with x = 0.001 confirms the result.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-009",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "\n\nCLASSIFICATION: Limit evaluation\nTOOLS: L'Hospital's Rule, numerical verification\nANSWER: 0\nVERIFICATION: Yes, by rewriting as ln(x)/(1/x) and applying L'Hospital's Rule, then confirming with numerical examples (e.g., x=0.1, 0.01).",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-010",
+          "category": "analysis",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "DeepSeek-V3.2": {
+      "summary": {
+        "model": "DeepSeek-V3.2",
+        "overall_avg": 0.5162,
+        "total_problems": 20,
+        "pass_rate": 60.0,
+        "by_category": {
+          "ode": 0.445,
+          "analysis": 0.5875
+        },
+        "by_difficulty": {
+          "easy": 0.475,
+          "medium": 0.5275,
+          "hard": 0.55
+        }
+      },
+      "details": [
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ODE  \nTOOLS: ODE classification and solving (separable, linear)  \nANSWER: The ODE \\( y' = y \\) is first-order, linear, and separable.  \nGeneral solution: \\( y = Ce^{x} \\), where \\( C \\) is an arbitrary constant.  \n\nVERIFICATION: Yes, by substitution.  \nDifferentiate \\( y = Ce^{x} \\) to get \\( y' = Ce^{x} \\), which equals \\( y \\).",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ODE  \nTOOLS: ODE classification and solving (integrating factor method)  \nANSWER: \\( y = x e^{-x^2} + C e^{-x^2} \\)  \nVERIFICATION: Yes, substitute back into original ODE to confirm.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (characteristic equation method)  \nANSWER:  \nCharacteristic equation: \\( r^2 + 3r + 2 = 0 \\)  \nRoots: \\( r = -1, -2 \\)  \nGeneral solution: \\( y(x) = C_1 e^{-x} + C_2 e^{-2x} \\)  \nVERIFICATION: Yes — substitute back into ODE:  \n\\( y' = -C_1 e^{-x} - 2C_2 e^{-2x} \\)  \n\\( y'' = C_1 e^{-x} + 4C_2 e^{-2x} \\)  \nThen \\( y'' + 3y' + 2y = (C_1 e^{-x} + 4C_2 e^{-2x}) + 3(-C_1 e^{-x} - 2C_",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving  \nANSWER: The characteristic equation is \\( r^2 + 1 = 0 \\), so \\( r = \\pm i \\).  \nThe general solution is \\( y(x) = C_1 \\cos x + C_2 \\sin x \\).  \nApplying \\( y(0) = 1 \\) gives \\( C_1 = 1 \\).  \nApplying \\( y'(0) = 0 \\) gives \\( C_2 = 0 \\).  \nThus the solution is \\( y(x) = \\cos x \\).  \n\nVERIFICATION: Yes — substitute into the ODE:  \n\\( y' = -\\sin x \\), \\( y'' = -\\cos x \\), so \\( y",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients, damping classification  \nTOOLS: ODE classification and solving (characteristic equation, roots analysis)  \nANSWER: The characteristic equation is \\( r^2 + 2r + 5 = 0 \\).  \nDiscriminant: \\( \\Delta = 2^2 - 4(1)(5) = 4 - 20 = -16 < 0 \\).  \nRoots: \\( r = -1 \\pm 2i \\).  \nGeneral solution: \\( y(t) = e^{-t}(C_1 \\cos 2t + C_2 \\sin 2t) \\).  \nSince the discriminant is negative, the system is underdamped.  \nVERIFICATION: Yes — ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: System of linear ODEs with constant coefficients  \nTOOLS: ODE classification and solving (systems)  \nANSWER: The system is \\( x' = y, \\; y' = -x \\).  \nRewrite as \\( \\frac{d}{dt} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} \\).  \nEigenvalues of \\( A = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix} \\) satisfy \\( \\lambda^2 + 1 = 0 \\), so \\( \\lambda = \\pm i \\).  \nEigenvector for \\( \\lambda = i \\): solve \\( \\b",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order separable ODE  \nTOOLS: ODE classification and solving (separable)  \nANSWER: \\( y = Ce^{x^2/2} \\), where \\( C \\) is an arbitrary constant.  \nVERIFICATION: Yes, by substitution: \\( y' = C e^{x^2/2} \\cdot x = x \\cdot y \\), which matches the original equation.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear ODE (Euler–Cauchy type)  \nTOOLS: ODE classification and solving (substitution \\( x = e^t \\) or trial \\( y = x^m \\))  \nANSWER:  \nThe Euler–Cauchy ODE \\( x^2 y'' + x y' - y = 0 \\) is solved by assuming \\( y = x^m \\).  \nSubstitute:  \n\\( y' = m x^{m-1} \\), \\( y'' = m(m-1) x^{m-2} \\).  \nPlug into ODE:  \n\\( x^2 \\cdot m(m-1) x^{m-2} + x \\cdot m x^{m-1} - x^m = 0 \\)  \n\\( m(m-1) x^m + m x^m - x^m = 0 \\)  \n\\( [m(m-1) + m - 1] x^m = 0 \\)  \n\\( m^2 - m + m - 1 = m^2 - 1 = ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ordinary differential equation  \nTOOLS: ODE classification and solving (linear first-order integrating factor method)  \nANSWER: The integrating factor is \\( \\mu(x) = e^{\\int \\frac{1}{x} \\, dx} = e^{\\ln|x|} = |x| \\). For simplicity, take \\( \\mu(x) = x \\) (assuming \\( x > 0 \\)). Multiplying the ODE \\( y' + \\frac{y}{x} = x^2 \\) by \\( x \\) gives \\( x y' + y = x^3 \\), which is \\( \\frac{d}{dx}(x y) = x^3 \\). Integrating both sides: \\( x y = \\frac{x^4}{4} + C \\), so \\",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear homogeneous ODE with constant coefficients  \nTOOLS: ODE classification and solving (characteristic equation method)  \nANSWER:  \nThe characteristic equation is \\( r^2 - 4r + 4 = 0 \\), which factors as \\( (r - 2)^2 = 0 \\), giving a repeated root \\( r = 2 \\) (multiplicity 2).  \nThe general solution is \\( y(t) = (C_1 + C_2 t)e^{2t} \\).  \nSince the root is real and repeated, the system is critically damped (no oscillation, fastest return to equilibrium without over",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (basic trigonometric limit)  \nTOOLS: Limit evaluation (direct substitution, L'Hopital's rule, or known standard limit)  \nANSWER: 1  \n\nVERIFICATION: Yes, by L'Hopital's rule:  \nStep 1: Direct substitution gives 0/0 (indeterminate).  \nStep 2: Apply L'Hopital's rule: derivative of sin(x) is cos(x), derivative of x is 1.  \nStep 3: Evaluate lim_{x->0} cos(x)/1 = cos(0) = 1.  \nAlternatively, known standard limit result.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-001",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (exponential form leading to definition of e)  \nTOOLS: Limit evaluation (direct substitution, known limit identity)  \nANSWER: \\( e \\)  \nVERIFICATION: Yes, by known mathematical constant definition: \\(\\lim_{n \\to \\infty} \\left(1 + \\frac{1}{n}\\right)^n = e\\).",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-002",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (0/0 indeterminate form)  \nTOOLS: Limit evaluation (direct simplification or L'Hopital's rule)  \nANSWER: 12  \nVERIFICATION: Yes, by direct simplification:  \n\\[\n\\frac{x^3 - 8}{x - 2} = \\frac{(x-2)(x^2 + 2x + 4)}{x-2} = x^2 + 2x + 4 \\quad \\text{for } x \\neq 2.\n\\]  \nThen \\(\\lim_{x \\to 2} (x^2 + 2x + 4) = 4 + 4 + 4 = 12\\).  \nAlternatively, L'Hopital's rule gives \\(\\lim_{x \\to 2} \\frac{3x^2}{1} = 3 \\cdot 4 = 12\\).",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-003",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (rational function at infinity)  \nTOOLS: Limit evaluation (direct substitution after identifying dominant terms)  \nANSWER: 2  \nVERIFICATION: Yes, by dividing numerator and denominator by \\(x^2\\):  \n\\[\n\\lim_{x \\to \\infty} \\frac{2x^2 + 3x}{x^2 + 1} = \\lim_{x \\to \\infty} \\frac{2 + \\frac{3}{x}}{1 + \\frac{1}{x}} = \\frac{2 + 0}{1 + 0} = 2.\n\\]  \nDominant terms: \\(2x^2\\) in numerator, \\(x^2\\) in denominator.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-004",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (0/0 indeterminate form)  \nTOOLS: Limit evaluation (L'Hopital's rule or series expansion)  \nANSWER: \\( \\frac{1}{2} \\)  \n\nVERIFICATION: Yes, using both L'Hopital's rule and series expansion for consistency.  \n\n**Step-by-step reasoning:**  \n\n1. **Direct substitution** gives \\( \\frac{1 - \\cos 0}{0^2} = \\frac{0}{0} \\), so it's indeterminate.  \n\n2. **Using L'Hopital's rule** (since it's \\( \\frac{0}{0} \\)):  \n   \\[\n   \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} \n   = \\lim_{x",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "limit-005",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (0/0 indeterminate form)  \nTOOLS: L'Hopital's rule, numerical verification  \nANSWER: 1/2  \n\nVERIFICATION: Yes, by applying L'Hopital's rule twice:  \nFirst application: derivative of numerator = e^x - 1, derivative of denominator = 2x → still 0/0.  \nSecond application: derivative of numerator = e^x, derivative of denominator = 2 → limit = e^0/2 = 1/2.  \nNumerical check: at x = 0.001, (e^0.001 - 1 - 0.001)/(0.001)^2 ≈ 0.5005, confirming.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-006",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (direct substitution leads to 0/0 indeterminate form, so L'Hôpital's rule applicable)  \nTOOLS: Limit evaluation (L'Hôpital's rule)  \nANSWER: 1  \nVERIFICATION: Yes, using series expansion: tan(x) = x + x³/3 + ... so tan(x)/x = 1 + x²/3 + ... → 1 as x→0.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-007",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (exponential indeterminate form)  \nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)  \nANSWER: \\( e^2 \\)  \nVERIFICATION: Yes, by rewriting as \\( \\lim_{x \\to \\infty} \\left(1 + \\frac{2}{x}\\right)^x = \\lim_{t \\to 0} \\left(1 + 2t\\right)^{1/t} = e^2 \\) using the known limit \\( \\lim_{n \\to \\infty} \\left(1 + \\frac{a}{n}\\right)^n = e^a \\).",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.4,
+          "problem_id": "limit-008",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (0/0 indeterminate form)  \nTOOLS: L'Hopital's rule (applied repeatedly)  \nANSWER: -1/6  \n\nVERIFICATION: Yes, using series expansion: sin(x) = x - x³/3! + x⁵/5! - ... ⇒ (sin(x)-x)/x³ = (-x³/6 + x⁵/120 - ...)/x³ = -1/6 + x²/120 - ... → -1/6 as x→0.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-009",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (indeterminate form 0 * (-∞))  \nTOOLS: Limit evaluation (L'Hopital's rule after rewriting)  \nANSWER: 0  \nVERIFICATION: Yes, by rewriting as ln(x)/(1/x) → apply L'Hopital → (1/x)/(-1/x²) = -x → limit 0. Numerical check: x=0.001 gives 0.001*ln(0.001) ≈ -0.0069 → approaches 0.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-010",
+          "category": "analysis",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "qwen3-235b": {
+      "summary": {
+        "model": "qwen3-235b",
+        "overall_avg": 0.4975,
+        "total_problems": 20,
+        "pass_rate": 50.0,
+        "by_category": {
+          "ode": 0.415,
+          "analysis": 0.58
+        },
+        "by_difficulty": {
+          "easy": 0.5125,
+          "medium": 0.4975,
+          "hard": 0.475
+        }
+      },
+      "details": [
+        {
+          "model_answer": "CLASSIFICATION: First-order ordinary differential equation (ODE)  \nTOOLS: ODE classification and solving (separable, linear)  \nANSWER: The general solution is $ y(x) = Ce^x $, where $ C $ is an arbitrary constant.  \nVERIFICATION: Yes, by substitution into the original ODE:  \nGiven $ y = Ce^x $, then $ y' = Ce^x = y $, which satisfies $ y' = y $.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-001",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ordinary differential equation (ODE)  \nTOOLS: ODE classification and solving (linear, integrating factor method), Integration (with verification)  \nANSWER: y(x) = (x + C) \\exp(-x^2)  \nVERIFICATION: yes, by substituting solution back into original ODE and confirming both sides match",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-002",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Ordinary Differential Equation (ODE) - Linear, homogeneous, second-order with constant coefficients  \nTOOLS: ODE classification and solving (2nd order)  \nANSWER:  \n- Characteristic equation: $ r^2 + 2r + 3r + 2 = 0 $ → $ r^2 + 3r + 2 = 0 $  \n- Roots: $ r = \\frac{-3 \\pm \\sqrt{9 - 8}}{2} = \\frac{-3 \\pm 1}{2} $ → $ r = -1, r = -2 $  \n- General solution: $ y(x) = C_1 e^{-x} + C_2 e^{-2x} $  \nVERIFICATION: Yes, by substituting $ y $, $ y' $, and $ y'' $ into the original ODE:  \nLet $ ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-003",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear ordinary differential equation (ODE) with constant coefficients and initial conditions (initial value problem).\n\nTOOLS: ODE classification and solving (2nd order)\n\nANSWER: The general solution of the ODE $ y'' + y = 0 $ is  \n$$\ny(x) = C_1 \\cos x + C_2 \\sin x\n$$\nApplying initial conditions:  \n- $ y(0) = 1 $ ⇒ $ C_1 \\cos(0) + C_2 \\sin(0) = C_1 = 1 $  \n- $ y'(x) = -C_1 \\sin x + C_2 \\cos x $ ⇒ $ y'(0) = -C_1 \\cdot 0 + C_2 \\cdot 1 = C_2 = 0 $\n\nThus, the particular ",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-004",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Ordinary Differential Equation (ODE) - Second-order linear homogeneous with constant coefficients; damping analysis of a mechanical/electrical system  \nTOOLS: ODE classification and solving (2nd order), Optimization (Hessian classification not applicable here, but standard characteristic equation analysis for damping)  \nANSWER: The general solution is $ y(t) = e^{-t} \\left( C_1 \\cos(2t) + C_2 \\sin(2t) \\right) $, and the system is **underdamped**.  \nVERIFICATION: yes, via substitu",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-005",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: System of first-order ordinary differential equations (ODEs)\nTOOLS: ODE classification and solving (systems)\nANSWER: The general solution is $ x(t) = C_1 \\cos t + C_2 \\sin t $, $ y(t) = -C_1 \\sin t + C_2 \\cos t $\nVERIFICATION: Yes, by substituting into the original system and confirming consistency",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-006",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Ordinary Differential Equation (ODE), first-order, separable  \nTOOLS: ODE classification and solving (separable)  \nANSWER: $ y(x) = C e^{\\frac{1}{2}x^2} $  \nVERIFICATION: yes, by differentiation: substitute $ y = C e^{\\frac{1}{2}x^2} $ into the original equation $ y' = x y $ and confirm both sides match.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-007",
+          "category": "ode",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Ordinary Differential Equation (ODE), Second Order, Linear, Homogeneous, Euler-Cauchy Equation  \nTOOLS: ODE classification and solving (2nd order, Euler equation)  \nANSWER: y(x) = C₁x + C₂/x  \nVERIFICATION: yes, by substituting y = x and y = 1/x into the ODE and confirming they satisfy it",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-008",
+          "category": "ode",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: First-order linear ordinary differential equation (ODE)  \nTOOLS: ODE classification and solving (linear first-order, integrating factor method)  \nANSWER: $ y(x) = \\frac{x^3}{4} + \\frac{C}{x} $  \nVERIFICATION: Yes, by substituting into the original ODE and confirming equality holds.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "ode-009",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Second-order linear ordinary differential equation (ODE) with constant coefficients; homogeneous  \nTOOLS: ODE classification and solving (2nd order)  \nANSWER: The general solution is $ y(x) = (C_1 + C_2 x)e^{2x} $. The system is critically damped.  \nVERIFICATION: yes, by substituting the solution into the original ODE and confirming it satisfies $ y'' - 4y' + 4y = 0 $.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "ode-010",
+          "category": "ode",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)  \nANSWER: 1  \nVERIFICATION: Yes, via direct substitution and known standard limit",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-001",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)  \nANSWER: e  \nVERIFICATION: Yes, via known limit definition and numerical verification",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-002",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation (indeterminate form 0/0)  \nTOOLS: Limit evaluation (L'Hopital's Rule or factoring)  \nANSWER: 12  \nVERIFICATION: Yes, via factoring or L'Hopital's Rule  \n\n**Verification**:  \nFactor numerator:  \n$x^3 - 8 = (x - 2)(x^2 + 2x + 4)$  \nSo:  \n$$\n\\lim_{x \\to 2} \\frac{(x - 2)(x^2 + 2x + 4)}{x - 2} = \\lim_{x \\to 2} (x^2 + 2x + 4) = 4 + 4 + 4 = 12\n$$",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-003",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit at infinity of a rational function  \nTOOLS: Limit evaluation (direct, dominant terms analysis)  \nANSWER: 2  \nVERIFICATION: Yes, by dividing numerator and denominator by $ x^2 $ and evaluating the simplified limit as $ x \\to \\infty $.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-004",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (L'Hopital's rule or series expansion)  \nANSWER: 1/2  \nVERIFICATION: Yes, using series expansion:  \nUsing the Taylor series expansion of cos(x) around 0:  \ncos(x) = 1 - x²/2! + x⁴/4! - ...  \nSo, 1 - cos(x) = x²/2 - x⁴/24 + ...  \nThen, (1 - cos(x))/x² = (x²/2 - x⁴/24 + ...)/x² = 1/2 - x²/24 + ...  \nAs x → 0, higher-order terms vanish, so limit is 1/2.  \nVERIFICATION: Yes, via series expansion.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.325,
+          "problem_id": "limit-005",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (L'Hopital's Rule)  \nANSWER: 1/2  \nVERIFICATION: Yes, via L'Hopital's Rule (applied twice) and numerical verification near x = 0",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.4,
+          "problem_id": "limit-006",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)  \nANSWER: 1  \nVERIFICATION: Yes, via direct substitution and numerical verification (lim_{x->0} tan(x)/x = lim_{x->0} (sin(x)/x) * (1/cos(x)) = 1 * 1 = 1)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-007",
+          "category": "analysis",
+          "difficulty": "easy"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)  \nANSWER: e²  \nVERIFICATION: Yes, using the standard limit form lim_{x->∞} (1 + a/x)^x = e^a with a = 2.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 0.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.4,
+          "problem_id": "limit-008",
+          "category": "analysis",
+          "difficulty": "medium"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (L'Hopital's Rule)  \nANSWER: -1/6  \nVERIFICATION: Yes, via L'Hopital's Rule applied three times or Taylor series expansion of sin(x)",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 0.5
+          },
+          "overall": 0.625,
+          "problem_id": "limit-009",
+          "category": "analysis",
+          "difficulty": "hard"
+        },
+        {
+          "model_answer": "CLASSIFICATION: Limit evaluation  \nTOOLS: Limit evaluation (direct, L'Hopital, numerical verification)  \nANSWER: 0  \nVERIFICATION: Yes, using substitution and L'Hopital's rule after rewriting into indeterminate form.",
+          "scores": {
+            "classification": 1.0,
+            "tool_selection": 0.0,
+            "correctness": 1.0,
+            "verification_awareness": 1.0
+          },
+          "overall": 0.7,
+          "problem_id": "limit-010",
+          "category": "analysis",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "qwen3-8b": {
+      "model": "qwen3-8b",
+      "overall_avg": 0.4625,
+      "total_problems": 20,
+      "pass_rate": 45.0,
+      "by_category": {
+        "ode": 0.3525,
+        "analysis": 0.5725
+      },
+      "by_difficulty": {
+        "easy": 0.5125,
+        "medium": 0.4275,
+        "hard": 0.475
+      }
+    },
+    "qwen3-32b": {
+      "model": "qwen3-32b",
+      "overall_avg": 0.5237,
+      "total_problems": 20,
+      "pass_rate": 55.0,
+      "by_category": {
+        "ode": 0.445,
+        "analysis": 0.6025
+      },
+      "by_difficulty": {
+        "easy": 0.5,
+        "medium": 0.5125,
+        "hard": 0.5875
+      }
+    },
+    "DeepSeek-V3.2": {
+      "model": "DeepSeek-V3.2",
+      "overall_avg": 0.5162,
+      "total_problems": 20,
+      "pass_rate": 60.0,
+      "by_category": {
+        "ode": 0.445,
+        "analysis": 0.5875
+      },
+      "by_difficulty": {
+        "easy": 0.475,
+        "medium": 0.5275,
+        "hard": 0.55
+      }
+    },
+    "qwen3-235b": {
+      "model": "qwen3-235b",
+      "overall_avg": 0.4975,
+      "total_problems": 20,
+      "pass_rate": 50.0,
+      "by_category": {
+        "ode": 0.415,
+        "analysis": 0.58
+      },
+      "by_difficulty": {
+        "easy": 0.5125,
+        "medium": 0.4975,
+        "hard": 0.475
+      }
+    }
+  }
+}

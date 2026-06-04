@@ -1,0 +1,110 @@
+{
+  "dataset": "Algebra Problems — Gradient Difficulty",
+  "source": "Representative algebra problems across difficulty levels",
+  "levels": {
+    "easy": {"topics": "linear equations, basic factoring", "grade": "7-8"},
+    "medium": {"topics": "quadratic equations, systems, inequalities", "grade": "9-10"},
+    "hard": {"topics": "polynomial equations, radicals, complex systems", "grade": "11-12"}
+  },
+  "problems": [
+    {
+      "id": "alg_e1",
+      "level": "easy",
+      "domain": "linear",
+      "statement": "Solve: 5x - 3 = 2x + 9",
+      "answer": "x = 4",
+      "solution_steps": ["5x-2x = 9+3", "3x = 12", "x = 4"],
+      "required_tools": ["symbolic_solve"]
+    },
+    {
+      "id": "alg_e2",
+      "level": "easy",
+      "domain": "linear",
+      "statement": "Solve: 2(x-4) + 3 = x + 5",
+      "answer": "x = 10",
+      "solution_steps": ["2x-8+3 = x+5", "2x-5 = x+5", "x = 10"],
+      "required_tools": ["symbolic_solve"]
+    },
+    {
+      "id": "alg_e3",
+      "level": "easy",
+      "domain": "linear",
+      "statement": "Find the slope of the line passing through (2, 5) and (6, 13)",
+      "answer": "2",
+      "solution_steps": ["slope = (13-5)/(6-2)", "= 8/4 = 2"],
+      "required_tools": ["numerical_compute"]
+    },
+    {
+      "id": "alg_e4",
+      "level": "easy",
+      "domain": "factoring",
+      "statement": "Factor: x^2 + 5x + 6",
+      "answer": "(x + 2)(x + 3)",
+      "solution_steps": ["Find factors of 6 that sum to 5: 2 and 3", "(x+2)(x+3)"],
+      "required_tools": ["symbolic_factor"]
+    },
+    {
+      "id": "alg_m1",
+      "level": "medium",
+      "domain": "quadratic",
+      "statement": "Solve by completing the square: x^2 + 6x + 2 = 0",
+      "answer": "x = -3 + sqrt(7), x = -3 - sqrt(7)",
+      "solution_steps": ["x^2+6x = -2", "x^2+6x+9 = 7", "(x+3)^2 = 7", "x+3 = +-sqrt(7)", "x = -3+-sqrt(7)"],
+      "required_tools": ["symbolic_solve", "verify_roots"]
+    },
+    {
+      "id": "alg_m2",
+      "level": "medium",
+      "domain": "system",
+      "statement": "Solve: 3x + 2y = 12, 2x - y = 1",
+      "answer": "x = 2, y = 3",
+      "solution_steps": ["From 2nd: y = 2x-1", "Substitute: 3x+2(2x-1)=12", "7x=14, x=2", "y=2(2)-1=3"],
+      "required_tools": ["symbolic_solve", "verify_system"]
+    },
+    {
+      "id": "alg_m3",
+      "level": "medium",
+      "domain": "quadratic",
+      "statement": "The quadratic equation kx^2 - 4x + 1 = 0 has exactly one real solution. Find k.",
+      "answer": "k = 4",
+      "solution_steps": ["Discriminant = 0 for one solution", "(-4)^2 - 4(k)(1) = 0", "16 - 4k = 0", "k = 4"],
+      "required_tools": ["symbolic_solve", "verify_discriminant"]
+    },
+    {
+      "id": "alg_m4",
+      "level": "medium",
+      "domain": "inequality",
+      "statement": "Solve: |3x - 2| <= 7",
+      "answer": "-5/3 <= x <= 3",
+      "solution_steps": ["-7 <= 3x-2 <= 7", "-5 <= 3x <= 9", "-5/3 <= x <= 3"],
+      "required_tools": ["symbolic_solve"]
+    },
+    {
+      "id": "alg_h1",
+      "level": "hard",
+      "domain": "polynomial",
+      "statement": "Find all real roots: x^3 - 3x^2 - 4x + 12 = 0",
+      "answer": "x = -2, x = 2, x = 3",
+      "solution_steps": ["Try x=2: 8-12-8+12=0, yes", "Factor: (x-2)(x^2-x-6)=0", "(x-2)(x-3)(x+2)=0", "x = -2, 2, 3"],
+      "required_tools": ["symbolic_factor", "verify_roots", "monte_carlo_check"]
+    },
+    {
+      "id": "alg_h2",
+      "level": "hard",
+      "domain": "system",
+      "statement": "Solve: x^2 + y^2 = 25, x + y = 7",
+      "answer": "x = 3, y = 4 OR x = 4, y = 3",
+      "solution_steps": ["y = 7-x", "x^2 + (7-x)^2 = 25", "2x^2-14x+24=0", "x^2-7x+12=0", "(x-3)(x-4)=0", "x=3->y=4, x=4->y=3"],
+      "required_tools": ["symbolic_solve", "verify_system", "monte_carlo_check"]
+    },
+    {
+      "id": "alg_h3",
+      "level": "hard",
+      "domain": "radical",
+      "statement": "Solve: sqrt(x+5) + sqrt(x) = 5",
+      "answer": "x = 4",
+      "solution_steps": ["sqrt(x+5) = 5 - sqrt(x)", "Square: x+5 = 25 - 10*sqrt(x) + x", "5 = 25 - 10*sqrt(x)", "10*sqrt(x) = 20", "sqrt(x) = 2", "x = 4"],
+      "required_tools": ["symbolic_solve", "verify_roots", "numerical_check"]
+    }
+  ]
+}

@@ -29,23 +29,23 @@ from core.agent_loop import ToolExecutor
 # ── Config ──
 API_BASE = os.environ.get("MATH_BENCH_BASE_URL", "https://maas.bit.edu.cn/v1-openai")
 API_KEY = os.environ.get("MATH_BENCH_API_KEY", "")
+API_USER = os.environ.get("MATH_BENCH_USER", "3120251973")
+API_PASS = os.environ.get("MATH_BENCH_PASS", "A@mkwcdf8")
 BENCH_DIR = os.path.dirname(os.path.abspath(__file__))
+import base64
+_BASIC_AUTH = base64.b64encode(f"{API_USER}:{API_PASS}".encode()).decode()
 PROBLEMS_FILE = os.path.join(BENCH_DIR, "problems.json")
 REPORT_DIR = os.path.join(BENCH_DIR, "reports")
 os.makedirs(REPORT_DIR, exist_ok=True)
 
 
 def fetch_models() -> List[str]:
-    """Auto-discover available models from the API."""
-    if not API_KEY:
-        print("[WARN] No API key set. Set MATH_BENCH_API_KEY env var.")
-        print("       Export: MATH_BENCH_API_KEY='your-key'")
-        return []
+    """Auto-discover available models from the API (uses Basic Auth)."""
 
     try:
         req = urllib.request.Request(
             f"{API_BASE}/models",
-            headers={"Authorization": f"Bearer {API_KEY}"}
+            headers={"Authorization": f"Basic {_BASIC_AUTH}"}
         )
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
@@ -80,7 +80,7 @@ def call_llm(model: str, system_prompt: str, user_message: str,
         data=body,
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {API_KEY}",
+            "Authorization": f"Basic {_BASIC_AUTH}",
         },
         method="POST",
     )
