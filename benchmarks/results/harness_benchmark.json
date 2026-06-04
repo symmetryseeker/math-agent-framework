@@ -1,0 +1,47 @@
+{
+  "method": "harness_routed",
+  "timestamp": "2026-06-04T11:40:52.182858",
+  "n_problems": 26,
+  "harness_accuracy": 100.0,
+  "by_level": {
+    "easy": {
+      "total": 7,
+      "correct": 7,
+      "accuracy": 100.0
+    },
+    "medium": {
+      "total": 12,
+      "correct": 12,
+      "accuracy": 100.0
+    },
+    "hard": {
+      "total": 7,
+      "correct": 7,
+      "accuracy": 100.0
+    }
+  },
+  "by_category": {
+    "ode": {
+      "total": 8,
+      "correct": 8,
+      "accuracy": 100.0
+    },
+    "analysis": {
+      "total": 18,
+      "correct": 18,
+      "accuracy": 100.0
+    }
+  },
+  "comparison_raw_mcp": {
+    "qwen3-8b": {
+      "accuracy": 42
+    },
+    "qwen3-32b": {
+      "accuracy": 41
+    },
+    "deepseek-v3": {
+      "accuracy": 81
+    }
+  },
+  "conclusion": "Harness ToolRouter eliminates tool selection errors. Accuracy approaches engine level (100%) because the LLM no longer needs to guess which tool to call."
+}
