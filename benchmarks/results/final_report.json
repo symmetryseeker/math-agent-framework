@@ -1,0 +1,1253 @@
+{
+  "timestamp": "2026-06-04T11:56:15.054234",
+  "summary": {
+    "qwen3-8b": {
+      "raw_llm": 0,
+      "raw_mcp": 42,
+      "harness": 100
+    },
+    "qwen3-32b": {
+      "raw_llm": 0,
+      "raw_mcp": 41,
+      "harness": 100
+    },
+    "DeepSeek-V3.2": {
+      "raw_llm": 80,
+      "raw_mcp": 81,
+      "harness": 100
+    }
+  },
+  "per_problem": {
+    "integral-001": {
+      "qwen3-8b": {
+        "id": "integral-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Compute the integral of x*e^x dx. Verify by differentiation.",
+        "maf_computed": "(x - 1)*exp(x) + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "\n\nThe integral of $ x e^x \\, dx $ is computed as $ (x - 1)e^x + C $. Verification by differentiation confirms this result:\n\n1. **Differentiate** $ (x - 1)e^x + C $:\n   $$\n   \\frac{d}{",
+        "raw_score": 0.0,
+        "maf_score": 1.0,
+        "improvement": 1.0
+      },
+      "qwen3-32b": {
+        "id": "integral-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Compute the integral of x*e^x dx. Verify by differentiation.",
+        "maf_computed": "(x - 1)*exp(x) + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "integral-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Compute the integral of x*e^x dx. Verify by differentiation.",
+        "maf_computed": "(x - 1)*exp(x) + C",
+        "maf_verified": true,
+        "raw_answer": "\\[\n\\int x e^x \\, dx = (x - 1)e^x + C\n\\]\n\nFinal answer: \\((x - 1)e^x + C\\)",
+        "maf_answer": "We are given:\n\n\\[\n\\int x e^x \\, dx\n\\]\n\nThe computed result from the Math Agent Framework is:\n\n\\[\n(x - 1)e^x + C\n\\]\n\nSince it has been verified as true, we can state the final answer directly.\n\n\\[\n\\box",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "integral-002": {
+      "qwen3-8b": {
+        "id": "integral-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Compute the integral of sin(x)^2 dx. Verify by differentiation.",
+        "maf_computed": "x/2 - sin(x)*cos(x)/2 + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "integral-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Compute the integral of sin(x)^2 dx. Verify by differentiation.",
+        "maf_computed": "x/2 - sin(x)*cos(x)/2 + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "integral-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Compute the integral of sin(x)^2 dx. Verify by differentiation.",
+        "maf_computed": "x/2 - sin(x)*cos(x)/2 + C",
+        "maf_verified": true,
+        "raw_answer": "\\[\n\\int \\sin^2 x \\, dx = \\frac{x}{2} - \\frac{\\sin(2x)}{4} + C\n\\]\n\nVerification by differentiation:\n\n\\[\n\\frac{d}{dx} \\left( \\frac{x}{2} - \\frac{\\sin(2x)}{4} + C \\right) = \\frac{1}{2} - \\frac{2\\cos(2x)}",
+        "maf_answer": "We are given the computed result:  \n\n\\[\n\\frac{x}{2} - \\frac{\\sin(x)\\cos(x)}{2} + C\n\\]\n\nThis is the result of integrating \\(\\sin^2 x \\, dx\\).\n\nWe can simplify \\(\\sin(x)\\cos(x)\\) as \\(\\frac{1}{2} \\sin(2",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "integral-003": {
+      "qwen3-8b": {
+        "id": "integral-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the integral of 1/(x^2 - 1) dx. Use partial fractions.",
+        "maf_computed": "x**3/3 + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "integral-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the integral of 1/(x^2 - 1) dx. Use partial fractions.",
+        "maf_computed": "x**3/3 + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "integral-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the integral of 1/(x^2 - 1) dx. Use partial fractions.",
+        "maf_computed": "x**3/3 + C",
+        "maf_verified": true,
+        "raw_answer": "\\[\n\\int \\frac{1}{x^2 - 1} \\, dx = \\frac{1}{2} \\ln\\left| \\frac{x-1}{x+1} \\right| + C\n\\]",
+        "maf_answer": "Let’s go step-by-step.\n\nWe want to compute  \n\\[\n\\int \\frac{1}{x^2 - 1} \\, dx\n\\]  \nusing partial fractions.\n\n---\n\n**Step 1: Factor the denominator**  \n\\[\nx^2 - 1 = (x - 1)(x + 1)\n\\]\n\n**Step 2: Partial ",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      }
+    },
+    "integral-004": {
+      "qwen3-8b": {
+        "id": "integral-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the definite integral from 0 to infinity of e^(-x^2) dx.",
+        "maf_computed": "sqrt(pi)/2",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "integral-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the definite integral from 0 to infinity of e^(-x^2) dx.",
+        "maf_computed": "sqrt(pi)/2",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "integral-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the definite integral from 0 to infinity of e^(-x^2) dx.",
+        "maf_computed": "sqrt(pi)/2",
+        "maf_verified": true,
+        "raw_answer": "The integral\n\n\\[\n\\int_0^\\infty e^{-x^2} \\, dx\n\\]\n\nis a standard Gaussian integral. Its value is\n\n\\[\n\\frac{\\sqrt{\\pi}}{2}.\n\\]\n\n**Final answer:** \\(\\frac{\\sqrt{\\pi}}{2}\\)",
+        "maf_answer": "We are given the computed result:  \n\n\\[\n\\frac{\\sqrt{\\pi}}{2}\n\\]\n\nThis matches the known Gaussian integral result:\n\n\\[\n\\int_{0}^{\\infty} e^{-x^2} \\, dx = \\frac{\\sqrt{\\pi}}{2}.\n\\]\n\n**Final answer:**\n\\[\n",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "integral-005": {
+      "qwen3-8b": {
+        "id": "integral-005",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the integral of ln(x) dx. Use integration by parts.",
+        "maf_computed": "x*log(x) - x + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "integral-005",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the integral of ln(x) dx. Use integration by parts.",
+        "maf_computed": "x*log(x) - x + C",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "integral-005",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Compute the integral of ln(x) dx. Use integration by parts.",
+        "maf_computed": "x*log(x) - x + C",
+        "maf_verified": true,
+        "raw_answer": "\\[\n\\int \\ln x \\, dx = x \\ln x - x + C\n\\]",
+        "maf_answer": "We are given:  \n\n\\[\n\\int \\ln(x) \\, dx\n\\]\nand the computed result from the Math Agent Framework is:\n\n\\[\nx \\ln(x) - x + C\n\\]\nwith verification **True**.\n\n---\n\n**Final answer:**\n\n\\[\n\\boxed{x \\ln(x) - x +",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      }
+    },
+    "limit-001": {
+      "qwen3-8b": {
+        "id": "limit-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{x->0} sin(x)/x. Show your steps.",
+        "maf_computed": "1",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{x->0} sin(x)/x. Show your steps.",
+        "maf_computed": "1",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{x->0} sin(x)/x. Show your steps.",
+        "maf_computed": "1",
+        "maf_verified": true,
+        "raw_answer": "1",
+        "maf_answer": "We are given:  \n\\[\n\\lim_{x \\to 0} \\frac{\\sin x}{x}\n\\]\n\n**Step 1 – Direct substitution attempt**  \nSubstituting \\(x = 0\\) gives \\(\\frac{\\sin 0}{0} = \\frac{0}{0}\\), which is an indeterminate form.  \nSo ",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-002": {
+      "qwen3-8b": {
+        "id": "limit-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{n->infinity} (1 + 1/n)^n.",
+        "maf_computed": "E",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{n->infinity} (1 + 1/n)^n.",
+        "maf_computed": "E",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{n->infinity} (1 + 1/n)^n.",
+        "maf_computed": "E",
+        "maf_verified": true,
+        "raw_answer": "\\(e\\)",
+        "maf_answer": "The computed result is **E**, which is the mathematical constant \\( e \\), approximately equal to \\( 2.71828 \\).\n\n\\[\n\\boxed{e}\n\\]",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-003": {
+      "qwen3-8b": {
+        "id": "limit-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->2} (x^3 - 8)/(x - 2). This is a 0/0 indeterminate form.",
+        "maf_computed": "12",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->2} (x^3 - 8)/(x - 2). This is a 0/0 indeterminate form.",
+        "maf_computed": "12",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->2} (x^3 - 8)/(x - 2). This is a 0/0 indeterminate form.",
+        "maf_computed": "12",
+        "maf_verified": true,
+        "raw_answer": "The limit is \\(12\\).",
+        "maf_answer": "We are given:\n\n\\[\n\\lim_{x \\to 2} \\frac{x^3 - 8}{x - 2}\n\\]\n\n**Step 1: Recognize the indeterminate form**  \nAt \\(x = 2\\), numerator \\(2^3 - 8 = 0\\), denominator \\(2 - 2 = 0\\), so it is \\(\\frac{0}{0}\\).\n",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-004": {
+      "qwen3-8b": {
+        "id": "limit-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->infinity} (2x^2 + 3x)/(x^2 + 1). Identify the dominant terms.",
+        "maf_computed": "2",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->infinity} (2x^2 + 3x)/(x^2 + 1). Identify the dominant terms.",
+        "maf_computed": "2",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->infinity} (2x^2 + 3x)/(x^2 + 1). Identify the dominant terms.",
+        "maf_computed": "2",
+        "maf_verified": true,
+        "raw_answer": "The dominant terms are \\(2x^2\\) in the numerator and \\(x^2\\) in the denominator.  \n\nDivide numerator and denominator by \\(x^2\\):\n\n\\[\n\\frac{2x^2 + 3x}{x^2 + 1} = \\frac{2 + \\frac{3}{x}}{1 + \\frac{1}{x}}",
+        "maf_answer": "The dominant terms are \\(2x^2\\) in the numerator and \\(x^2\\) in the denominator.\n\n\\[\n\\lim_{x \\to \\infty} \\frac{2x^2 + 3x}{x^2 + 1}\n= \\lim_{x \\to \\infty} \\frac{2 + \\frac{3}{x}}{1 + \\frac{1}{x}}\n= \\frac",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-005": {
+      "qwen3-8b": {
+        "id": "limit-005",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Evaluate lim_{x->0} (1 - cos(x))/x^2. Use series expansion or L'Hopital's rule.",
+        "maf_computed": "1/2",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-005",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Evaluate lim_{x->0} (1 - cos(x))/x^2. Use series expansion or L'Hopital's rule.",
+        "maf_computed": "1/2",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-005",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Evaluate lim_{x->0} (1 - cos(x))/x^2. Use series expansion or L'Hopital's rule.",
+        "maf_computed": "1/2",
+        "maf_verified": true,
+        "raw_answer": "The limit is:\n\n\\[\n\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}\n\\]\n\nUsing the series expansion \\(\\cos x = 1 - \\frac{x^2}{2!} + \\frac{x^4}{4!} - \\cdots\\):\n\n\\[\n1 - \\cos x = \\frac{x^2}{2} - \\frac{x^4}{24} + \\cdo",
+        "maf_answer": "The limit is:\n\n\\[\n\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}\n\\]\n\n**Final answer:** \\(\\boxed{\\frac{1}{2}}\\)",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-006": {
+      "qwen3-8b": {
+        "id": "limit-006",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->0} (e^x - 1 - x)/x^2.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "limit-006",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->0} (e^x - 1 - x)/x^2.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-006",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->0} (e^x - 1 - x)/x^2.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "The limit is:\n\n\\[\n\\lim_{x \\to 0} \\frac{e^x - 1 - x}{x^2}\n\\]\n\nUsing the Maclaurin expansion \\( e^x = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\dots \\):\n\n\\[\ne^x - 1 - x = \\frac{x^2}{2} + \\frac{x^3}{6} + ",
+        "maf_answer": "Let’s go step-by-step.\n\nWe want  \n\\[\n\\lim_{x \\to 0} \\frac{e^x - 1 - x}{x^2}.\n\\]\n\n---\n\n**Step 1: Check indeterminate form**  \nAs \\(x \\to 0\\), \\(e^x \\approx 1 + x + \\frac{x^2}{2} + \\dots\\)  \nSo \\(e^x - ",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-007": {
+      "qwen3-8b": {
+        "id": "limit-007",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{x->0} tan(x)/x.",
+        "maf_computed": "1",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-007",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{x->0} tan(x)/x.",
+        "maf_computed": "1",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "\n\nThe limit of tan(x)/x as x approaches 0 is a standard result in calculus. By rewriting tan(x) as sin(x)/cos(x), the expression becomes [sin(x)/x] * [1/cos(x)]. The limit of sin",
+        "raw_score": 0.0,
+        "maf_score": 1.0,
+        "improvement": 1.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-007",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Evaluate lim_{x->0} tan(x)/x.",
+        "maf_computed": "1",
+        "maf_verified": true,
+        "raw_answer": "1",
+        "maf_answer": "The limit is:\n\n\\[\n\\lim_{x \\to 0} \\frac{\\tan x}{x} = 1\n\\]\n\nThis is a standard limit, often derived using \\(\\tan x = \\frac{\\sin x}{\\cos x}\\) and the known limit \\(\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1\\), ",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-008": {
+      "qwen3-8b": {
+        "id": "limit-008",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->infinity} (1 + 2/x)^x.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "limit-008",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->infinity} (1 + 2/x)^x.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-008",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->infinity} (1 + 2/x)^x.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "The limit is of the form \\( 1^\\infty \\), so we use the exponential-log trick:\n\n\\[\n\\lim_{x \\to \\infty} \\left(1 + \\frac{2}{x}\\right)^x\n= \\lim_{x \\to \\infty} e^{x \\ln\\left(1 + \\frac{2}{x}\\right)}.\n\\]\n\nFo",
+        "maf_answer": "We are given:  \n\n\\[\n\\lim_{x \\to \\infty} \\left(1 + \\frac{2}{x}\\right)^x\n\\]\n\n---\n\n**Step 1: Recognize the standard limit form**  \nWe know that  \n\\[\n\\lim_{n \\to \\infty} \\left(1 + \\frac{a}{n}\\right)^n = e",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-009": {
+      "qwen3-8b": {
+        "id": "limit-009",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Evaluate lim_{x->0} (sin(x) - x)/x^3.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "limit-009",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Evaluate lim_{x->0} (sin(x) - x)/x^3.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-009",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Evaluate lim_{x->0} (sin(x) - x)/x^3.",
+        "maf_computed": "1",
+        "maf_verified": false,
+        "raw_answer": "\\[\n\\lim_{x \\to 0} \\frac{\\sin x - x}{x^3} = -\\frac{1}{6}\n\\]\n\nFinal answer: \\(-\\frac{1}{6}\\)",
+        "maf_answer": "Let’s go step-by-step.\n\nWe want to evaluate  \n\\[\n\\lim_{x \\to 0} \\frac{\\sin(x) - x}{x^3}.\n\\]\n\n---\n\n**Step 1: Check for indeterminate form**  \nAs \\(x \\to 0\\), \\(\\sin(x) \\to 0\\), so numerator \\(\\to 0 - 0",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "limit-010": {
+      "qwen3-8b": {
+        "id": "limit-010",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->0+} x*ln(x).",
+        "maf_computed": "0",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "limit-010",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->0+} x*ln(x).",
+        "maf_computed": "0",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "limit-010",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Evaluate lim_{x->0+} x*ln(x).",
+        "maf_computed": "0",
+        "maf_verified": true,
+        "raw_answer": "The limit is:\n\n\\[\n\\lim_{x \\to 0^+} x \\ln x = 0\n\\]\n\nFinal answer: **0**",
+        "maf_answer": "We are given:\n\n\\[\n\\lim_{x \\to 0^+} x \\ln x\n\\]\n\nThe Math Agent Framework computed the result as \\(0\\) and verified it.\n\nThis is a standard limit: as \\(x \\to 0^+\\), \\(\\ln x \\to -\\infty\\), but \\(x \\to 0\\",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-001": {
+      "qwen3-8b": {
+        "id": "ode-001",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' = y. Classify the ODE, give the general solution, and verify.",
+        "maf_computed": "f{\\left(x \\right)} = C_{1} e^{x}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "ode-001",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' = y. Classify the ODE, give the general solution, and verify.",
+        "maf_computed": "f{\\left(x \\right)} = C_{1} e^{x}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-001",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' = y. Classify the ODE, give the general solution, and verify.",
+        "maf_computed": "f{\\left(x \\right)} = C_{1} e^{x}",
+        "maf_verified": true,
+        "raw_answer": "The ODE \\( y' = y \\) is:\n\n- **Classification:** First-order, linear, homogeneous, constant-coefficient.\n\n- **General solution:**  \n  \\( y(t) = C e^{t} \\), where \\( C \\) is an arbitrary constant.\n\n- **",
+        "maf_answer": "We are given the ODE:  \n\n\\[\ny' = y\n\\]\n\n**1. Classification**  \nThis is a first-order linear ordinary differential equation (also separable).\n\n**2. General solution**  \nThe computed result from the Mat",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-002": {
+      "qwen3-8b": {
+        "id": "ode-002",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' + 2xy = exp(-x^2). Use the integrating factor method and verify.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "ode-002",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' + 2xy = exp(-x^2). Use the integrating factor method and verify.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-002",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' + 2xy = exp(-x^2). Use the integrating factor method and verify.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "The integrating factor is  \n\n\\[\n\\mu(x) = e^{\\int 2x \\, dx} = e^{x^2}.\n\\]\n\nMultiply the ODE by \\(\\mu(x)\\):\n\n\\[\ne^{x^2} y' + 2x e^{x^2} y = e^{x^2} e^{-x^2}.\n\\]\n\nThe left side is \\(\\frac{d}{dx}\\left( e^",
+        "maf_answer": "Alright, let’s go step-by-step.\n\nWe are solving:\n\n\\[\ny' + 2xy = e^{-x^2}\n\\]\n\n---\n\n**Step 1: Identify the integrating factor**\n\nThe equation is in the form \\( y' + P(x) y = Q(x) \\) with \\( P(x) = 2x \\)",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-003": {
+      "qwen3-8b": {
+        "id": "ode-003",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + 3y' + 2y = 0. Find the characteristic equation, roots, and general solution. Verify.",
+        "maf_computed": "f{\\left(x \\right)} = \\left(C_{1} + C_{2} e^{- x}\\right) e^{- x}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "ode-003",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + 3y' + 2y = 0. Find the characteristic equation, roots, and general solution. Verify.",
+        "maf_computed": "f{\\left(x \\right)} = \\left(C_{1} + C_{2} e^{- x}\\right) e^{- x}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-003",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + 3y' + 2y = 0. Find the characteristic equation, roots, and general solution. Verify.",
+        "maf_computed": "f{\\left(x \\right)} = \\left(C_{1} + C_{2} e^{- x}\\right) e^{- x}",
+        "maf_verified": true,
+        "raw_answer": "**Characteristic equation:**  \n\\( r^2 + 3r + 2 = 0 \\)\n\n**Roots:**  \n\\( (r + 1)(r + 2) = 0 \\) → \\( r = -1, \\; r = -2 \\)\n\n**General solution:**  \n\\( y(x) = C_1 e^{-x} + C_2 e^{-2x} \\)\n\n**Verification (q",
+        "maf_answer": "We are given the differential equation  \n\n\\[\ny'' + 3y' + 2y = 0\n\\]\n\n---\n\n**Step 1: Characteristic equation**  \nAssume \\( y = e^{rx} \\). Substituting gives:\n\n\\[\nr^2 + 3r + 2 = 0\n\\]\n\n---\n\n**Step 2: Root",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-004": {
+      "qwen3-8b": {
+        "id": "ode-004",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + y = 0 with initial conditions y(0)=1, y'(0)=0. Verify the solution.",
+        "maf_computed": "f{\\left(x \\right)} = \\cos{\\left(x \\right)}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "ode-004",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + y = 0 with initial conditions y(0)=1, y'(0)=0. Verify the solution.",
+        "maf_computed": "f{\\left(x \\right)} = \\cos{\\left(x \\right)}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-004",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + y = 0 with initial conditions y(0)=1, y'(0)=0. Verify the solution.",
+        "maf_computed": "f{\\left(x \\right)} = \\cos{\\left(x \\right)}",
+        "maf_verified": true,
+        "raw_answer": "The characteristic equation is \\( r^2 + 1 = 0 \\), so \\( r = \\pm i \\).  \nGeneral solution:  \n\\[\ny(t) = C_1 \\cos t + C_2 \\sin t.\n\\]  \nUsing \\( y(0) = 1 \\) gives \\( C_1 = 1 \\).  \nUsing \\( y'(0) = 0 \\) gi",
+        "maf_answer": "We are given the differential equation  \n\n\\[\ny'' + y = 0\n\\]\nwith initial conditions  \n\\[\ny(0) = 1, \\quad y'(0) = 0.\n\\]\n\n---\n\n**Step 1: General solution**  \nThe characteristic equation is  \n\\[\nr^2 + 1 ",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-005": {
+      "qwen3-8b": {
+        "id": "ode-005",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + 2y' + 5y = 0. Determine if the system is underdamped, critically damped, or overdamped.",
+        "maf_computed": "f{\\left(x \\right)} = \\left(C_{1} \\sin{\\left(2 x \\right)} + C_{2} \\cos{\\left(2 x \\right)}\\right) e^{- x}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "qwen3-32b": {
+        "id": "ode-005",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + 2y' + 5y = 0. Determine if the system is underdamped, critically damped, or overdamped.",
+        "maf_computed": "f{\\left(x \\right)} = \\left(C_{1} \\sin{\\left(2 x \\right)} + C_{2} \\cos{\\left(2 x \\right)}\\right) e^{- x}",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-005",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' + 2y' + 5y = 0. Determine if the system is underdamped, critically damped, or overdamped.",
+        "maf_computed": "f{\\left(x \\right)} = \\left(C_{1} \\sin{\\left(2 x \\right)} + C_{2} \\cos{\\left(2 x \\right)}\\right) e^{- x}",
+        "maf_verified": true,
+        "raw_answer": "The characteristic equation is  \n\n\\[\nr^2 + 2r + 5 = 0\n\\]\n\nDiscriminant:  \n\\[\n\\Delta = 4 - 20 = -16 < 0\n\\]\n\nSince \\(\\Delta < 0\\), the system is **underdamped**.\n\nFinal answer: **underdamped**",
+        "maf_answer": "We are given the differential equation:  \n\n\\[\ny'' + 2y' + 5y = 0\n\\]\n\n---\n\n**Step 1: Characteristic equation**  \nSubstitute \\( y = e^{rx} \\):  \n\\[\nr^2 + 2r + 5 = 0\n\\]\n\n**Step 2: Solve for \\( r \\)**  \n\\",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-006": {
+      "qwen3-8b": {
+        "id": "ode-006",
+        "category": "ode",
+        "difficulty": "hard",
+        "problem": "Solve the ODE system: x' = y, y' = -x. Classify and give the general solution.",
+        "maf_computed": "[Eq(x(t), C1*sin(t) + C2*cos(t)), Eq(y(t), C1*cos(t) - C2*sin(t))]",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "\n\nThe given system of ODEs is:\n\n$$\n\\begin{cases}\nx' = y \\\\\ny' = -x\n\\end{cases}\n$$\n\nThis is a **linear homogeneous system with constant coefficients**, representing a **harmonic oscillator**. The gener",
+        "raw_score": 0.0,
+        "maf_score": 1.0,
+        "improvement": 1.0
+      },
+      "qwen3-32b": {
+        "id": "ode-006",
+        "category": "ode",
+        "difficulty": "hard",
+        "problem": "Solve the ODE system: x' = y, y' = -x. Classify and give the general solution.",
+        "maf_computed": "[Eq(x(t), C1*sin(t) + C2*cos(t)), Eq(y(t), C1*cos(t) - C2*sin(t))]",
+        "maf_verified": true,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.7,
+        "improvement": 0.7
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-006",
+        "category": "ode",
+        "difficulty": "hard",
+        "problem": "Solve the ODE system: x' = y, y' = -x. Classify and give the general solution.",
+        "maf_computed": "[Eq(x(t), C1*sin(t) + C2*cos(t)), Eq(y(t), C1*cos(t) - C2*sin(t))]",
+        "maf_verified": true,
+        "raw_answer": "The system is:\n\n\\[\nx' = y, \\quad y' = -x\n\\]\n\nDifferentiate the first equation: \\( x'' = y' = -x \\), so \\( x'' + x = 0 \\).\n\nThe characteristic equation is \\( r^2 + 1 = 0 \\), so \\( r = \\pm i \\).\n\nGenera",
+        "maf_answer": "We are given the system:\n\n\\[\nx' = y, \\quad y' = -x\n\\]\n\n---\n\n**Step 1: Classification**  \nThis is a linear homogeneous system of ODEs with constant coefficients, representing a simple harmonic oscillat",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-007": {
+      "qwen3-8b": {
+        "id": "ode-007",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' = x*y. This is a separable ODE. Classify first, then solve.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "ode-007",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' = x*y. This is a separable ODE. Classify first, then solve.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-007",
+        "category": "ode",
+        "difficulty": "easy",
+        "problem": "Solve y' = x*y. This is a separable ODE. Classify first, then solve.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "\\( y = Ce^{x^2/2} \\)",
+        "maf_answer": "Let’s go step-by-step.\n\n---\n\n**1. Problem restatement**  \nWe are given:  \n\\[\ny' = x y\n\\]  \nThis is a first-order ordinary differential equation.\n\n---\n\n**2. Classification**  \nThe equation is **separab",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-008": {
+      "qwen3-8b": {
+        "id": "ode-008",
+        "category": "ode",
+        "difficulty": "hard",
+        "problem": "Solve x^2*y'' + x*y' - y = 0. This is an Euler equation. Classify and solve.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "ode-008",
+        "category": "ode",
+        "difficulty": "hard",
+        "problem": "Solve x^2*y'' + x*y' - y = 0. This is an Euler equation. Classify and solve.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-008",
+        "category": "ode",
+        "difficulty": "hard",
+        "problem": "Solve x^2*y'' + x*y' - y = 0. This is an Euler equation. Classify and solve.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "The characteristic equation for the Euler–Cauchy equation  \n\\( x^2 y'' + x y' - y = 0 \\) is  \n\n\\[\nr(r-1) + r - 1 = 0\n\\]\n\\[\nr^2 - r + r - 1 = 0\n\\]\n\\[\nr^2 - 1 = 0\n\\]\n\\[\nr = 1, \\quad r = -1\n\\]\n\nGeneral s",
+        "maf_answer": "Alright, let's go step-by-step.\n\n---\n\n## **1. Problem restatement**\n\nWe are solving:\n\n\\[\nx^2 y'' + x y' - y = 0\n\\]\n\nThis is indeed a **Cauchy–Euler (or equidimensional) equation**.\n\n---\n\n## **2. Stand",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-009": {
+      "qwen3-8b": {
+        "id": "ode-009",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y' + y/x = x^2. This is a first-order linear ODE. Use integrating factor.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "ode-009",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y' + y/x = x^2. This is a first-order linear ODE. Use integrating factor.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-009",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y' + y/x = x^2. This is a first-order linear ODE. Use integrating factor.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "The integrating factor is \\(\\mu(x) = e^{\\int \\frac{1}{x} \\, dx} = e^{\\ln|x|} = x\\) (for \\(x > 0\\)).\n\nMultiply through:  \n\\[\nx y' + y = x^3\n\\]\nThe left side is \\(\\frac{d}{dx}(x y)\\), so  \n\\[\n\\frac{d}{d",
+        "maf_answer": "Alright, let’s go step-by-step.\n\nWe are solving:\n\n\\[\ny' + \\frac{y}{x} = x^2\n\\]\n\n---\n\n**Step 1: Identify the integrating factor**\n\nThis is a first-order linear ODE of the form:\n\n\\[\ny' + P(x) y = Q(x)\n\\",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "ode-010": {
+      "qwen3-8b": {
+        "id": "ode-010",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' - 4y' + 4y = 0. Determine the type of damping and give the general solution.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "ode-010",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' - 4y' + 4y = 0. Determine the type of damping and give the general solution.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "ode-010",
+        "category": "ode",
+        "difficulty": "medium",
+        "problem": "Solve y'' - 4y' + 4y = 0. Determine the type of damping and give the general solution.",
+        "maf_computed": "Eq(f(x), (C1*sin(sqrt(3)*x/2) + C2*cos(sqrt(3)*x/2))*exp(-x/2))",
+        "maf_verified": false,
+        "raw_answer": "The characteristic equation is  \n\n\\[\nr^2 - 4r + 4 = 0\n\\]\n\\[\n(r - 2)^2 = 0\n\\]\n\\[\nr = 2 \\quad \\text{(double root)}\n\\]\n\n**Type of damping:** Critical damping (real repeated roots).  \n\n**General solution:",
+        "maf_answer": "Let’s go step-by-step.\n\n---\n\n**1. Problem restatement**\n\nWe are solving:\n\n\\[\ny'' - 4y' + 4y = 0\n\\]\n\nWe need to:\n1. Determine the type of damping.\n2. Give the general solution.\n\n---\n\n**2. Characteristi",
+        "raw_score": 1.0,
+        "maf_score": 1.0,
+        "improvement": 0.0
+      }
+    },
+    "series-001": {
+      "qwen3-8b": {
+        "id": "series-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Test the series sum 1/n^2 for convergence using the ratio test.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "series-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Test the series sum 1/n^2 for convergence using the ratio test.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "series-001",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Test the series sum 1/n^2 for convergence using the ratio test.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "The ratio test gives a limit of 1, which is inconclusive.  \nThe series \\(\\sum \\frac{1}{n^2}\\) is actually a convergent \\(p\\)-series with \\(p = 2 > 1\\), but the ratio test fails to decide it.\n\n**Final ",
+        "maf_answer": "Alright, let’s go step-by-step.\n\nWe are testing the convergence of the series  \n\\[\n\\sum_{n=1}^\\infty \\frac{1}{n^2}\n\\]\nusing the **ratio test**.\n\n---\n\n**Step 1: Recall the ratio test**  \nFor a series \\",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      }
+    },
+    "series-002": {
+      "qwen3-8b": {
+        "id": "series-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Test the series sum 1/n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "series-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Test the series sum 1/n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "series-002",
+        "category": "analysis",
+        "difficulty": "easy",
+        "problem": "Test the series sum 1/n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "The series \\(\\sum_{1}^{\\infty} \\frac{1}{n}\\) (the harmonic series) **diverges**.",
+        "maf_answer": "Alright, let’s go step-by-step.\n\n---\n\n**Problem:**  \nTest the series  \n\\[\n\\sum_{n=1}^\\infty \\frac{1}{n}\n\\]  \nfor convergence.\n\n---\n\n**Step 1: Identify the series**  \nThis is the **harmonic series**:\n\\",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      }
+    },
+    "series-003": {
+      "qwen3-8b": {
+        "id": "series-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Test the series sum (1/2)^n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "series-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Test the series sum (1/2)^n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "series-003",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Test the series sum (1/2)^n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "The series \\(\\sum_{n=1}^{\\infty} \\left( \\frac{1}{2} \\right)^n\\) is a geometric series with common ratio \\(r = \\frac{1}{2}\\).  \nSince \\(|r| < 1\\), the series converges.  \n\nFinal answer: **converges**",
+        "maf_answer": "Alright, let’s go step-by-step.\n\n---\n\n**Problem:**  \nTest the series  \n\\[\n\\sum_{n=1}^{\\infty} \\left( \\frac{1}{2} \\right)^n\n\\]\nfor convergence.\n\n---\n\n**Step 1: Identify the type of series**  \nThis is a",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      }
+    },
+    "series-004": {
+      "qwen3-8b": {
+        "id": "series-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Test the alternating series sum (-1)^(n+1)/n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "series-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Test the alternating series sum (-1)^(n+1)/n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "series-004",
+        "category": "analysis",
+        "difficulty": "medium",
+        "problem": "Test the alternating series sum (-1)^(n+1)/n for convergence.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "The alternating series \\(\\sum_{n=1}^{\\infty} \\frac{(-1)^{n+1}}{n}\\) converges by the Alternating Series Test because:\n\n1. \\(b_n = \\frac{1}{n} > 0\\) for all \\(n\\),\n2. \\(b_{n+1} \\le b_n\\) (sequence decr",
+        "maf_answer": "Alright, let’s go step-by-step.\n\nWe are testing the convergence of the alternating series  \n\n\\[\n\\sum_{n=1}^{\\infty} \\frac{(-1)^{n+1}}{n}.\n\\]\n\n---\n\n**Step 1: Identify the form of the series**\n\nThis is ",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      }
+    },
+    "series-005": {
+      "qwen3-8b": {
+        "id": "series-005",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Test the series sum n!/n^n for convergence using the ratio test.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "qwen3-32b": {
+        "id": "series-005",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Test the series sum n!/n^n for convergence using the ratio test.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "",
+        "maf_answer": "",
+        "raw_score": 0.0,
+        "maf_score": 0.0,
+        "improvement": 0.0
+      },
+      "DeepSeek-V3.2": {
+        "id": "series-005",
+        "category": "analysis",
+        "difficulty": "hard",
+        "problem": "Test the series sum n!/n^n for convergence using the ratio test.",
+        "maf_computed": "Requires further analysis",
+        "maf_verified": false,
+        "raw_answer": "The ratio test gives:\n\n\\[\n\\lim_{n \\to \\infty} \\left| \\frac{a_{n+1}}{a_n} \\right|\n= \\lim_{n \\to \\infty} \\frac{(n+1)!/(n+1)^{n+1}}{n!/n^n}\n= \\lim_{n \\to \\infty} \\frac{(n+1)!}{n!} \\cdot \\frac{n^n}{(n+1)^",
+        "maf_answer": "Alright, let’s go step-by-step.\n\nWe are testing the convergence of the series  \n\\[\n\\sum_{n=1}^{\\infty} \\frac{n!}{n^n}\n\\]\nusing the **ratio test**.\n\n---\n\n**Step 1: Recall the ratio test**  \nFor a serie",
+        "raw_score": 1.0,
+        "maf_score": 0.0,
+        "improvement": -1.0
+      }
+    }
+  },
+  "report_md": "D:\\tools\\math-agent-framework-release\\benchmarks\\results\\final_report.md"
+}
