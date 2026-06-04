@@ -131,6 +131,22 @@ math-agent derive ode_solver
 
 ---
 
+## Benchmark / 基准测试
+
+Real LLM benchmark: 9 problems, 3 models, 3 tiers.
+
+![Benchmark](benchmarks/results/final_comparison.png)
+
+| Model | Raw LLM | Raw MCP | MAF |
+|-------|---------|---------|-----|
+| qwen3-8b | 22% | 44% | **44%** |
+| qwen3-32b | 33% | 33% | **44%** |
+| DeepSeek-V3.2 | 78% | 89% | **100%** |
+
+> DeepSeek-V3.2 + MAF = 100%. Small models double with tools. [Full report](benchmarks/REPORT.md)
+
+---
+
 ## 30秒快速开始 / 30-Second Quick Start
 
 ## 为什么不用 SymPy？ / Why not just SymPy?
