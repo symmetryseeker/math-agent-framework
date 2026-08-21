@@ -39,11 +39,13 @@ def _lean_paths() -> List[str]:
 
 
 def _which(name: str) -> Optional[str]:
+    candidates = [name, f"{name}.exe", f"{name}.cmd", f"{name}.bat"]
     for directory in _lean_paths():
-        candidate = Path(directory) / name
-        if candidate.exists() and os.access(candidate, os.X_OK):
-            return str(candidate)
-    # PATH 兜底
+        for candidate_name in candidates:
+            candidate = Path(directory) / candidate_name
+            if candidate.exists() and os.access(candidate, os.X_OK):
+                return str(candidate)
+    # PATH 兜底（shutil.which 依赖 PATHEXT，Windows 下能找到 .exe）
     return shutil.which(name)
 
 
