@@ -119,9 +119,9 @@ class FormalProofEngine:
     形式化证明引擎：生成 Lean 4 源码并（若工具链可用）真编译验证。
     """
 
-    # 预定义定理模式（`lean_code` 为可编译的 Lean 4 源码）
-    # 注：证明在 Mathlib 下编译验证；若 Mathlib API 随版本演化导致编译失败，
-    # 引擎会如实返回 verified=false，而非静默放行。
+    # 预定义定理模式（`lean_code` 为经 Lean 4 + Mathlib 真编译验证的源码）
+    # 注：以下证明已在 leanenv/.lake 下用 `lake env lean` 编译验证（exit 0）。
+    # 若 Mathlib API 随版本演化导致编译失败，引擎会如实返回 verified=false。
     PATTERNS: Dict[str, Dict[str, Any]] = {
         "quadratic_minimum": {
             "statement": "f(x) = a·x + b·x² has a local minimum at x* = -a/(2b) when b > 0",
@@ -130,28 +130,39 @@ class FormalProofEngine:
 theorem quadratic_first_deriv {a b : ℝ} :
     deriv (fun x : ℝ => a * x + b * x ^ 2) = fun x => a + 2 * b * x := by
   funext x
-  simp [deriv_add, deriv_const_mul, deriv_pow, deriv_id'']
-  ring
+  have hid : DifferentiableAt ℝ (fun x : ℝ => x) x := by fun_prop
+  have hsq : DifferentiableAt ℝ (fun x : ℝ => x ^ 2) x := by fun_prop
+  have hx : DifferentiableAt ℝ (fun x : ℝ => a * x) x := by fun_prop
+  have hb2 : DifferentiableAt ℝ (fun x : ℝ => b * x ^ 2) x := by fun_prop
+  change deriv ((fun x : ℝ => a * x) + fun x : ℝ => b * x ^ 2) x = a + 2 * b * x
+  rw [deriv_add hx hb2]
+  rw [deriv_const_mul a hid]
+  rw [deriv_const_mul b hsq]
+  change a * deriv (fun x : ℝ => x) x + b * deriv ((fun x : ℝ => x) ^ 2) x = a + 2 * b * x
+  rw [deriv_pow hid 2]
+  simp [deriv_id'']
+  ring_nf
 
 theorem quadratic_minimum_unique {a b : ℝ} (hbpos : 0 < b) :
     IsLocalMin (fun x => a * x + b * x ^ 2) (-a / (2 * b)) := by
-  -- x* = -a/(2b) satisfies the first-order condition f'(x*) = 0
-  have h_foc : deriv (fun x => a * x + b * x ^ 2) (-a / (2 * b)) = 0 := by
-    rw [quadratic_first_deriv]
-    have hb : b ≠ 0 := ne_of_gt hbpos
+  rw [IsLocalMin, IsMinFilter]
+  apply Filter.Eventually.of_forall
+  intro x
+  have hb : b ≠ 0 := ne_of_gt hbpos
+  have hsq : a * x + b * x ^ 2 - (a * (-a / (2 * b)) + b * (-a / (2 * b)) ^ 2)
+      = b * (x + a / (2 * b)) ^ 2 := by
     field_simp [hb]
     ring
-  -- Completing the square gives f(x) - f(x*) = b * (x - x*)^2 ≥ 0 for all x
-  have hsq : ∀ x : ℝ, a * x + b * x ^ 2 = b * (x - -a / (2 * b)) ^ 2 + (a * (-a / (2 * b)) + b * (-a / (2 * b)) ^ 2) := by
-    intro x; ring
-  -- Global inequality → local minimum
-  exact IsLocalMin.of_gt hbpos h_foc hsq
+  have hdiff : 0 ≤ a * x + b * x ^ 2 - (a * (-a / (2 * b)) + b * (-a / (2 * b)) ^ 2) := by
+    rw [hsq]
+    exact mul_nonneg (le_of_lt hbpos) (sq_nonneg (x + a / (2 * b)))
+  linarith
 """,
             "proof_steps": [
-                "1. Compute first derivative: f'(x) = a + 2b·x",
-                "2. FOC: f'(x*) = 0 at x* = -a/(2b)",
-                "3. Complete the square: f(x) − f(x*) = b·(x − x*)² ≥ 0 since b > 0",
-                "4. Global (hence local) minimum at x*",
+                "1. Compute first derivative: f'(x) = a + 2b·x (deriv_add/const_mul/pow, fun_prop)",
+                "2. Complete the square: f(x) − f(x*) = b·(x − x*)² (field_simp + ring)",
+                "3. Since b > 0, b·(x−x*)² ≥ 0, so f(x*) ≤ f(x) for all x (IsMinFilter + of_forall)",
+                "4. Global (hence local) minimum at x* — compiler-verified",
             ],
         },
         "quadratic_maximum": {
@@ -160,21 +171,23 @@ theorem quadratic_minimum_unique {a b : ℝ} (hbpos : 0 < b) :
 
 theorem quadratic_maximum_unique {a b : ℝ} (hbneg : b < 0) :
     IsLocalMax (fun x => a * x + b * x ^ 2) (-a / (2 * b)) := by
-  -- Apply the minimum result to -f, or mirror the argument directly:
-  have h_foc : deriv (fun x => a * x + b * x ^ 2) (-a / (2 * b)) = 0 := by
-    simp [deriv_add, deriv_const_mul, deriv_pow, deriv_id'']
-    ring
-    have hb : b ≠ 0 := ne_of_gt (lt_of_neg hbneg)
+  rw [IsLocalMax, IsMaxFilter]
+  apply Filter.Eventually.of_forall
+  intro x
+  have hb : b ≠ 0 := ne_of_lt hbneg
+  have hsq : a * x + b * x ^ 2 - (a * (-a / (2 * b)) + b * (-a / (2 * b)) ^ 2)
+      = b * (x + a / (2 * b)) ^ 2 := by
     field_simp [hb]
     ring
-  have hsq : ∀ x : ℝ, a * x + b * x ^ 2 = b * (x - -a / (2 * b)) ^ 2 + (a * (-a / (2 * b)) + b * (-a / (2 * b)) ^ 2) := by
-    intro x; ring
-  exact IsLocalMax.of_lt hbneg h_foc hsq
+  have hdiff : a * x + b * x ^ 2 - (a * (-a / (2 * b)) + b * (-a / (2 * b)) ^ 2) ≤ 0 := by
+    rw [hsq]
+    exact mul_nonpos_of_nonpos_of_nonneg (le_of_lt hbneg) (sq_nonneg (x + a / (2 * b)))
+  linarith
 """,
             "proof_steps": [
-                "1. FOC: f'(x*) = 0 at x* = -a/(2b)",
-                "2. Complete the square: f(x) − f(x*) = b·(x − x*)² ≤ 0 since b < 0",
-                "3. Global (hence local) maximum at x*",
+                "1. Complete the square: f(x) − f(x*) = b·(x − x*)² (field_simp + ring)",
+                "2. Since b < 0, b·(x−x*)² ≤ 0, so f(x) ≤ f(x*) for all x (IsMaxFilter + of_forall)",
+                "3. Global (hence local) maximum at x* — compiler-verified",
             ],
         },
     }
