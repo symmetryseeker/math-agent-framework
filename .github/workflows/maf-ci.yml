@@ -1,0 +1,64 @@
+name: MAF CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: pytest + secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sympy numpy scipy pyyaml mcp python-docx pytest
+
+      - name: Run pytest
+        run: python -m pytest tests/ -q
+
+      - name: Secret scan
+        run: |
+          pip install PyYAML
+          node scripts/check-secrets.mjs --fail
+
+  lean:
+    name: Lean formal proof (optional toolchain)
+    runs-on: ubuntu-latest
+    needs: test
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- --default-toolchain stable
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch Mathlib cache (precompiled oleans)
+        working-directory: leanenv
+        run: |
+          lake update
+          lake exe cache get || true
+          lake build || true
+
+      - name: Verify built-in Lean proofs
+        run: |
+          export PATH="$HOME/.elan/bin:$PATH"
+          python -c "
+import sys; sys.path.insert(0, '.')
+from core.formal_proof_engine import FormalProofEngine
+from core.provenance import MAF_VERSION
+for theorem in ('quadratic_minimum', 'quadratic_maximum'):
+    result = FormalProofEngine().generate_proof(theorem)
+    print(theorem, '-> verified =', result.get('verified'))
+    assert result.get('verified') is True, result.get('verification', {}).get('output', '')[:800]
+print('All built-in Lean proofs compile with Mathlib.')
+"

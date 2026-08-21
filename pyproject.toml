@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "math-agent-framework"
+version = "2.0.0"
+description = "Reusable mathematical derivation & verification framework (SymPy/NumPy/SciPy/Lean 4) with MCP and DSH plugin support."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "symmetryseeker" }]
+keywords = ["math", "sympy", "formal-proof", "lean4", "mcp", "verification", "agent"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+dependencies = [
+    "sympy>=1.12",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pyyaml>=6.0",
+    "mcp>=1.0",
+    "python-docx>=0.8.11",
+]
+
+[project.optional-dependencies]
+# 真实 LLM Proposer/Critic/Judge（OpenAI 兼容端点，env 配置）
+model = []
+# 动态优化 / 数值方法
+quantecon = ["quantecon>=0.7"]
+# 文档/可视化增强
+viz = ["manim>=0.18"]
+# 全部可选
+all = ["quantecon>=0.7", "manim>=0.18"]
+
+[project.scripts]
+math-agent = "cli.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/symmetryseeker/math-agent-framework"
+Repository = "https://github.com/symmetryseeker/math-agent-framework"
+Documentation = "https://github.com/symmetryseeker/math-agent-framework#readme"
+
+[tool.setuptools.packages.find]
+include = ["core*", "models*", "mcp*", "cli*", "templates*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

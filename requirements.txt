@@ -1,0 +1,17 @@
+# Math Agent Framework — 可复用数学推导与验证框架
+# 核心依赖
+sympy>=1.12
+numpy>=1.24
+scipy>=1.10
+pyyaml>=6.0
+
+# MCP 服务器
+mcp>=1.0
+
+# 文档生成
+python-docx>=0.8.11
+
+# 可选: 高级引擎
+# quantecon>=0.7  (动态优化)
+# manim>=0.18     (数学可视化)
+# jupyter         (交互式推导)

@@ -1,0 +1,60 @@
+# Math Agent Framework — 全局配置
+# ==================================
+# 本文件定义框架级配置，具体模型配置在 models/ 下各自定义
+
+framework:
+  name: "Math Agent Framework"
+  version: "1.0.0"
+  description: "可复用数学推导与验证框架 — 基于SymPy/NumPy/SciPy"
+
+paths:
+  output_dir: "./output"
+  models_dir: "./models"
+  templates_dir: "./templates"
+
+engines:
+  symbolic:
+    backend: "sympy"           # sympy | sage (optional)
+    latex_output: true
+    simplify_aggressively: true
+
+  numerical:
+    default_samples: 10000
+    default_seed: 42
+    tolerance_foc: 1e-6
+    tolerance_soc: 1e-4
+
+  verification:
+    symbolic_checks: 30        # 默认符号检验项数
+    monte_carlo_samples: 10000
+    counterexample_search_iterations: 50000
+    parallel_workers: null     # null = auto-detect
+
+  pipeline:
+    timeout_per_step: 300      # 秒
+    save_intermediate: true
+    output_format: "json"
+
+  documentation:
+    formats: ["qmd", "docx", "latex", "pdf"]
+    default_format: "docx"
+    template_engine: "jinja2"  # 或 "string"
+
+mcp:
+  enabled: true
+  server_name: "math-agent-framework"
+  auto_register_models: true   # 自动从 models/ 注册工具
+  log_level: "INFO"
+
+# 内置模型列表 (models/builtin/ 实际注册的 5 个模型)
+builtin_models:
+  - name: "network_embedded_growth"
+    description: "网络嵌入内生增长模型 (CES/IPF/二次型/动态/比较静态/小网络陷阱)"
+  - name: "quadratic_form"
+    description: "二次型U/倒U关系分析"
+  - name: "ode_solver"
+    description: "常微分方程求解与验证"
+  - name: "pde_solver"
+    description: "偏微分方程分类与解析/数值求解"
+  - name: "analysis_problems"
+    description: "经典分析学问题集 (极限/级数/积分/连续性/特殊函数/渐近)"

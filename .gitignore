@@ -1,0 +1,42 @@
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+*.log
+
+# ── 运行时输出 ──
+output/
+.aen/
+
+# ── 凭据与密钥（绝不入库） ──
+*.env
+.env
+*.pem
+*.key
+*.p12
+credentials*
+**/secrets*
+
+# ── Lean / Mathlib 构建产物 ──
+leanenv/.lake/
+leanenv/_scratch/
+lakefile.lean.orig
+
+# ── Node / DSH 插件壳（阶段 2 会用到） ──
+node_modules/
+dist/
+*.tgz
+
+# ── 基准数据（含敏感会话/凭据历史） ──
+benchmarks/*.json
+benchmarks/_*.py
+
+# ── IDE / 系统 ──
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

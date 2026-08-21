@@ -1,0 +1,21 @@
+# 真实 LLM 模型配置模板（多 Agent 验证的 Proposer/Critic/Judge）
+# ================================================================
+# 复制为 model_config.yaml 或在环境变量中设置。
+# 本文件只含结构，不含任何真实密钥。
+
+# 推荐：使用环境变量（不要在文件里写真实 key）
+#   export MATH_AGENT_API_KEY="你的 key"
+#   export MATH_AGENT_BASE_URL="https://api.deepseek.com/anthropic"   # 默认 DeepSeek
+#   export MATH_AGENT_MODEL="deepseek-v4-pro"                         # 默认模型
+
+# 若确实要用文件（不推荐，易被误提交），请加入 .gitignore 并参考以下结构：
+# llm:
+#   base_url: "https://api.deepseek.com/anthropic"   # OpenAI 兼容 / Anthropic 兼容端点
+#   model: "deepseek-v4-pro"
+#   api_key: ""                                      # ← 留空，从环境变量读取
+
+# 验证引擎默认参数（与 config.yaml 保持一致）
+# verification:
+#   tolerance_foc: 1e-4
+#   monte_carlo_samples: 10000
+#   seed: 723003
