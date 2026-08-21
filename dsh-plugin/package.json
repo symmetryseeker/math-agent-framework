@@ -1,0 +1,37 @@
+{
+  "name": "dsh-math-agent",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness plugin exposing the Math Agent Framework: symbolic derivation, verification, Lean 4 compiler-verified proofs, and QED-style multi-agent adversarial verification (TS shell + Python engine).",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "0.1.0-rc.7"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/dsh-tools": { "optional": true }
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "0.1.0-rc.7",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
