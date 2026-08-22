@@ -1,8 +1,11 @@
 - insert:
     - id: math-agent
       name: 'dsh-math-agent'
-      config:
-        # 指向 Math Agent Framework 仓库根目录（bridge.py 所在处）
-        # 或用环境变量 MATH_AGENT_HOME 覆盖
-        mathAgentHome: 'D:/tools/math-agent-framework'
-        # pythonCmd: 'python'   # 可覆盖；或用环境变量 MATH_AGENT_PYTHON
+      config: {}
+      # 配置说明（任选其一，勿硬编码本机路径）:
+      #  1) 环境变量 MATH_AGENT_HOME=<MAF 仓库根目录>  （推荐，可移植）
+      #  2) --patch 覆盖本 config:
+      #       - id: math-agent
+      #         config:
+      #           mathAgentHome: '<MAF 仓库根目录>'
+      #           pythonCmd: 'python'          # 可选，默认 python / MATH_AGENT_PYTHON

@@ -30,6 +30,7 @@ lakefile.lean.orig
 node_modules/
 dist/
 *.tgz
+dsh-plugin/.work/
 
 # ── 基准数据（含敏感会话/凭据历史） ──
 benchmarks/*.json

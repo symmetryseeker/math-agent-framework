@@ -75,7 +75,7 @@ def check_toolchain() -> Dict[str, Any]:
     if lean_bin is not None:
         try:
             out = subprocess.run(
-                [lean_bin, "--version"], capture_output=True, text=True, timeout=30
+                [lean_bin, "--version"], capture_output=True, text=True, timeout=10
             ).stdout.strip()
             lean_version = out.splitlines()[0] if out else lean_bin
         except Exception:
@@ -84,13 +84,34 @@ def check_toolchain() -> Dict[str, Any]:
     if lake_bin is not None:
         try:
             out = subprocess.run(
-                [lake_bin, "--version"], capture_output=True, text=True, timeout=30
+                [lake_bin, "--version"], capture_output=True, text=True, timeout=10
             ).stdout.strip()
             lake_version = out.splitlines()[0] if out else lake_bin
         except Exception:
             lake_version = lake_bin
 
     mathlib = _mathlib_available()
+
+    # 项目要求的工具链（leanenv/lean-toolchain），与 PATH 上的默认 lean 可能不同
+    project_toolchain: Optional[str] = None
+    try:
+        content = (LEANENV_DIR / "lean-toolchain").read_text(encoding="utf-8").strip()
+        if content:
+            project_toolchain = content
+    except Exception:
+        pass
+
+    # 精简版本字符串："Lean (version X, ...)" → "X"
+    def short_version(full: Optional[str]) -> Optional[str]:
+        if full is None:
+            return None
+        for prefix in ("Lean (version ", "Lake version ", "Lean "):
+            if full.startswith(prefix):
+                return full[len(prefix):].split(",")[0].strip()
+        return full.split(",")[0].strip()
+
+    lean_short = short_version(lean_version)
+    lake_short = short_version(lake_version)
 
     if lean_bin is None:
         message = (
@@ -99,17 +120,20 @@ def check_toolchain() -> Dict[str, Any]:
         )
     elif not mathlib:
         message = (
-            f"Lean 已装（{lean_version}）但 Mathlib 未拉取。在 {LEANENV_DIR} 下运行 "
+            f"Lean 已装（{lean_short}）但 Mathlib 未拉取。在 {LEANENV_DIR} 下运行 "
             "'lake update && lake exe cache get && lake build' 以获取 Mathlib。"
         )
     else:
-        message = f"Lean {lean_version} + Mathlib 就绪，可进行真编译验证。"
+        message = f"Lean {lean_short} + Mathlib 就绪，可进行真编译验证。"
+        if project_toolchain is not None and project_toolchain not in str(lean_version):
+            message += f"（项目 leanenv 要求 {project_toolchain}，验证经 lake env 使用项目工具链）"
 
     return {
-        "lean": lean_version,
-        "lake": lake_version,
+        "lean": lean_short,
+        "lake": lake_short,
         "mathlib": mathlib,
         "leanenv": str(LEANENV_DIR) if LEANENV_DIR.is_dir() else None,
+        "projectToolchain": project_toolchain,
         "message": message,
     }
 
@@ -237,6 +261,17 @@ theorem quadratic_maximum_unique {a b : ℝ} (hbneg : b < 0) :
               "theorem": theorem_name,
             }
         """
+        # 先查缓存：命中时跳过工具链探测（lean --version 子进程可能较慢）
+        digest = self._digest(lean_code)
+        cache_file = self._cache_path(digest)
+        if cache_file.exists():
+            try:
+                cached = json.loads(cache_file.read_text(encoding="utf-8"))
+                cached["cache_hit"] = True
+                return cached
+            except Exception:
+                pass
+
         toolchain = check_toolchain()
         if toolchain["lean"] is None:
             return {
@@ -256,16 +291,6 @@ theorem quadratic_maximum_unique {a b : ℝ} (hbneg : b < 0) :
                 "toolchain": toolchain,
                 "theorem": theorem_name,
             }
-
-        digest = self._digest(lean_code)
-        cache_file = self._cache_path(digest)
-        if cache_file.exists():
-            try:
-                cached = json.loads(cache_file.read_text(encoding="utf-8"))
-                cached["cache_hit"] = True
-                return cached
-            except Exception:
-                pass
 
         project_dir = Path(work_dir) if work_dir is not None else self.leanenv_dir
         project_dir.mkdir(parents=True, exist_ok=True)

@@ -59,6 +59,7 @@ def _engine_results_to_json(value):
 
 def _derive(args):
     from core.pipeline_engine import PipelineEngine
+    from core.symbolic_engine import SymbolicEngine
     from models import discover_models
 
     model_name = args.get("model", "quadratic_form")
@@ -67,16 +68,14 @@ def _derive(args):
         raise ValueError(f"model '{model_name}' not found; available: {list(models)}")
     pipeline = PipelineEngine(f"{model_name} Pipeline", output_dir=args.get("output_dir", "./output"))
     instance = models[model_name]()
-    engine = None
+    # 先创建 SymbolicEngine 作为步骤共享上下文，再注册步骤（闭包直接捕获）
+    engine = SymbolicEngine()
     for step in instance.get_derivation_steps():
         method = getattr(instance, step["method_name"])
         pipeline.add_step(step["method_name"], step.get("description", step["method_name"]),
-                          lambda params, _m=method: _engine_results_to_json(_m(engine, params)),
+                          lambda params, _m=method, _e=engine: _engine_results_to_json(_m(_e, params)),
                           dependencies=step.get("dependencies", []),
                           tools=step.get("tools", []))
-    # 先创建 SymbolicEngine 作为步骤共享上下文
-    from core.symbolic_engine import SymbolicEngine
-    engine = SymbolicEngine()
     results = pipeline.run({})
     results["model"] = model_name
     return results
