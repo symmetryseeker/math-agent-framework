@@ -220,6 +220,34 @@ def _quantecon(args):
     return engine.solve_discrete_riccati().to_dict()
 
 
+def _aen_evidence(args):
+    """返回一次推导 run 的 AEN 证据包（供 dsh-akn-plugin 种子生成器直接转换）。"""
+    from core.provenance import snapshot_provenance
+    import hashlib
+    import json as _json
+
+    derive_tool = args.get("derive_tool", "derive_quadratic")
+    handler = HANDLERS.get(derive_tool)
+    if handler is None:
+        raise ValueError(f"unknown derive_tool '{derive_tool}'")
+    result = _engine_results_to_json(handler(args.get("derive_args", {})))
+    provenance = snapshot_provenance(model_name=args.get("model"))
+    run_digest = hashlib.sha256(_json.dumps(
+        {"scope": "maf.derivation-run", "tool": derive_tool, "result": result, "provenance": provenance},
+        sort_keys=True, ensure_ascii=False,
+    ).encode("utf-8")).hexdigest()
+    return {
+        "protocol": "aen-evidence-v1",
+        "tool": derive_tool,
+        "sessionDigest": f"sha256:{run_digest}",
+        "eventRange": {"fromSeq": 0, "toSeq": 1},
+        "mappingProfile": "maf-derivation-run",
+        "mappingVersion": "0.1",
+        "result": result,
+        "provenance": provenance,
+    }
+
+
 def _derive_ng_step(args, step_name):
     from core.symbolic_engine import SymbolicEngine
     from models.builtin.network_embedded_growth import NetworkEmbeddedGrowthModel
@@ -244,6 +272,7 @@ HANDLERS = {
     "derive_quadratic": lambda a: _derive_ng_step(a, "step3_quadratic"),
     "derive_dynamic": lambda a: _derive_ng_step(a, "step4_dynamic"),
     "derive_comparative": lambda a: _derive_ng_step(a, "step5_comparative"),
+    "aen_evidence": _aen_evidence,
 }
 
 
