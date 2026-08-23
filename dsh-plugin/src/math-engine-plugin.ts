@@ -14,7 +14,13 @@ export interface Config {
 function resolveConfig(config: Config): BridgeConfig {
   const bridgePath = resolveBridgePath(config.mathAgentHome)
   if (bridgePath === undefined) {
-    throw new Error('math-agent: set mathAgentHome or MATH_AGENT_HOME to the Math Agent Framework repo root')
+    throw new Error(
+      'math-agent: Python engine is not configured. This npm package contains only the TS shell; ' +
+      'the engine lives in the math-agent-framework repo. To enable tools: ' +
+      '1) clone https://github.com/symmetryseeker/math-agent-framework, ' +
+      '2) run `pip install -r requirements.txt` in its root, ' +
+      '3) set env MATH_AGENT_HOME to that root (or configure mathAgentHome in a --patch).',
+    )
   }
   return { bridgePath, pythonCmd: config.pythonCmd ?? resolvePythonCmd() }
 }

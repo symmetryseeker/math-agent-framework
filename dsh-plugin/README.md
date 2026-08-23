@@ -5,6 +5,14 @@ DeepSeek Harness (DSH) 插件：把 **Math Agent Framework (MAF)** 的数学引�
 
 DSH plugin exposing the **Math Agent Framework** engine as native tools. Architecture = **TS shell + Python engine**: the TS shell registers tools via `defineTool`, and each tool call bridges to the Python engine through `bridge.py`.
 
+> ⚠️ **前置条件（安装前必读）**：本 npm 包**只包含 TS 壳**，**不含 Python 引擎**（`bridge.py` / `core/` / `requirements.txt` 在 MAF 仓库，不在本包内）。要让工具真正可用，必须先：
+> 1. `git clone https://github.com/symmetryseeker/math-agent-framework`（或用已存在的副本）；
+> 2. 在仓库根 `pip install -r requirements.txt`；
+> 3. 设置 `MATH_AGENT_HOME` 环境变量指向该仓库根目录（或在插件配置里设 `mathAgentHome`）。
+>
+> 未设置时，插件启动会明确报错提示；设置后工具调用经 `bridge.py` 桥接 Python 引擎。
+> （可选）安装 Lean 4 + Mathlib 可启用 `math_lean_proof` 的真编译验证，缺失时工具返回 `verified: null` 而非报错。
+
 ## 依赖 / Dependencies
 
 | 依赖 | 说明 |
@@ -31,7 +39,7 @@ dsh plugin --profile web add ./dsh-math-agent-0.1.0.tgz
 dsh web
 ```
 
-配置（`cordis.patch.yml` 或 `--patch` 覆盖）：`mathAgentHome` 指向 MAF 仓库根目录（默认 `D:/tools/math-agent-framework`），或设 `MATH_AGENT_HOME` 环境变量。
+配置（`cordis.patch.yml` 或 `--patch` 覆盖）：`mathAgentHome` 指向 MAF 仓库根目录（`bridge.py` 所在处），或设 `MATH_AGENT_HOME` 环境变量。两者都未设置时，插件启动会报错并给出指引——**请不要硬编码本机绝对路径**。
 
 ## 工具 / Tools
 
